@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import battleship from "./battleship";
+import { battleship, player1Gameboard } from "./battleship";
 
 test("shows name", () => {
   expect(battleship.getName()).toBe("Battleship");
@@ -23,7 +23,12 @@ test.skip("gets sunk", () => {
   expect(battleship.isSunk()).toBe(true);
 });
 
-test("gameboard processes attack", () => {
+test("gameboard processes missed attack", () => {
+  player1Gameboard.receiveAttack(69);
+  expect(battleship.getHP).toBe(4);
+});
+
+test("gameboard processes hit attack", () => {
   player1Gameboard.receiveAttack(69);
   expect(battleship.getHP).toBe(4);
 });

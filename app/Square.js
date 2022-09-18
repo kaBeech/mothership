@@ -3,6 +3,10 @@ const nameGetter = (state) => ({
   getName: () => state.name,
 });
 
+const shipGetter = (state) => ({
+  getShip: () => state.ship,
+});
+
 const guessedChecker = (state) => ({
   isGuessed: () => state.guessed,
 });
@@ -10,10 +14,12 @@ const guessedChecker = (state) => ({
 const Square = (name) => {
   const state = {
     name,
+    ship: "none",
     guessed: false,
   };
   return {
     ...nameGetter(state),
+    ...shipGetter(state),
     ...guessedChecker(state),
   };
 };
