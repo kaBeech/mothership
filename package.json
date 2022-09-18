@@ -1,0 +1,25 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "A javascript emulation of a classic guessing game",
+  "main": "battleship.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaBeech/battleship.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "Kyle Beechly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaBeech/battleship/issues"
+  },
+  "homepage": "https://github.com/kaBeech/battleship#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.19.1"
+  }
+}
