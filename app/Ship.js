@@ -7,9 +7,12 @@ const hpGetter = (state) => ({
   getHP: () => state.hp,
 });
 
-const hitTaker = (state) => ({
-  hit: () => {
+const damageTaker = (state) => ({
+  takeDamage: function takeDamage() {
     state.hp -= 1;
+    if (this.isSunk()) {
+      // displaySunkMessage()
+    }
   },
 });
 
@@ -39,7 +42,7 @@ const Ship = (name, segments) => {
   return {
     ...nameGetter(state),
     ...hpGetter(state),
-    ...hitTaker(state),
+    ...damageTaker(state),
     ...sunkChecker(state),
     ...shipPlacer(state),
   };

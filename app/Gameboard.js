@@ -11,7 +11,7 @@ const attackReceiver = (state) => ({
     if (targetSquare.getShip() === null) {
       return "You missed!";
     }
-
+    targetSquare.getShip().takeDamage();
     return "You hit!";
   },
 });
