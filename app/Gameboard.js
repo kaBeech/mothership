@@ -2,7 +2,7 @@ import Square from "./Square";
 
 const attackReceiver = (state) => ({
   receiveAttack: (squareName) => {
-    if (state.squares[+squareName].getShip() === "null") {
+    if (state.squares[+squareName].getShip() === null) {
       return "You missed!";
     }
     return "You hit!";

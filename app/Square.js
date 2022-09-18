@@ -14,7 +14,7 @@ const guessedChecker = (state) => ({
 const Square = (name) => {
   const state = {
     name,
-    ship: "none",
+    ship: null,
     guessed: false,
   };
   return {

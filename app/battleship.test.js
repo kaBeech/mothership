@@ -24,11 +24,10 @@ test.skip("gets sunk", () => {
 });
 
 test("gameboard processes missed attack", () => {
-  player1Gameboard.receiveAttack(69);
-  expect(battleship.getHP).toBe(4);
+  expect(player1Gameboard.receiveAttack(20)).toBe("You missed!");
 });
 
 test("gameboard processes hit attack", () => {
   player1Gameboard.receiveAttack(69);
-  expect(battleship.getHP).toBe(4);
+  expect(battleship.getHP()).toBe(4);
 });
