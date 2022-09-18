@@ -22,18 +22,11 @@ const sunkChecker = (state) => ({
   },
 });
 
-const Ship = (name, length, segments) => {
+const Ship = (name, segments) => {
   const state = {
     name,
-    length,
-    hp: length,
     segments,
-    isSunk: () => {
-      if (state.hp === 0) {
-        return `You sunk my ${name}!`;
-      }
-      return "yooooo";
-    },
+    hp: segments.length,
   };
   return {
     ...nameGetter(state),
