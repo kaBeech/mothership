@@ -23,6 +23,10 @@ test.skip("gets sunk", () => {
   expect(battleship.isSunk()).toBe(true);
 });
 
+test("occupied square recognizes its ship", () => {
+  expect(player1Gameboard.getSquares()[69].getShip()).toBe(battleship);
+});
+
 test("gameboard processes missed attack", () => {
   expect(player1Gameboard.receiveAttack(20)).toBe("You missed!");
 });

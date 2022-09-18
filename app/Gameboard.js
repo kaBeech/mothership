@@ -1,10 +1,17 @@
 import Square from "./Square";
 
+const squareGetter = (state) => ({
+  getSquares: () => state.squares,
+});
+
 const attackReceiver = (state) => ({
   receiveAttack: (squareName) => {
-    if (state.squares[+squareName].getShip() === null) {
+    const targetSquare = state.squares[+squareName];
+    targetSquare.setGuessed(true);
+    if (targetSquare.getShip() === null) {
       return "You missed!";
     }
+
     return "You hit!";
   },
 });
@@ -27,6 +34,7 @@ const Gameboard = () => {
     squares: [],
   };
   return {
+    ...squareGetter(state),
     ...attackReceiver(state),
     ...initializer(state),
   };

@@ -7,8 +7,20 @@ const shipGetter = (state) => ({
   getShip: () => state.ship,
 });
 
+const shipSetter = (state) => ({
+  setShip: (shipName) => {
+    state.ship = shipName;
+  },
+});
+
 const guessedChecker = (state) => ({
   isGuessed: () => state.guessed,
+});
+
+const guessedSetter = (state) => ({
+  setGuessed: (booleanValue) => {
+    state.guessed = booleanValue;
+  },
 });
 
 const Square = (name) => {
@@ -20,7 +32,9 @@ const Square = (name) => {
   return {
     ...nameGetter(state),
     ...shipGetter(state),
+    ...shipSetter(state),
     ...guessedChecker(state),
+    ...guessedSetter(state),
   };
 };
 

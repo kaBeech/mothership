@@ -22,6 +22,14 @@ const sunkChecker = (state) => ({
   },
 });
 
+const shipPlacer = (state) => ({
+  placeShip: (targetGameboard) => {
+    state.segments.forEach((segmentName) => {
+      targetGameboard.getSquares()[+segmentName].setShip(this);
+    });
+  },
+});
+
 const Ship = (name, segments) => {
   const state = {
     name,
@@ -33,6 +41,7 @@ const Ship = (name, segments) => {
     ...hpGetter(state),
     ...hitTaker(state),
     ...sunkChecker(state),
+    ...shipPlacer(state),
   };
 };
 
