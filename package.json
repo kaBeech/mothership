@@ -4,7 +4,8 @@
   "description": "A javascript emulation of a classic guessing game",
   "main": "battleship.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,17 @@
   },
   "homepage": "https://github.com/kaBeech/battleship#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.19.1"
+    "@babel/preset-env": "^7.19.1",
+    "eslint": "^8.23.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "2.7.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
