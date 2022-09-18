@@ -23,7 +23,7 @@ const sunkChecker = (state) => ({
 });
 
 const shipPlacer = (state) => ({
-  placeShip: (targetGameboard) => {
+  placeShip: function placeShip(targetGameboard) {
     state.segments.forEach((segmentName) => {
       targetGameboard.getSquares()[+segmentName].setShip(this);
     });
