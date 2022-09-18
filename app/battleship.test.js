@@ -10,6 +10,15 @@ test("shows HP", () => {
 });
 
 test("shows damage from getting hit", () => {
-  battleship.hit(69);
+  battleship.hit();
   expect(battleship.getHP()).toBe(4);
+});
+
+test("gets sunk", () => {
+  battleship.hit();
+  battleship.hit();
+  battleship.hit();
+  battleship.hit();
+  battleship.hit();
+  expect(battleship.isSunk()).toBe(true);
 });

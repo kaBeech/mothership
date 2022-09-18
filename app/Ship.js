@@ -13,17 +13,33 @@ const hitTaker = (state) => ({
   },
 });
 
+const sunkChecker = (state) => ({
+  isSunk: () => {
+    if (state.hp === 0) {
+      return true;
+    }
+    return false;
+  },
+});
+
 const Ship = (name, length, segments) => {
   const state = {
     name,
     length,
     hp: length,
     segments,
+    isSunk: () => {
+      if (state.hp === 0) {
+        return `You sunk my ${name}!`;
+      }
+      return "yooooo";
+    },
   };
   return {
     ...nameGetter(state),
     ...hpGetter(state),
     ...hitTaker(state),
+    ...sunkChecker(state),
   };
 };
 
