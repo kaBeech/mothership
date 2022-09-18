@@ -9,6 +9,7 @@ test("shows HP", () => {
   expect(battleship.getHP()).toBe(5);
 });
 
-test("gets hit", () => {
-  expect(battleship.hit(6, 9), battleship.getHP()).toBe(4);
+test("shows damage from getting hit", () => {
+  battleship.hit(69);
+  expect(battleship.getHP()).toBe(4);
 });
