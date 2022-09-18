@@ -1,30 +1,30 @@
 /* eslint-disable no-undef */
-import { battleship, player1Gameboard } from "./battleship";
+import { player1Battleship, player1Gameboard } from "./battleship";
 
 test("shows name", () => {
-  expect(battleship.getName()).toBe("Battleship");
+  expect(player1Battleship.getName()).toBe("Battleship");
 });
 
 test("shows HP", () => {
-  expect(battleship.getHP()).toBe(5);
+  expect(player1Battleship.getHP()).toBe(5);
 });
 
 test.skip("shows damage from getting hit", () => {
-  battleship.takeDamage();
-  expect(battleship.getHP()).toBe(4);
+  player1Battleship.takeDamage();
+  expect(player1Battleship.getHP()).toBe(4);
 });
 
 test.skip("gets sunk", () => {
-  battleship.takeDamage();
-  battleship.takeDamage();
-  battleship.takeDamage();
-  battleship.takeDamage();
-  battleship.takeDamage();
-  expect(battleship.isSunk()).toBe(true);
+  player1Battleship.takeDamage();
+  player1Battleship.takeDamage();
+  player1Battleship.takeDamage();
+  player1Battleship.takeDamage();
+  player1Battleship.takeDamage();
+  expect(player1Battleship.isSunk()).toBe(true);
 });
 
 test("occupied square recognizes its ship", () => {
-  expect(player1Gameboard.getSquares()[69].getShip()).toBe(battleship);
+  expect(player1Gameboard.getSquares()[69].getShip()).toBe(player1Battleship);
 });
 
 test("gameboard processes missed attack", () => {
@@ -33,5 +33,5 @@ test("gameboard processes missed attack", () => {
 
 test("gameboard processes hit attack", () => {
   player1Gameboard.receiveAttack(69);
-  expect(battleship.getHP()).toBe(4);
+  expect(player1Battleship.getHP()).toBe(4);
 });
