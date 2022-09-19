@@ -1,4 +1,4 @@
-import toolbox from "./toolboxx";
+import tools from "./tools";
 
 const nameGetter = (state) => ({
   getName: () => state.name,
@@ -20,7 +20,7 @@ const attacker = (state) => ({
 
 const randomAttacker = (state) => ({
   attackRandomly: function attackRandomly() {
-    const targetSquareName = toolbox.pickRandom(state.possibleMoves);
+    const targetSquareName = tools.pickRandom(state.possibleMoves);
     return this.attack(targetSquareName);
   },
 });
