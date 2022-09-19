@@ -1,3 +1,5 @@
+import toolbox from "./toolboxx";
+
 const nameGetter = (state) => ({
   getName: () => state.name,
 });
@@ -16,9 +18,9 @@ const attacker = (state) => ({
   },
 });
 
-const randomAttacker = () => ({
+const randomAttacker = (state) => ({
   attackRandomly: function attackRandomly() {
-    const targetSquareName = "23";
+    const targetSquareName = toolbox.pickRandom(state.possibleMoves);
     return this.attack(targetSquareName);
   },
 });
