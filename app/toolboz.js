@@ -19,7 +19,7 @@ const randomPicker = () => ({
   },
 });
 
-const tools = (() => {
+const toolboz = (() => {
   const state = {
     name: "toolbox",
   };
@@ -31,4 +31,4 @@ const tools = (() => {
   };
 })();
 
-export default tools;
+export default toolboz;
