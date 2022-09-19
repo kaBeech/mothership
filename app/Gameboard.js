@@ -29,14 +29,33 @@ const initializer = (state) => ({
   },
 });
 
+const shipAdder = (state) => ({
+  addShip: (ship) => {
+    state.unsunkShips.push(ship);
+  },
+});
+
+const shipSinker = (state) => ({
+  sinkShip: (ship) => {
+    state.unsunkShips.splice(state.unsunkShips.indexOf(ship), 1);
+    if (state.unsunkShips.length === 0) {
+      return "You win!";
+    }
+    return "Keep playing!";
+  },
+});
+
 const Gameboard = () => {
   const state = {
     squares: [],
+    unsunkShips: [],
   };
   return {
     ...squareGetter(state),
     ...attackReceiver(state),
     ...initializer(state),
+    ...shipAdder(state),
+    ...shipSinker(state),
   };
 };
 

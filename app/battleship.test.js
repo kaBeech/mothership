@@ -1,5 +1,13 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { player1Battleship, player1Gameboard } from "./battleship";
+import {
+  player1AircraftCarrier,
+  player1Battleship,
+  player1Cruiser,
+  player1Frigate,
+  player1Submarine,
+  player1Gameboard,
+} from "./battleship";
 
 test("shows name", () => {
   expect(player1Battleship.getName()).toBe("Battleship");
@@ -9,13 +17,12 @@ test("shows HP", () => {
   expect(player1Battleship.getHP()).toBe(5);
 });
 
-test.skip("shows damage from getting hit", () => {
+test("shows damage from getting hit", () => {
   player1Battleship.takeDamage();
   expect(player1Battleship.getHP()).toBe(4);
 });
 
-test.skip("gets sunk", () => {
-  player1Battleship.takeDamage();
+test("gets sunk", () => {
   player1Battleship.takeDamage();
   player1Battleship.takeDamage();
   player1Battleship.takeDamage();
@@ -28,10 +35,18 @@ test("occupied square recognizes its ship", () => {
 });
 
 test("gameboard processes missed attack", () => {
-  expect(player1Gameboard.receiveAttack(20)).toBe("You missed!");
+  expect(player1Gameboard.receiveAttack(22)).toBe("You missed!");
 });
 
 test("gameboard processes hit attack", () => {
-  player1Gameboard.receiveAttack(69);
-  expect(player1Battleship.getHP()).toBe(4);
+  player1Gameboard.receiveAttack(26);
+  expect(player1Submarine.getHP()).toBe(1);
+});
+
+test("sinking all ships wins game", () => {
+  player1Gameboard.receiveAttack(26);
+  player1Gameboard.sinkShip(player1AircraftCarrier);
+  player1Gameboard.sinkShip(player1Cruiser);
+  player1Gameboard.sinkShip(player1Frigate);
+  expect(player1Gameboard.sinkShip(player1Frigate)).toBe("You win!");
 });
