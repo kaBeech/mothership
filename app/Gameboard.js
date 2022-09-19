@@ -1,3 +1,4 @@
+import Ship from "./Ship";
 import Square from "./Square";
 
 const squareGetter = (state) => ({
@@ -30,8 +31,10 @@ const initializer = (state) => ({
 });
 
 const shipAdder = (state) => ({
-  addShip: (ship) => {
+  addShip: function addShip(name, segments) {
+    const ship = Ship(name, this, segments);
     state.unsunkShips.push(ship);
+    ship.placeShip();
   },
 });
 
@@ -54,8 +57,8 @@ const Gameboard = () => {
     ...squareGetter(state),
     ...attackReceiver(state),
     ...initializer(state),
-    ...shipAdder(state),
     ...shipSinker(state),
+    ...shipAdder(state),
   };
 };
 

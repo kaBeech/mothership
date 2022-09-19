@@ -29,18 +29,19 @@ const sunkChecker = (state) => ({
 const shipPlacer = (state) => ({
   placeShip: function placeShip() {
     state.segments.forEach((segmentName) => {
-      state.gameboard.getSquares()[+segmentName].setShip(this);
+      const segmentSquare = state.gameboard.getSquares()[+segmentName];
+      segmentSquare.setShip(this);
     });
-    state.gameboard.addShip(this);
   },
 });
 
 const Ship = (name, gameboard, segments) => {
   const state = {
     name,
-    segments,
-    hp: segments.length,
     gameboard,
+    segments,
+    length: segments.length,
+    hp: segments.length,
   };
   return {
     ...nameGetter(state),
