@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { player1Gameboard } from "./battleship";
+import { player2, player1Gameboard } from "./battleship";
 
 test.skip("shows name", () => {
   expect(player1Battleship.getName()).toBe("Battleship");
@@ -35,10 +35,14 @@ test("gameboard processes hit attack", () => {
   expect(player1Gameboard.receiveAttack(26)).toBe("You hit!");
 });
 
-test("sinking all ships wins game", () => {
+test.skip("sinking all ships wins game", () => {
   player1Gameboard.receiveAttack(26);
   player1Gameboard.sinkShip(player1AircraftCarrier);
   player1Gameboard.sinkShip(player1Cruiser);
   player1Gameboard.sinkShip(player1Frigate);
   expect(player1Gameboard.sinkShip(player1Frigate)).toBe("You win!");
+});
+
+test("player can make moves", () => {
+  expect(player2.attack("28")).toBe("You hit!");
 });
