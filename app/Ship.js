@@ -11,9 +11,10 @@ const damageTaker = (state) => ({
   takeDamage: function takeDamage() {
     state.hp -= 1;
     if (this.isSunk()) {
-      state.gameboard.sinkShip(this);
+      return state.gameboard.sinkShip(this);
       // displaySunkMessage()
     }
+    return "continue";
   },
 });
 

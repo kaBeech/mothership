@@ -10,10 +10,9 @@ const attackReceiver = (state) => ({
     const targetSquare = state.squares[+squareName];
     targetSquare.setGuessed(true);
     if (targetSquare.getShip() === null) {
-      return "You missed!";
+      return "continue";
     }
-    targetSquare.getShip().takeDamage();
-    return "You hit!";
+    return targetSquare.getShip().takeDamage();
   },
 });
 
@@ -44,7 +43,7 @@ const shipSinker = (state) => ({
     if (state.unsunkShips.length === 0) {
       return "You win!";
     }
-    return "Keep playing!";
+    return "continue";
   },
 });
 
