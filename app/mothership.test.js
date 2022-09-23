@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { player2, player1Gameboard } from "./mothership";
+import { player2, player1Gameboard, mothership } from "./mothership";
 
 test.skip("shows name", () => {
   expect(player1Battleship.getName()).toBe("Battleship");
@@ -45,4 +45,8 @@ test.skip("sinking all ships wins game", () => {
 
 test("player can make moves", () => {
   expect(player2.attack("28")).toBe("You hit!");
+});
+
+test("game starts with computer move", () => {
+  expect(mothership.startGame()).toBe("You hit!");
 });

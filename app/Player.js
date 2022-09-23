@@ -25,12 +25,13 @@ const randomAttacker = (state) => ({
   },
 });
 
-const Player = (name, gameboard, opponentGameboard) => {
+const Player = (name, gameboard, opponentGameboard, species) => {
   const state = {
     name,
     gameboard,
     opponentGameboard,
     possibleMoves: Array(opponentGameboard.getSquares),
+    species,
   };
   return {
     ...nameGetter(state),

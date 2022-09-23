@@ -8,8 +8,8 @@ player1Gameboard.init();
 const player2Gameboard = Gameboard();
 player2Gameboard.init();
 
-const player1 = Player("Alice", player1Gameboard, player2Gameboard);
-const player2 = Player("Bob", player2Gameboard, player1Gameboard);
+const player1 = Player("Alice", player1Gameboard, player2Gameboard, "computer");
+const player2 = Player("Bob", player2Gameboard, player1Gameboard, "human");
 
 player1Gameboard.addShip("Mothership", ["20", "30", "40", "50", "60", "70"]);
 player1Gameboard.addShip("Battleship", ["29", "39", "49", "59", "69"]);
@@ -33,6 +33,25 @@ const gameInProgressSetter = (state) => ({
   },
 });
 
+const gameStarter = (state) => ({
+  startGame: function startGame() {
+    if (!state.gameInProgress) {
+      this.setGameInProgress(true);
+      this.promptPlayer(player1);
+    }
+  },
+});
+
+const playerPrompter = (state) => ({
+  promptPlayer: function promptPlayer(targetPlayer) {
+    if (targetPlayer.getSpecies === "computer") {
+      return targetPlayer.attackRandomly();
+    }
+    // Wait for human move - next line is scratch content
+    return state.gameInProgress;
+  },
+});
+
 const mothership = (() => {
   const state = {
     gameInProgress: false,
@@ -41,6 +60,8 @@ const mothership = (() => {
   return {
     ...gameInProgressGetter(state),
     ...gameInProgressSetter(state),
+    ...gameStarter(state),
+    ...playerPrompter(state),
   };
 })();
 
