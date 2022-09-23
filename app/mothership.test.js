@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { player2, player1Gameboard } from "./battleship";
+import { player2, player1Gameboard } from "./mothership";
 
 test.skip("shows name", () => {
   expect(player1Battleship.getName()).toBe("Battleship");
