@@ -37,18 +37,19 @@ const gameStarter = (state) => ({
   startGame: function startGame() {
     if (!state.gameInProgress) {
       this.setGameInProgress(true);
-      this.promptPlayer(player1);
+      return this.promptPlayer(player1);
     }
+    return console.log("error");
   },
 });
 
 const playerPrompter = (state) => ({
   promptPlayer: function promptPlayer(targetPlayer) {
-    if (targetPlayer.getSpecies === "computer") {
+    if (targetPlayer.getSpecies() === "computer") {
       return targetPlayer.attackRandomly();
     }
     // Wait for human move - next line is scratch content
-    return state.gameInProgress;
+    return console.log(state.gameInProgress);
   },
 });
 

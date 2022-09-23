@@ -47,6 +47,10 @@ test("player can make moves", () => {
   expect(player2.attack("28")).toBe("You hit!");
 });
 
+test("player can attack randomly", () => {
+  expect(player2.attackRandomly()).toBe("You missed!");
+});
+
 test("game starts with computer move", () => {
-  expect(mothership.startGame()).toBe("You hit!");
+  expect(mothership.startGame()).toBe("You missed!");
 });

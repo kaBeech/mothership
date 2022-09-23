@@ -25,6 +25,10 @@ const randomAttacker = (state) => ({
   },
 });
 
+const speciesGetter = (state) => ({
+  getSpecies: () => state.species,
+});
+
 const Player = (name, gameboard, opponentGameboard, species) => {
   const state = {
     name,
@@ -35,6 +39,7 @@ const Player = (name, gameboard, opponentGameboard, species) => {
   };
   return {
     ...nameGetter(state),
+    ...speciesGetter(state),
     ...attacker(state),
     ...possibleMoveRemover(state),
     ...randomAttacker(state),
