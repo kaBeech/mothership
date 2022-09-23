@@ -45,3 +45,14 @@ const mothership = (() => {
 })();
 
 export { mothership, player1, player2, player1Gameboard, player2Gameboard };
+
+// pseudocode
+
+// loop:
+// -apply computer move
+// -evaluate computer move
+// -check if game is won
+// -wait for human move
+// -apply human move
+// -evaluate human move
+// -check if game is won
