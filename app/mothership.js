@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import Gameboard from "./Gameboard";
 import Player from "./Player";
 
@@ -36,4 +37,25 @@ player2Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
 player2Gameboard.addShip("Gunboat", ["24", "34", "44"]);
 player2Gameboard.addShip("Submarine", ["25", "35"]);
 
-export { player1, player2, player1Gameboard, player2Gameboard };
+const gameInProgressGetter = (state) => ({
+  getGameInProgress: () => state.gameInProgress,
+});
+
+const gameInProgressSetter = (state) => ({
+  setGameInProgress: (boolean) => {
+    state.gameInProgress = boolean;
+  },
+});
+
+const mothership = (() => {
+  const state = {
+    gameInProgress: false,
+  };
+
+  return {
+    ...gameInProgressGetter(state),
+    ...gameInProgressSetter(state),
+  };
+})();
+
+export { mothership, player1, player2, player1Gameboard, player2Gameboard };
