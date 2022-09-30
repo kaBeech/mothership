@@ -23,6 +23,18 @@ player2Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
 player2Gameboard.addShip("Gunship", ["24", "34", "44"]);
 player2Gameboard.addShip("Starfighter", ["25", "35"]);
 
+const currentPlayerSetter = (state) => ({
+  setCurrentPlayer: (player) => {
+    state.currentPlayer = player;
+  },
+});
+
+const opposingPlayerSetter = (state) => ({
+  setOpposingPlayer: (player) => {
+    state.opposingPlayer = player;
+  },
+});
+
 const gameInProgressGetter = (state) => ({
   getGameInProgress: () => state.gameInProgress,
 });
@@ -51,12 +63,16 @@ const gameController = (state) => ({
     }
     while (this.getGameInProgress()) {
       const targetSquare = this.promptPlayer(state.currentPlayer);
+      const { currentPlayer } = state;
       if (!state.opposingPlayer.gameboard.receiveAttack(targetSquare)) {
         console.log("You missed!");
       } else {
         targetSquare.getShip().takeDamage();
         if (state.opposingPlayer.gameboard.checkWin()) {
           this.setGameInProgress(false);
+        } else {
+          this.setCurrentPlayer(state.opposingPlayer);
+          this.setOpposingPlayer(currentPlayer);
         }
       }
     }
@@ -82,6 +98,8 @@ const mothership = (() => {
   };
 
   return {
+    ...currentPlayerSetter(state),
+    ...opposingPlayerSetter(state),
     ...gameInProgressGetter(state),
     ...gameInProgressSetter(state),
     ...gameStarter(state),
