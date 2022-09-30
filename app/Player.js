@@ -6,7 +6,7 @@ const nameGetter = (state) => ({
 
 const possibleMoveRemover = (state) => ({
   removePossibleMove: (targetSquareName) => {
-    const targetSquare = state.opponentGameboard.getSquares[+targetSquareName];
+    const targetSquare = state.opposingGameboard.getSquares[+targetSquareName];
     state.possibleMoves.splice(state.possibleMoves.indexOf(targetSquare), 1);
   },
 });
@@ -15,7 +15,6 @@ const attacker = () => ({
   attack: function attack(targetSquareName) {
     this.removePossibleMove(targetSquareName);
     return targetSquareName;
-    // return state.opponentGameboard.receiveAttack(targetSquareName);
   },
 });
 
@@ -30,12 +29,12 @@ const speciesGetter = (state) => ({
   getSpecies: () => state.species,
 });
 
-const Player = (name, gameboard, opponentGameboard, species) => {
+const Player = (name, gameboard, opposingGameboard, species) => {
   const state = {
     name,
     gameboard,
-    opponentGameboard,
-    possibleMoves: Array(opponentGameboard.getSquares),
+    opposingGameboard,
+    possibleMoves: Array(opposingGameboard.getSquares),
     species,
   };
   return {

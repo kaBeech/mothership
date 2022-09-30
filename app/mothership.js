@@ -64,11 +64,11 @@ const gameController = (state) => ({
     while (this.getGameInProgress()) {
       const targetSquare = this.promptPlayer(state.currentPlayer);
       const { currentPlayer } = state;
-      if (!state.opposingPlayer.gameboard.receiveAttack(targetSquare)) {
+      if (!currentPlayer.opposingGameboard.receiveAttack(targetSquare)) {
         console.log("You missed!");
       } else {
         targetSquare.getShip().takeDamage();
-        if (state.opposingPlayer.gameboard.checkWin()) {
+        if (currentPlayer.opposingGameboard.checkWin()) {
           this.setGameInProgress(false);
         } else {
           this.setCurrentPlayer(state.opposingPlayer);
