@@ -49,18 +49,14 @@ const gameStarter = (state) => ({
   startGame: function startGame() {
     if (!state.gameInProgress) {
       this.setGameInProgress(true);
-      return true;
-      // return this.promptPlayer(player1);
+      return this.controlGame();
     }
-    return false;
+    return console.log("error");
   },
 });
 
 const gameController = (state) => ({
   controlGame: function controlGame() {
-    if (!this.startGame()) {
-      return console.log("error");
-    }
     while (this.getGameInProgress()) {
       const targetSquare = this.promptPlayer(state.currentPlayer);
       const { currentPlayer } = state;
@@ -109,14 +105,3 @@ const mothership = (() => {
 })();
 
 export { mothership, player1, player2, player1Gameboard, player2Gameboard };
-
-// pseudocode
-
-// loop:
-// -apply computer move
-// -evaluate computer move
-// -check if game is won
-// -wait for human move
-// -apply human move
-// -evaluate human move
-// -check if game is won
