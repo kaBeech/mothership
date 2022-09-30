@@ -37,9 +37,30 @@ const gameStarter = (state) => ({
   startGame: function startGame() {
     if (!state.gameInProgress) {
       this.setGameInProgress(true);
-      return this.promptPlayer(player1);
+      return true;
+      // return this.promptPlayer(player1);
     }
-    return console.log("error");
+    return false;
+  },
+});
+
+const gameController = (state) => ({
+  controlGame: function controlGame() {
+    if (!this.startGame()) {
+      return console.log("error");
+    }
+    while (this.getGameInProgress()) {
+      const targetSquare = this.promptPlayer(state.currentPlayer);
+      if (!state.opposingPlayer.gameboard.receiveAttack(targetSquare)) {
+        console.log("You missed!");
+      } else {
+        targetSquare.getShip().takeDamage();
+        if (state.opposingPlayer.gameboard.checkWin()) {
+          this.setGameInProgress(false);
+        }
+      }
+    }
+    return console.log("Game Won!!!");
   },
 });
 
@@ -56,12 +77,15 @@ const playerPrompter = (state) => ({
 const mothership = (() => {
   const state = {
     gameInProgress: false,
+    currentPlayer: null,
+    opposingPlayer: null,
   };
 
   return {
     ...gameInProgressGetter(state),
     ...gameInProgressSetter(state),
     ...gameStarter(state),
+    ...gameController(state),
     ...playerPrompter(state),
   };
 })();

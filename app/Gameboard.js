@@ -10,7 +10,7 @@ const attackReceiver = (state) => ({
     const targetSquare = state.squares[+squareName];
     targetSquare.setGuessed(true);
     if (targetSquare.getShip() === null) {
-      return "continue";
+      return false;
     }
     return targetSquare.getShip().takeDamage();
   },
@@ -40,10 +40,15 @@ const shipAdder = (state) => ({
 const shipSinker = (state) => ({
   sinkShip: (ship) => {
     state.unsunkShips.splice(state.unsunkShips.indexOf(ship), 1);
+  },
+});
+
+const winChecker = (state) => ({
+  checkWin: () => {
     if (state.unsunkShips.length === 0) {
-      return "You win!";
+      return true;
     }
-    return "continue";
+    return false;
   },
 });
 
@@ -58,6 +63,7 @@ const Gameboard = () => {
     ...initializer(state),
     ...shipSinker(state),
     ...shipAdder(state),
+    ...winChecker(state),
   };
 };
 
