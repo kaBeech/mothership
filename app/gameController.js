@@ -29,10 +29,18 @@ const currentPlayerSetter = (state) => ({
   },
 });
 
+const currentPlayerGetter = (state) => ({
+  getCurrentPlayer: () => state.currentPlayer,
+});
+
 const opposingPlayerSetter = (state) => ({
   setOpposingPlayer: (player) => {
     state.opposingPlayer = player;
   },
+});
+
+const opposingPlayerGetter = (state) => ({
+  getOpposingPlayer: () => state.opposingPlayer,
 });
 
 const gameInProgressGetter = (state) => ({
@@ -45,43 +53,26 @@ const gameInProgressSetter = (state) => ({
   },
 });
 
-const promptPlayer = (gameController) => {
-  const currentPlayer = gameController.getCurrentPlayer();
-  if (currentPlayer.getSpecies() === "computer") {
-    const targetSquare = currentPlayer.attackRandomly();
-    return gameController.evalTurn(targetSquare);
-  }
-  return console.log(`${currentPlayer}'s Turn!`);
-};
-
-const gameStarter = (state) => ({
-  startGame: function startGame() {
-    if (!state.gameInProgress) {
-      this.setGameInProgress(true);
-      return promptPlayer(this);
-    }
-    return console.log("error");
-  },
-});
-
 const turnEvaluator = (state) => ({
   evalTurn: function evalTurn(targetSquare) {
-    if (this.getGameInProgress()) {
-      const { currentPlayer } = state;
-      if (!currentPlayer.opposingGameboard.receiveAttack(targetSquare)) {
-        console.log("You missed!");
-      } else {
-        targetSquare.getShip().takeDamage();
-        if (currentPlayer.opposingGameboard.checkWin()) {
-          this.setGameInProgress(false);
-          return console.log("Game Won!!!");
-        }
-      }
-      this.setCurrentPlayer(state.opposingPlayer);
-      this.setOpposingPlayer(currentPlayer);
-      return promptPlayer(this);
+    const { currentPlayer } = state;
+    const result = currentPlayer
+      .getOpposingGameboard()
+      .receiveAttack(targetSquare);
+    if (result === "miss") {
+      return "miss";
     }
-    return console.log("error");
+    if (currentPlayer.getOpposingGameboard().checkWin()) {
+      this.setGameInProgress(false);
+      return "win";
+    }
+    if (result === "sunk") {
+      return "sunk";
+    }
+    if (result === "hit") {
+      return "hit";
+    }
+    return console.log("Error");
   },
 });
 
@@ -94,10 +85,11 @@ const gameController = (() => {
 
   return {
     ...currentPlayerSetter(state),
+    ...currentPlayerGetter(state),
     ...opposingPlayerSetter(state),
+    ...opposingPlayerGetter(state),
     ...gameInProgressGetter(state),
     ...gameInProgressSetter(state),
-    ...gameStarter(state),
     ...turnEvaluator(state),
   };
 })();

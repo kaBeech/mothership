@@ -1,5 +1,7 @@
 import tools from "./tools";
 
+console.log("Yes!!");
+
 const nameGetter = (state) => ({
   getName: () => state.name,
 });
@@ -29,6 +31,10 @@ const speciesGetter = (state) => ({
   getSpecies: () => state.species,
 });
 
+const opposingGameboardGetter = (state) => ({
+  getOpposingGameboard: () => state.opposingGameboard,
+});
+
 const Player = (name, gameboard, opposingGameboard, species) => {
   const state = {
     name,
@@ -40,6 +46,7 @@ const Player = (name, gameboard, opposingGameboard, species) => {
   return {
     ...nameGetter(state),
     ...speciesGetter(state),
+    ...opposingGameboardGetter(state),
     ...attacker(state),
     ...possibleMoveRemover(state),
     ...randomAttacker(state),

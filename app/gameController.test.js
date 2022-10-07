@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import mothership from "./mothership";
+import gameController from "./gameController";
 
 test.skip("shows name", () => {
   expect(player1Battleship.getName()).toBe("Battleship");
@@ -47,10 +47,14 @@ test.skip("player can make moves", () => {
   expect(player2.attack("28")).toBe("You hit!");
 });
 
-test.skip("Player can attack randomly", () => {
+test.skip("player can attack randomly", () => {
   expect(player2.attackRandomly()).toBe("You missed!");
 });
 
-test.skip("Game starts with computer move", () => {
-  expect(mothership.startGame()).toBe("You missed!");
+test("Controller recognizes miss", () => {
+  expect(gameController.evalTurn("28")).toBe("miss");
+});
+
+test("Controller recognizes hit", () => {
+  expect(gameController.evalTurn("32")).toBe("hit");
 });

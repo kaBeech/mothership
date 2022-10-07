@@ -10,7 +10,7 @@ const attackReceiver = (state) => ({
     const targetSquare = state.squares[+squareName];
     targetSquare.setGuessed(true);
     if (targetSquare.getShip() === null) {
-      return false;
+      return "miss";
     }
     return targetSquare.getShip().takeDamage();
   },
@@ -20,7 +20,8 @@ const initializer = (state) => ({
   init: () => {
     for (let i = 0; i < 100; i += 1) {
       let squareName = `${i}`;
-      if (i < 10) {
+      if (i <= 10) {
+        console.log("yes");
         squareName = `0${squareName}`;
       }
       const square = Square(squareName);

@@ -1,86 +1,69 @@
 /* eslint-disable no-param-reassign */
 import gameController from "./gameController";
 
-const currentPlayerSetter = (state) => ({
+const promptPlayer = (mothership) => {
+  const currentPlayer = gameController.getCurrentPlayer();
+  if (currentPlayer.getSpecies() === "computer") {
+    const targetSquare = currentPlayer.attackRandomly();
+    return mothership.evalTurn(targetSquare);
+  }
+  return console.log(`${currentPlayer}'s Turn!!`);
+};
+
+const currentPlayerSetter = () => ({
   setCurrentPlayer: (player) => {
-    state.currentPlayer = player;
+    gameController.setCurrentPlayer(player);
   },
 });
 
-const opposingPlayerSetter = (state) => ({
+const opposingPlayerSetter = () => ({
   setOpposingPlayer: (player) => {
-    state.opposingPlayer = player;
+    gameController.setOpposingPlayer(player);
   },
 });
 
-const gameInProgressGetter = (state) => ({
-  getGameInProgress: () => state.gameInProgress,
-});
-
-const gameInProgressSetter = (state) => ({
-  setGameInProgress: (boolean) => {
-    state.gameInProgress = boolean;
-  },
-});
-
-const gameStarter = (state) => ({
+const gameStarter = () => ({
   startGame: function startGame() {
-    if (!state.gameInProgress) {
-      this.setGameInProgress(true);
-      return this.controlGame();
+    if (!gameController.getGameInProgress()) {
+      gameController.setGameInProgress(true);
+      return promptPlayer(this);
     }
     return console.log("error");
   },
 });
 
-const gameRunner = (state) => ({
-  controlGame: function controlGame() {
-    if (this.getGameInProgress()) {
-      const targetSquare = this.promptPlayer(state.currentPlayer);
-      const { currentPlayer } = state;
-      if (!currentPlayer.opposingGameboard.receiveAttack(targetSquare)) {
-        console.log("You missed!");
-      } else {
-        targetSquare.getShip().takeDamage();
-        if (currentPlayer.opposingGameboard.checkWin()) {
-          this.setGameInProgress(false);
-        } else {
-          this.setCurrentPlayer(state.opposingPlayer);
-          this.setOpposingPlayer(currentPlayer);
-        }
+const turnEvaluator = () => ({
+  evalTurn: function evalTurn(targetSquare) {
+    if (gameController.getGameInProgress()) {
+      const currentPlayer = gameController.getCurrentPlayer();
+      const result = gameController.evalTurn(targetSquare);
+      if (result === "win") {
+        return console.log(`${currentPlayer.getName()} Won!!!`);
       }
-    } else {
-      console.log("Game Won!!!");
+      if (result === "sunk") {
+        console.log(`${currentPlayer.getName()} sunk a ship!`);
+      } else if (result === "hit") {
+        console.log(`${currentPlayer.getName()} hit!`);
+      } else if (result === "miss") {
+        console.log(`${currentPlayer.getName()} missed!`);
+      }
+      gameController.setCurrentPlayer(gameController.getOpposingPlayer());
+      gameController.setOpposingPlayer(currentPlayer);
+      return promptPlayer(this);
     }
-  },
-});
-
-const playerPrompter = (state) => ({
-  promptPlayer: function promptPlayer(targetPlayer) {
-    if (targetPlayer.getSpecies() === "computer") {
-      return targetPlayer.attackRandomly();
-    }
-    // Await human move - next 2 lines are scratch content
-    return console.log(state.gameInProgress);
+    return console.log("error");
   },
 });
 
 const mothership = (() => {
-  const state = {
-    gameInProgress: false,
-    currentPlayer: null,
-    opposingPlayer: null,
-  };
+  const state = {};
 
   return {
     ...currentPlayerSetter(state),
     ...opposingPlayerSetter(state),
-    ...gameInProgressGetter(state),
-    ...gameInProgressSetter(state),
     ...gameStarter(state),
-    ...gameRunner(state),
-    ...playerPrompter(state),
+    ...turnEvaluator(state),
   };
 })();
 
-export { mothership, gameController };
+export default mothership;

@@ -12,14 +12,17 @@ const damageTaker = (state) => ({
     state.hp -= 1;
     if (this.isSunk()) {
       state.gameboard.sinkShip(this);
+      return "sunk";
       // displaySunkMessage()
     }
+    return "hit";
   },
 });
 
 const sunkChecker = (state) => ({
   isSunk: () => {
     if (state.hp === 0) {
+      console.log("Ha!");
       return true;
     }
     return false;
