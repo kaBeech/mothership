@@ -51,10 +51,10 @@ test.skip("player can attack randomly", () => {
   expect(player2.attackRandomly()).toBe("You missed!");
 });
 
-test("Controller recognizes miss", () => {
+test("controller recognizes miss", () => {
   expect(gameController.evalTurn("28")).toBe("miss");
 });
 
-test("Controller recognizes hit", () => {
+test("controller recognizes hit", () => {
   expect(gameController.evalTurn("32")).toBe("hit");
 });

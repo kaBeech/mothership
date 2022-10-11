@@ -72,7 +72,7 @@ const turnEvaluator = (state) => ({
     if (result === "hit") {
       return "hit";
     }
-    return console.log("Error");
+    return console.log("error");
   },
 });
 

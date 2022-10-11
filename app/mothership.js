@@ -7,7 +7,7 @@ const promptPlayer = (mothership) => {
     const targetSquare = currentPlayer.attackRandomly();
     return mothership.evalTurn(targetSquare);
   }
-  return console.log(`${currentPlayer}'s Turn!!`);
+  return console.log(`${currentPlayer}'s Turn!`);
 };
 
 const currentPlayerSetter = () => ({

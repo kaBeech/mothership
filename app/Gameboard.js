@@ -21,7 +21,6 @@ const initializer = (state) => ({
     for (let i = 0; i < 100; i += 1) {
       let squareName = `${i}`;
       if (i <= 10) {
-        console.log("yes");
         squareName = `0${squareName}`;
       }
       const square = Square(squareName);

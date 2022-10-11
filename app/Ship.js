@@ -22,7 +22,6 @@ const damageTaker = (state) => ({
 const sunkChecker = (state) => ({
   isSunk: () => {
     if (state.hp === 0) {
-      console.log("Ha!");
       return true;
     }
     return false;

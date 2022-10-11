@@ -47,10 +47,10 @@ test.skip("player can make moves", () => {
   expect(player2.attack("28")).toBe("You hit!");
 });
 
-test.skip("Player can attack randomly", () => {
+test.skip("player can attack randomly", () => {
   expect(player2.attackRandomly()).toBe("You missed!");
 });
 
-test.skip("Game starts with computer move", () => {
+test.skip("game starts with computer move", () => {
   expect(mothership.startGame()).toBe("You missed!");
 });

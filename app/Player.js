@@ -1,7 +1,5 @@
 import tools from "./tools";
 
-console.log("Yes!!");
-
 const nameGetter = (state) => ({
   getName: () => state.name,
 });
