@@ -4,16 +4,28 @@ import gameController from "./gameController";
 const promptPlayer = (mothership) => {
   const currentPlayer = gameController.getCurrentPlayer();
   if (currentPlayer.getSpecies() === "computer") {
-    const targetSquare = currentPlayer.attackRandomly();
-    return mothership.evalTurn(targetSquare);
+    const attackSelection = currentPlayer.attackRandomly();
+    return mothership.evalTurn(attackSelection);
   }
   return console.log(`${currentPlayer}'s Turn!`);
 };
+
+const currentPhaseGetter = (state) => ({
+  getCurrentPhase: () => state.currentPhase,
+});
+
+const currentPlayerGetter = (state) => ({
+  getCurrentPlayer: () => state.currentPlayer,
+});
 
 const currentPlayerSetter = () => ({
   setCurrentPlayer: (player) => {
     gameController.setCurrentPlayer(player);
   },
+});
+
+const opposingPlayerGetter = (state) => ({
+  getOpposingPlayer: () => state.opposingPlayer,
 });
 
 const opposingPlayerSetter = () => ({
@@ -33,10 +45,10 @@ const gameStarter = () => ({
 });
 
 const turnEvaluator = () => ({
-  evalTurn: function evalTurn(targetSquare) {
+  evalTurn: function evalTurn(attackSelection) {
     if (gameController.getGameInProgress()) {
       const currentPlayer = gameController.getCurrentPlayer();
-      const result = gameController.evalTurn(targetSquare);
+      const result = gameController.evalTurn(attackSelection);
       if (result === "win") {
         return console.log(`${currentPlayer.getName()} Won!!!`);
       }
@@ -55,14 +67,30 @@ const turnEvaluator = () => ({
   },
 });
 
+const attackSelectionReceiver = (state) => ({
+  receiveAttackSelection: (gameSquareID) => {
+    const targetSquareName = gameSquareID.slice(2, 4);
+    const attackSelection = state.currentPlayer.attack(targetSquareName);
+    return mothership.evalTurn(attackSelection);
+  },
+});
+
 const mothership = (() => {
-  const state = {};
+  const state = {
+    currentPhase: gameController.getCurrentPhase(),
+    currentPlayer: gameController.getCurrentPlayer(),
+    opposingPlayer: gameController.getOpposingPlayer(),
+  };
 
   return {
+    ...currentPhaseGetter(state),
+    ...currentPlayerGetter(state),
     ...currentPlayerSetter(state),
+    ...opposingPlayerGetter(state),
     ...opposingPlayerSetter(state),
     ...gameStarter(state),
     ...turnEvaluator(state),
+    ...attackSelectionReceiver(state),
   };
 })();
 
