@@ -44,11 +44,11 @@ test.skip("sinking all ships wins game", () => {
 });
 
 test.skip("player can make moves", () => {
-  expect(player2.attack("28")).toBe("You hit!");
+  expect(player0.attack("28")).toBe("You hit!");
 });
 
 test.skip("player can attack randomly", () => {
-  expect(player2.attackRandomly()).toBe("You missed!");
+  expect(player0.attackRandomly()).toBe("You missed!");
 });
 
 test("controller recognizes miss", () => {

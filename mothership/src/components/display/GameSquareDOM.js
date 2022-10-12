@@ -54,7 +54,7 @@ class GameSquareDOM extends Component {
       if (this.state.hasShip === false) {
         this.guess();
         this.getSelf().style.backgroundColor = "#0000ff";
-        return true;
+        return gameController.receiveAttackSelection(this.props.gameSquareID);
       }
       if (this.state.hasShip === true) {
         this.guess();

@@ -20,7 +20,7 @@ class App extends Component {
           </div>
           <div className="flex">
             <div className="flex column">
-              <GameboardDOM player="player2" />
+              <GameboardDOM player="player0" />
               <div className="button">Rules</div>
             </div>
             <h2 id="opposingBoardLabel" className="gameboardLabel vertText">

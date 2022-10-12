@@ -5,20 +5,20 @@ import Player from "./Player";
 const player1Gameboard = Gameboard();
 player1Gameboard.init();
 
-const player2Gameboard = Gameboard();
-player2Gameboard.init();
+const player0Gameboard = Gameboard();
+player0Gameboard.init();
 
 const player1 = Player(
   "Alice",
   "player1",
   player1Gameboard,
-  player2Gameboard,
+  player0Gameboard,
   "computer"
 );
-const player2 = Player(
+const player0 = Player(
   "Bob",
-  "player2",
-  player2Gameboard,
+  "player0",
+  player0Gameboard,
   player1Gameboard,
   "human"
 );
@@ -29,11 +29,11 @@ player1Gameboard.addShip("Cruiser", ["28", "38", "48", "58"]);
 player1Gameboard.addShip("Gunship", ["27", "37", "47"]);
 player1Gameboard.addShip("Starfighter", ["26", "36"]);
 
-player2Gameboard.addShip("Mothership", ["21", "31", "41", "51", "61", "71"]);
-player2Gameboard.addShip("Battleship", ["22", "32", "42", "52", "62"]);
-player2Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
-player2Gameboard.addShip("Gunship", ["24", "34", "44"]);
-player2Gameboard.addShip("Starfighter", ["25", "35"]);
+player0Gameboard.addShip("Mothership", ["21", "31", "41", "51", "61", "71"]);
+player0Gameboard.addShip("Battleship", ["22", "32", "42", "52", "62"]);
+player0Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
+player0Gameboard.addShip("Gunship", ["24", "34", "44"]);
+player0Gameboard.addShip("Starfighter", ["25", "35"]);
 
 const currentPhaseGetter = (state) => ({
   getCurrentPhase: () => state.currentPhase,
@@ -103,7 +103,7 @@ const gameController = (() => {
     gameInProgress: false,
     currentPhase: null,
     currentPlayer: player1,
-    opposingPlayer: player2,
+    opposingPlayer: player0,
   };
 
   return {
