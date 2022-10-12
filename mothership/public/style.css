@@ -49,6 +49,22 @@ h1 {
   aspect-ratio: 1;
 }
 
+.guessed {
+  background-color: #0000ff;
+}
+
+.hasShip {
+  background-color: #00ff00;
+}
+
+.hitShip {
+  background-color: #ffff00;
+}
+
+.sunkShip {
+  background-color: #ff0000;
+}
+
 #cardSection {
   gap: 2rem;
 }

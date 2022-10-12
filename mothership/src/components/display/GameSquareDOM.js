@@ -8,6 +8,7 @@ class GameSquareDOM extends Component {
     this.state = {
       guessed: false,
       hasShip: false,
+      hitShip: false,
       sunkShip: false,
     };
 
@@ -70,6 +71,13 @@ class GameSquareDOM extends Component {
       hasShip: true,
     });
     this.getSelf().classList.add("hasShip");
+  }
+
+  hitShip() {
+    this.setState({
+      hitShip: true,
+    });
+    this.getSelf().classList.add("hitShip");
   }
 
   sinkShip() {

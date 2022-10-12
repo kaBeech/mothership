@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import mothership from "./components/backend/mothership";
 import GameboardDOM from "./components/display/GameboardDOM";
 import StatusMessage from "./components/display/StatusMessage";
 
@@ -15,7 +16,13 @@ class App extends Component {
             </h2>
             <div className="flex column">
               <GameboardDOM player="player1" />
-              <div className="button">Start Game</div>
+              <div
+                id="startGameButton"
+                onClick={mothership.startGame}
+                className="button"
+              >
+                Start Game
+              </div>
             </div>
           </div>
           <div className="flex">

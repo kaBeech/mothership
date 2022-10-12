@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import displayController from "../display/displayController";
 import gameController from "./gameController";
 
 const promptPlayer = (mothership) => {
@@ -45,19 +46,19 @@ const gameStarter = () => ({
 });
 
 const turnEvaluator = () => ({
-  evalTurn: function evalTurn(attackSelection) {
+  evalTurn: function evalTurn(attackSelection, gameSquareID) {
     if (gameController.getGameInProgress()) {
       const currentPlayer = gameController.getCurrentPlayer();
       const result = gameController.evalTurn(attackSelection);
       if (result === "win") {
-        return console.log(`${currentPlayer.getName()} Won!!!`);
+        return displayController.showWin();
       }
       if (result === "sunk") {
-        console.log(`${currentPlayer.getName()} sunk a ship!`);
+        displayController.showSunk(gameSquareID);
       } else if (result === "hit") {
-        console.log(`${currentPlayer.getName()} hit!`);
+        displayController.showHit(gameSquareID);
       } else if (result === "miss") {
-        console.log(`${currentPlayer.getName()} missed!`);
+        displayController.showMiss(gameSquareID);
       }
       gameController.setCurrentPlayer(gameController.getOpposingPlayer());
       gameController.setOpposingPlayer(currentPlayer);
@@ -71,7 +72,7 @@ const attackSelectionReceiver = (state) => ({
   receiveAttackSelection: (gameSquareID) => {
     const targetSquareName = gameSquareID.slice(2, 4);
     const attackSelection = state.currentPlayer.attack(targetSquareName);
-    return mothership.evalTurn(attackSelection);
+    return mothership.evalTurn(attackSelection, gameSquareID);
   },
 });
 
