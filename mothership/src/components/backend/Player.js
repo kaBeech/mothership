@@ -1,5 +1,9 @@
 import tools from "./tools";
 
+const idGetter = (state) => ({
+  getID: () => state.id,
+});
+
 const nameGetter = (state) => ({
   getName: () => state.name,
 });
@@ -33,9 +37,10 @@ const opposingGameboardGetter = (state) => ({
   getOpposingGameboard: () => state.opposingGameboard,
 });
 
-const Player = (name, gameboard, opposingGameboard, species) => {
+const Player = (name, id, gameboard, opposingGameboard, species) => {
   const state = {
     name,
+    id,
     gameboard,
     opposingGameboard,
     possibleMoves: Array(opposingGameboard.getSquares()),
@@ -43,6 +48,7 @@ const Player = (name, gameboard, opposingGameboard, species) => {
   };
   return {
     ...nameGetter(state),
+    ...idGetter(state),
     ...speciesGetter(state),
     ...opposingGameboardGetter(state),
     ...attacker(state),

@@ -8,8 +8,20 @@ player1Gameboard.init();
 const player2Gameboard = Gameboard();
 player2Gameboard.init();
 
-const player1 = Player("Alice", player1Gameboard, player2Gameboard, "computer");
-const player2 = Player("Bob", player2Gameboard, player1Gameboard, "human");
+const player1 = Player(
+  "Alice",
+  "player1",
+  player1Gameboard,
+  player2Gameboard,
+  "computer"
+);
+const player2 = Player(
+  "Bob",
+  "player2",
+  player2Gameboard,
+  player1Gameboard,
+  "human"
+);
 
 player1Gameboard.addShip("Mothership", ["20", "30", "40", "50", "60", "70"]);
 player1Gameboard.addShip("Battleship", ["29", "39", "49", "59", "69"]);
@@ -23,24 +35,14 @@ player2Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
 player2Gameboard.addShip("Gunship", ["24", "34", "44"]);
 player2Gameboard.addShip("Starfighter", ["25", "35"]);
 
-const currentPlayerSetter = (state) => ({
-  setCurrentPlayer: (player) => {
-    state.currentPlayer = player;
+const currentPhaseGetter = (state) => ({
+  getCurrentPhase: () => state.currentPhase,
+});
+
+const currentPhaseSetter = (state) => ({
+  setCurrentPhase: (newPhase) => {
+    state.currentPhase = newPhase;
   },
-});
-
-const currentPlayerGetter = (state) => ({
-  getCurrentPlayer: () => state.currentPlayer,
-});
-
-const opposingPlayerSetter = (state) => ({
-  setOpposingPlayer: (player) => {
-    state.opposingPlayer = player;
-  },
-});
-
-const opposingPlayerGetter = (state) => ({
-  getOpposingPlayer: () => state.opposingPlayer,
 });
 
 const gameInProgressGetter = (state) => ({
@@ -50,6 +52,26 @@ const gameInProgressGetter = (state) => ({
 const gameInProgressSetter = (state) => ({
   setGameInProgress: (boolean) => {
     state.gameInProgress = boolean;
+  },
+});
+
+const currentPlayerGetter = (state) => ({
+  getCurrentPlayer: () => state.currentPlayer,
+});
+
+const currentPlayerSetter = (state) => ({
+  setCurrentPlayer: (player) => {
+    state.currentPlayer = player;
+  },
+});
+
+const opposingPlayerGetter = (state) => ({
+  getOpposingPlayer: () => state.opposingPlayer,
+});
+
+const opposingPlayerSetter = (state) => ({
+  setOpposingPlayer: (player) => {
+    state.opposingPlayer = player;
   },
 });
 
@@ -79,17 +101,20 @@ const turnEvaluator = (state) => ({
 const gameController = (() => {
   const state = {
     gameInProgress: false,
+    currentPhase: null,
     currentPlayer: player1,
     opposingPlayer: player2,
   };
 
   return {
-    ...currentPlayerSetter(state),
-    ...currentPlayerGetter(state),
-    ...opposingPlayerSetter(state),
-    ...opposingPlayerGetter(state),
     ...gameInProgressGetter(state),
     ...gameInProgressSetter(state),
+    ...currentPhaseGetter(state),
+    ...currentPhaseSetter(state),
+    ...currentPlayerGetter(state),
+    ...currentPlayerSetter(state),
+    ...opposingPlayerGetter(state),
+    ...opposingPlayerSetter(state),
     ...turnEvaluator(state),
   };
 })();

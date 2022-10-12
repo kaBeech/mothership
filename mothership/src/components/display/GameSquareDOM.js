@@ -11,26 +11,59 @@ class GameSquareDOM extends Component {
       sunkShip: false,
     };
 
+    this.getSelf = this.getSelf.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.guess = this.guess.bind(this);
     this.setShip = this.setShip.bind(this);
     this.sinkShip = this.sinkShip.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+  }
+
+  getSelf() {
+    const self = document.getElementById(this.props.gameSquareID);
+    return self;
   }
 
   handleClick() {
     console.log("Handle click!");
-    const thisSquare = document.getElementById(this.props.gameSquareID);
-    if (this.state.guessed === true) {
+
+    // If current player's board is clicked during a setup phase,
+    // process a ship placement
+    if (
+      this.props.player === gameController.getCurrentPlayer().getID() &&
+      gameController.getCurrentPhase() == null
+      // gameController.getCurrentPhase() == ("setup")
+    ) {
+      if (this.state.hasShip === false) {
+        this.setShip();
+        this.getSelf().style.backgroundColor = "#00ff00";
+        return true;
+      }
       return false;
     }
-    if (this.state.hasShip === false) {
-      this.guess();
-      thisSquare.style.backgroundColor = "#0000ff";
-      return true;
+
+    // If opposing player's board is clicked during an attack phase,
+    // process an attack
+    if (
+      this.props.player === gameController.getOpposingPlayer().getID() &&
+      gameController.getCurrentPhase() == null
+      // gameController.getCurrentPhase() == ("attack")
+    ) {
+      if (this.state.guessed === true) {
+        return false;
+      }
+      if (this.state.hasShip === false) {
+        this.guess();
+        this.getSelf().style.backgroundColor = "#0000ff";
+        return true;
+      }
+      if (this.state.hasShip === true) {
+        this.guess();
+        this.getSelf().style.backgroundColor = "#ffff00";
+        return true;
+      }
     }
-    this.guess();
-    thisSquare.style.backgroundColor = "#ffff00";
-    return true;
+
+    return false;
   }
 
   guess() {
@@ -43,17 +76,13 @@ class GameSquareDOM extends Component {
     this.setState({
       hasShip: true,
     });
-    if (this.props.owner === gameController.getCurrentPlayer()) {
-      console.log("success!");
-    }
   }
 
   sinkShip() {
     this.setState({
       sunkShip: true,
     });
-    const thisSquare = document.getElementById(this.props.gameSquareID);
-    thisSquare.style.backgroundColor = "#ff0000";
+    this.getSelf().style.backgroundColor = "#ff0000";
   }
 
   render() {
@@ -62,6 +91,7 @@ class GameSquareDOM extends Component {
         id={this.props.gameSquareID}
         className="gameSquare"
         onClick={this.handleClick}
+        // onClick={this.setShip}
       ></div>
     );
   }
