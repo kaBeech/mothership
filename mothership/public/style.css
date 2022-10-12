@@ -17,3 +17,8 @@ body {
   margin: 1rem;
   font-size: 2rem;
 }
+
+.gameSquare {
+  border-width: 0.1rem;
+  border-style: solid;
+}
