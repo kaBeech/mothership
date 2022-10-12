@@ -10,34 +10,54 @@ class GameboardColumnDOM extends Component {
     return (
       <div className="gameboardColumn flex column">
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "0"}
+          gameSquareID={
+            this.props.columnNumber + "0" + "p" + this.props.player[6]
+          }
         />
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "1"}
+          gameSquareID={
+            this.props.columnNumber + "1" + "p" + this.props.player[6]
+          }
         />
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "2"}
+          gameSquareID={
+            this.props.columnNumber + "2" + "p" + this.props.player[6]
+          }
         />
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "3"}
+          gameSquareID={
+            this.props.columnNumber + "3" + "p" + this.props.player[6]
+          }
         />
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "4"}
+          gameSquareID={
+            this.props.columnNumber + "4" + "p" + this.props.player[6]
+          }
         />
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "5"}
+          gameSquareID={
+            this.props.columnNumber + "5" + "p" + this.props.player[6]
+          }
         />
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "6"}
+          gameSquareID={
+            this.props.columnNumber + "6" + "p" + this.props.player[6]
+          }
         />
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "7"}
+          gameSquareID={
+            this.props.columnNumber + "7" + "p" + this.props.player[6]
+          }
         />
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "8"}
+          gameSquareID={
+            this.props.columnNumber + "8" + "p" + this.props.player[6]
+          }
         />
         <GameSquareDOM
-          gameSquareID={this.props.player + this.props.columnNumber + "9"}
+          gameSquareID={
+            this.props.columnNumber + "9" + "p" + this.props.player[6]
+          }
         />
       </div>
     );

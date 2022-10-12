@@ -14,13 +14,13 @@ class App extends Component {
               YOUR BOARD
             </h2>
             <div className="flex column">
-              <GameboardDOM player="p1" />
+              <GameboardDOM player="player1" />
               <div className="button">Start Game</div>
             </div>
           </div>
           <div className="flex">
             <div className="flex column">
-              <GameboardDOM player="p2" />
+              <GameboardDOM player="player2" />
               <div className="button">Rules</div>
             </div>
             <h2 id="opposingBoardLabel" className="gameboardLabel vertText">

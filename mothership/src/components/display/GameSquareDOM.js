@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import gameController from "./gameController";
+import gameController from "../backend/gameController";
 
 class GameSquareDOM extends Component {
   constructor(props) {
@@ -43,9 +43,9 @@ class GameSquareDOM extends Component {
     this.setState({
       hasShip: true,
     });
-    // if (this.props.owner === gameController.getCurrentPlayer()) {
-    //   console.log("success!")
-    // }
+    if (this.props.owner === gameController.getCurrentPlayer()) {
+      console.log("success!");
+    }
   }
 
   sinkShip() {
