@@ -5,8 +5,12 @@ class GameSquareDOM extends Component {
     super(props);
   }
 
-  handleClick() {
+  handleClick(targetSquareID) {
     console.log("Handle click!");
+    const targetSquare = document.getElementById(targetSquareID);
+    targetSquare.style.backgroundColor = "#00ff88";
+    const testTarget = document.getElementById("p101");
+    testTarget.style.backgroundColor = "#0088ff";
   }
 
   render() {
@@ -14,7 +18,7 @@ class GameSquareDOM extends Component {
       <div
         id={this.props.gameSquareID}
         className="gameSquare"
-        onClick={this.handleClick}
+        onClick={() => this.handleClick(this.props.gameSquareID)}
       >
         Hola Mundo!
       </div>
