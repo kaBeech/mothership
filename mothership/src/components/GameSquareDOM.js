@@ -58,9 +58,7 @@ class GameSquareDOM extends Component {
         id={this.props.gameSquareID}
         className="gameSquare"
         onClick={this.handleClick}
-      >
-        Hola Mundo!
-      </div>
+      ></div>
     );
   }
 }
