@@ -13,6 +13,22 @@ class GameSquareDOM extends Component {
     this.guess = this.guess.bind(this);
     this.setShip = this.setShip.bind(this);
     this.sinkShip = this.sinkShip.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    console.log("Handle click!");
+    const thisSquare = document.getElementById(this.props.gameSquareID);
+    if (this.state.guessed === true) {
+      return false;
+    }
+    if (this.state.hasShip === false) {
+      this.guess();
+      thisSquare.style.backgroundColor = "#0000ff";
+      return true;
+    }
+    thisSquare.style.backgroundColor = "#ffff00";
+    return true;
   }
 
   guess() {
@@ -31,14 +47,8 @@ class GameSquareDOM extends Component {
     this.setState({
       sunkShip: true,
     });
-  }
-
-  handleClick(targetSquareID) {
-    console.log("Handle click!");
-    const targetSquare = document.getElementById(targetSquareID);
-    targetSquare.style.backgroundColor = "#00ff88";
-    const testTarget = document.getElementById("p101");
-    testTarget.style.backgroundColor = "#0088ff";
+    const thisSquare = document.getElementById(this.props.gameSquareID);
+    thisSquare.style.backgroundColor = "#ff0000";
   }
 
   render() {
@@ -46,7 +56,7 @@ class GameSquareDOM extends Component {
       <div
         id={this.props.gameSquareID}
         className="gameSquare"
-        onClick={() => this.handleClick(this.props.gameSquareID)}
+        onClick={this.handleClick}
       >
         Hola Mundo!
       </div>
