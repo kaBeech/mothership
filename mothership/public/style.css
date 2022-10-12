@@ -5,8 +5,15 @@ body {
 
 .flex {
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .column {
   flex-direction: column;
+}
+
+.button {
+  margin: 1rem;
+  font-size: 2rem;
 }
