@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import DisplayController from "./components/display/DisplayController";
+import domController from "./components/display/domController";
 import GameboardDOM from "./components/display/GameboardDOM";
+import StatusMessage from "./components/display/StatusMessage";
 
 class App extends Component {
   render() {
     return (
       <div className="flex column">
-        <h1> *MOTHERSHIP* </h1>
-        <DisplayController />
+        <h1> * MOTHERSHIP * </h1>
+        <StatusMessage />
         <div id="cardSection" className="flex">
           <div className="flex">
             <h2 id="playerBoardLabel" className="gameboardLabel vertText">
