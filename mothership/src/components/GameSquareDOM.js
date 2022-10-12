@@ -27,6 +27,7 @@ class GameSquareDOM extends Component {
       thisSquare.style.backgroundColor = "#0000ff";
       return true;
     }
+    this.guess();
     thisSquare.style.backgroundColor = "#ffff00";
     return true;
   }
