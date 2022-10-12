@@ -1,0 +1,12 @@
+body {
+  background-color: #000810;
+  color: #eff8ff;
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
