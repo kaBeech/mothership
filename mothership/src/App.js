@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import domController from "./components/display/domController";
 import GameboardDOM from "./components/display/GameboardDOM";
 import StatusMessage from "./components/display/StatusMessage";
 
