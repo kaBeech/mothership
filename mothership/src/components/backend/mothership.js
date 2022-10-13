@@ -2,15 +2,6 @@
 import displayController from "../display/displayController";
 import gameController from "./gameController";
 
-const promptPlayer = (mothership) => {
-  const currentPlayer = gameController.getCurrentPlayer();
-  if (currentPlayer.getSpecies() === "computer") {
-    const attackSelection = currentPlayer.attackRandomly();
-    return mothership.evalTurn(attackSelection);
-  }
-  return displayController.showTurnNotification();
-};
-
 const currentPhaseGetter = (state) => ({
   getCurrentPhase: () => state.currentPhase,
 });
@@ -35,17 +26,17 @@ const opposingPlayerSetter = () => ({
   },
 });
 
-const gameStarter = () => ({
+const gameStarter = (state) => ({
   startGame: function startGame() {
     if (!gameController.getGameInProgress()) {
       gameController.setGameInProgress(true);
-      return promptPlayer(this);
+      return state.promptPlayer();
     }
     return console.log("error");
   },
 });
 
-const turnEvaluator = () => ({
+const turnEvaluator = (state) => ({
   evalTurn: function evalTurn(attackSelection) {
     const gameSquareID = `${attackSelection}p${
       gameController.getOpposingPlayer().getID()[6]
@@ -65,7 +56,7 @@ const turnEvaluator = () => ({
       }
       gameController.setCurrentPlayer(gameController.getOpposingPlayer());
       gameController.setOpposingPlayer(currentPlayer);
-      return promptPlayer(this);
+      return state.promptPlayer();
     }
     return console.log("error");
   },
@@ -84,6 +75,14 @@ const mothership = (() => {
     currentPhase: gameController.getCurrentPhase(),
     currentPlayer: gameController.getCurrentPlayer(),
     opposingPlayer: gameController.getOpposingPlayer(),
+    promptPlayer: () => {
+      const currentPlayer = gameController.getCurrentPlayer();
+      if (currentPlayer.getSpecies() === "computer") {
+        const attackSelection = currentPlayer.attackRandomly();
+        return mothership.evalTurn(attackSelection);
+      }
+      return displayController.showTurnNotification();
+    },
   };
 
   return {

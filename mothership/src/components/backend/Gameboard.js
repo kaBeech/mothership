@@ -20,7 +20,7 @@ const initializer = (state) => ({
   init: () => {
     for (let i = 0; i < 100; i += 1) {
       let squareName = `${i}`;
-      if (i <= 10) {
+      if (i < 10) {
         squareName = `0${squareName}`;
       }
       const square = Square(squareName);
