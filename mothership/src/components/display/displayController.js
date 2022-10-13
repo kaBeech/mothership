@@ -1,7 +1,5 @@
 import mothership from "../backend/mothership";
 
-const statusMessage = document.getElementById("statusMessage");
-
 const shipShower = (state) => ({
   showShip: (gameSquareID) => {
     const gameSquare = document.getElementById(gameSquareID);
@@ -13,7 +11,9 @@ const missShower = (state) => ({
   showMiss: (gameSquareID) => {
     const gameSquare = document.getElementById(gameSquareID);
     gameSquare.classList.add("guessed");
-    statusMessage.textContent = `${state.currentPlayer.getName()} missed!`;
+    state.getStatusMessage().textContent = `${state
+      .getCurrentPlayer()
+      .getName()} missed!`;
   },
 });
 
@@ -22,7 +22,9 @@ const hitShower = (state) => ({
     const gameSquare = document.getElementById(gameSquareID);
     gameSquare.classList.add("guessed");
     gameSquare.classList.add("hitShip");
-    statusMessage.textContent = `${state.currentPlayer.getName()} hit!`;
+    state.getStatusMessage().textContent = `${state
+      .getCurrentPlayer()
+      .getName()} hit!`;
   },
 });
 
@@ -32,21 +34,26 @@ const sunkShower = (state) => ({
     gameSquare.classList.add("guessed");
     gameSquare.classList.add("hitShip");
     gameSquare.classList.add("sunkShip");
-    statusMessage.textContent = `${state.currentPlayer.getName()} sunk a ship!`;
+    state.getStatusMessage().textContent = `${state
+      .getCurrentPlayer()
+      .getName()} sunk a ship!`;
   },
 });
 
 const winShower = (state) => ({
   showWin: () => {
-    statusMessage.textContent = `${state.currentPlayer.getName()} Won!!!`;
+    state.getStatusMessage().textContent = `${state
+      .getCurrentPlayer()
+      .getName()} Won!!!`;
   },
 });
 
 const displayController = (() => {
   const state = {
-    currentPhase: () => mothership.getCurrentPhase(),
-    currentPlayer: () => mothership.getCurrentPlayer(),
-    opposingPlayer: () => mothership.getOpposingPlayer(),
+    getCurrentPhase: () => mothership.getCurrentPhase(),
+    getCurrentPlayer: () => mothership.getCurrentPlayer(),
+    getOpposingPlayer: () => mothership.getOpposingPlayer(),
+    getStatusMessage: () => document.getElementById("statusMessage"),
   };
 
   return {
