@@ -8,7 +8,7 @@ const promptPlayer = (mothership) => {
     const attackSelection = currentPlayer.attackRandomly();
     return mothership.evalTurn(attackSelection);
   }
-  return console.log(`${currentPlayer}'s Turn!`);
+  return displayController.showTurnNotification();
 };
 
 const currentPhaseGetter = (state) => ({
@@ -46,7 +46,10 @@ const gameStarter = () => ({
 });
 
 const turnEvaluator = () => ({
-  evalTurn: function evalTurn(attackSelection, gameSquareID) {
+  evalTurn: function evalTurn(attackSelection) {
+    const gameSquareID = `${attackSelection}p${
+      gameController.getOpposingPlayer().getID()[6]
+    }`;
     if (gameController.getGameInProgress()) {
       const currentPlayer = gameController.getCurrentPlayer();
       const result = gameController.evalTurn(attackSelection);
@@ -72,7 +75,7 @@ const attackSelectionReceiver = (state) => ({
   receiveAttackSelection: (gameSquareID) => {
     const targetSquareName = gameSquareID.slice(0, 2);
     const attackSelection = state.currentPlayer.attack(targetSquareName);
-    return mothership.evalTurn(attackSelection, gameSquareID);
+    return mothership.evalTurn(attackSelection);
   },
 });
 

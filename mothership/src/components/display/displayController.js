@@ -48,6 +48,14 @@ const winShower = (state) => ({
   },
 });
 
+const turnNotificationShower = (state) => ({
+  showTurnNotification: () => {
+    state.getStatusMessage().textContent = `${state
+      .getCurrentPlayer()
+      .getName()}'s Turn`;
+  },
+});
+
 const displayController = (() => {
   const state = {
     getCurrentPhase: () => mothership.getCurrentPhase(),
@@ -62,6 +70,7 @@ const displayController = (() => {
     ...hitShower(state),
     ...sunkShower(state),
     ...winShower(state),
+    ...turnNotificationShower(state),
   };
 })();
 

@@ -19,6 +19,22 @@ const randomPicker = () => ({
   },
 });
 
+// Rethink this
+const randomPickerFromArray = () => ({
+  pickRandomFromArray: function pickRandom(possibleResultsArray) {
+    return possibleResultsArray[
+      this.getRandomInteger(0, possibleResultsArray.length)
+    ];
+  },
+});
+
+const randomPickerFromUnaryArray = () => ({
+  pickRandomFromUnaryArray: function pickRandom(possibleResultsUnaryArray) {
+    const possibleResults = possibleResultsUnaryArray[0];
+    return this.pickRandomFromArray(possibleResults);
+  },
+});
+
 const tools = (() => {
   const state = {
     name: "toolbox",
@@ -28,6 +44,8 @@ const tools = (() => {
     ...incrementedIndexGetter(state),
     ...randomIntegerGetter(state),
     ...randomPicker(state),
+    ...randomPickerFromArray(state),
+    ...randomPickerFromUnaryArray(state),
   };
 })();
 

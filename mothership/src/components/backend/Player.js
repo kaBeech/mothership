@@ -10,7 +10,8 @@ const nameGetter = (state) => ({
 
 const possibleMoveRemover = (state) => ({
   removePossibleMove: (targetSquareName) => {
-    const targetSquare = state.opposingGameboard.getSquares[+targetSquareName];
+    const targetSquare =
+      state.opposingGameboard.getSquares()[+targetSquareName];
     state.possibleMoves.splice(state.possibleMoves.indexOf(targetSquare), 1);
   },
 });
@@ -24,7 +25,8 @@ const attacker = () => ({
 
 const randomAttacker = (state) => ({
   attackRandomly: function attackRandomly() {
-    const targetSquareName = tools.pickRandom(state.possibleMoves);
+    const targetSquare = tools.pickRandomFromArray(state.possibleMoves);
+    const targetSquareName = targetSquare.getName();
     return this.attack(targetSquareName);
   },
 });
@@ -43,7 +45,7 @@ const Player = (name, id, gameboard, opposingGameboard, species) => {
     id,
     gameboard,
     opposingGameboard,
-    possibleMoves: Array(opposingGameboard.getSquares()),
+    possibleMoves: opposingGameboard.getSquares(),
     species,
   };
   return {
