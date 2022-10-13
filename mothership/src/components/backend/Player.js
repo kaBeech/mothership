@@ -45,7 +45,7 @@ const Player = (name, id, gameboard, opposingGameboard, species) => {
     id,
     gameboard,
     opposingGameboard,
-    possibleMoves: opposingGameboard.getSquares(),
+    possibleMoves: opposingGameboard.getSquares().slice(),
     species,
   };
   return {
