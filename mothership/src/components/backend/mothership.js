@@ -70,7 +70,7 @@ const turnEvaluator = () => ({
 
 const attackSelectionReceiver = (state) => ({
   receiveAttackSelection: (gameSquareID) => {
-    const targetSquareName = gameSquareID.slice(2, 4);
+    const targetSquareName = gameSquareID.slice(0, 2);
     const attackSelection = state.currentPlayer.attack(targetSquareName);
     return mothership.evalTurn(attackSelection, gameSquareID);
   },
