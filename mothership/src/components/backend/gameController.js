@@ -35,16 +35,6 @@ player0Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
 player0Gameboard.addShip("Gunship", ["24", "34", "44"]);
 player0Gameboard.addShip("Starfighter", ["25", "35"]);
 
-const currentPhaseGetter = (state) => ({
-  getCurrentPhase: () => state.currentPhase,
-});
-
-const currentPhaseSetter = (state) => ({
-  setCurrentPhase: (newPhase) => {
-    state.currentPhase = newPhase;
-  },
-});
-
 const gameInProgressGetter = (state) => ({
   getGameInProgress: () => state.gameInProgress,
 });
@@ -52,6 +42,16 @@ const gameInProgressGetter = (state) => ({
 const gameInProgressSetter = (state) => ({
   setGameInProgress: (boolean) => {
     state.gameInProgress = boolean;
+  },
+});
+
+const currentPhaseGetter = (state) => ({
+  getCurrentPhase: () => state.currentPhase,
+});
+
+const currentPhaseSetter = (state) => ({
+  setCurrentPhase: (newPhase) => {
+    state.currentPhase = newPhase;
   },
 });
 
