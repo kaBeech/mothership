@@ -1,5 +1,13 @@
 import tools from "./tools";
 
+type Species = "human" | "computer";
+
+interface Gameboard {
+  getSquares: Function;
+}
+
+type SquareName = `${number}${number}`;
+
 const idGetter = (state) => ({
   getID: () => state.id,
 });
@@ -9,7 +17,7 @@ const nameGetter = (state) => ({
 });
 
 const possibleMoveRemover = (state) => ({
-  removePossibleMove: (targetSquareName) => {
+  removePossibleMove: (targetSquareName: SquareName) => {
     const targetSquare =
       state.opposingGameboard.getSquares()[+targetSquareName];
     state.possibleMoves.splice(state.possibleMoves.indexOf(targetSquare), 1);
@@ -40,7 +48,13 @@ const opposingGameboardGetter = (state) => ({
   getOpposingGameboard: () => state.opposingGameboard,
 });
 
-const Player = (name, id, gameboard, opposingGameboard, species) => {
+const Player = (
+  name: string,
+  id: string,
+  gameboard: Gameboard,
+  opposingGameboard: Gameboard,
+  species: Species
+) => {
   const state = {
     name,
     id,
