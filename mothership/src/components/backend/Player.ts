@@ -17,7 +17,7 @@ const possibleMoveRemover = (state) => ({
 });
 
 const attacker = (state) => ({
-  attack: function attack(targetSquareName) {
+  attack: function attack(targetSquareName: string) {
     this.removePossibleMove(targetSquareName);
     console.log(state.possibleMoves);
     return targetSquareName;

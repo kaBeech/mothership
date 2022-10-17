@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import Gameboard from "./Gameboard";
-import Player from "./Player";
+import Player from "./Player.ts";
 
 const player1Gameboard = Gameboard();
 player1Gameboard.init();
