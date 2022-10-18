@@ -29,7 +29,7 @@ const initializer = (state: GameboardState) => ({
       if (i < 10) {
         squareName = `0${squareName}`;
       }
-      const square = Square(squareName);
+      const square = Square(squareName as SquareName);
       state.squares.push(square);
     }
   },
