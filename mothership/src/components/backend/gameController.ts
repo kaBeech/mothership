@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import Gameboard from "./Gameboard";
-import Player from "./Player.ts";
+import Player from "./Player";
 
 const player1Gameboard = Gameboard();
 player1Gameboard.init();
@@ -40,7 +40,7 @@ const gameInProgressGetter = (state) => ({
 });
 
 const gameInProgressSetter = (state) => ({
-  setGameInProgress: (boolean) => {
+  setGameInProgress: (boolean: boolean) => {
     state.gameInProgress = boolean;
   },
 });
