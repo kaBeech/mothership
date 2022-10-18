@@ -3,15 +3,24 @@ import { Gameboard, Species } from "./types";
 
 type SquareName = `${number}${number}`;
 
-const idGetter = (state) => ({
+interface PlayerState {
+  name: string;
+  id: string;
+  gameboard: Gameboard;
+  opposingGameboard: Gameboard;
+  possibleMoves: Array<SquareName>;
+  species: Species;
+}
+
+const idGetter = (state: PlayerState) => ({
   getID: () => state.id,
 });
 
-const nameGetter = (state) => ({
+const nameGetter = (state: PlayerState) => ({
   getName: () => state.name,
 });
 
-const possibleMoveRemover = (state) => ({
+const possibleMoveRemover = (state: PlayerState) => ({
   removePossibleMove: (targetSquareName: SquareName) => {
     const targetSquare =
       state.opposingGameboard.getSquares()[+targetSquareName];
@@ -19,7 +28,7 @@ const possibleMoveRemover = (state) => ({
   },
 });
 
-const attacker = (state) => ({
+const attacker = (state: PlayerState) => ({
   attack: function attack(targetSquareName: string) {
     this.removePossibleMove(targetSquareName);
     console.log(state.possibleMoves);
@@ -27,7 +36,7 @@ const attacker = (state) => ({
   },
 });
 
-const randomAttacker = (state) => ({
+const randomAttacker = (state: PlayerState) => ({
   attackRandomly: function attackRandomly() {
     const targetSquare = tools.pickRandomFromArray(state.possibleMoves);
     const targetSquareName = targetSquare.getName();
@@ -35,11 +44,11 @@ const randomAttacker = (state) => ({
   },
 });
 
-const speciesGetter = (state) => ({
+const speciesGetter = (state: PlayerState) => ({
   getSpecies: () => state.species,
 });
 
-const opposingGameboardGetter = (state) => ({
+const opposingGameboardGetter = (state: PlayerState) => ({
   getOpposingGameboard: () => state.opposingGameboard,
 });
 
