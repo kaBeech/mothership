@@ -1,6 +1,14 @@
 /* eslint-disable no-param-reassign */
 import Gameboard from "./Gameboard";
 import Player from "./Player";
+import type { Player as PlayerType, SquareName, GamePhase } from "./types";
+
+interface gameControllerState {
+  gameInProgress: boolean;
+  currentPhase: GamePhase;
+  currentPlayer: PlayerType;
+  opposingPlayer: PlayerType;
+}
 
 const player1Gameboard = Gameboard();
 player1Gameboard.init();
@@ -35,48 +43,48 @@ player0Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
 player0Gameboard.addShip("Gunship", ["24", "34", "44"]);
 player0Gameboard.addShip("Starfighter", ["25", "35"]);
 
-const gameInProgressGetter = (state) => ({
+const gameInProgressGetter = (state: gameControllerState) => ({
   getGameInProgress: () => state.gameInProgress,
 });
 
-const gameInProgressSetter = (state) => ({
+const gameInProgressSetter = (state: gameControllerState) => ({
   setGameInProgress: (boolean: boolean) => {
     state.gameInProgress = boolean;
   },
 });
 
-const currentPhaseGetter = (state) => ({
+const currentPhaseGetter = (state: gameControllerState) => ({
   getCurrentPhase: () => state.currentPhase,
 });
 
-const currentPhaseSetter = (state) => ({
+const currentPhaseSetter = (state: gameControllerState) => ({
   setCurrentPhase: (newPhase) => {
     state.currentPhase = newPhase;
   },
 });
 
-const currentPlayerGetter = (state) => ({
+const currentPlayerGetter = (state: gameControllerState) => ({
   getCurrentPlayer: () => state.currentPlayer,
 });
 
-const currentPlayerSetter = (state) => ({
-  setCurrentPlayer: (player) => {
+const currentPlayerSetter = (state: gameControllerState) => ({
+  setCurrentPlayer: (player: PlayerType) => {
     state.currentPlayer = player;
   },
 });
 
-const opposingPlayerGetter = (state) => ({
+const opposingPlayerGetter = (state: gameControllerState) => ({
   getOpposingPlayer: () => state.opposingPlayer,
 });
 
-const opposingPlayerSetter = (state) => ({
-  setOpposingPlayer: (player) => {
+const opposingPlayerSetter = (state: gameControllerState) => ({
+  setOpposingPlayer: (player: PlayerType) => {
     state.opposingPlayer = player;
   },
 });
 
-const turnEvaluator = (state) => ({
-  evalTurn: function evalTurn(targetSquare) {
+const turnEvaluator = (state: gameControllerState) => ({
+  evalTurn: function evalTurn(targetSquare: SquareName) {
     const { currentPlayer } = state;
     const result = currentPlayer
       .getOpposingGameboard()

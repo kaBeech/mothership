@@ -1,7 +1,5 @@
 import tools from "./tools";
-import { Gameboard, Species } from "./types";
-
-type SquareName = `${number}${number}`;
+import { Gameboard, Species, SquareName } from "./types";
 
 interface PlayerState {
   name: string;

@@ -9,4 +9,18 @@ interface Gameboard {
   checkWin: Function;
 }
 
-export { Species, Gameboard };
+interface Player {
+  getName: Function;
+  getID: Function;
+  getSpecies: Function;
+  getOpposingGameboard: Function;
+  attack: Function;
+  attackRandomly: Function;
+  removePossibleMove: Function;
+}
+
+type SquareName = `${number}${number}`;
+
+type GamePhase = string | null;
+
+export { Species, Gameboard, SquareName, Player, GamePhase };
