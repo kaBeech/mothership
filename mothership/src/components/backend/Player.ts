@@ -27,7 +27,7 @@ const possibleMoveRemover = (state: PlayerState) => ({
 });
 
 const attacker = (state: PlayerState) => ({
-  attack: function attack(targetSquareName: string) {
+  attack: function attack(targetSquareName: SquareName) {
     this.removePossibleMove(targetSquareName);
     console.log(state.possibleMoves);
     return targetSquareName;

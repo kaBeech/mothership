@@ -1,12 +1,18 @@
 import Ship from "./Ship";
 import Square from "./Square";
+import { SquareName, Ship as ShipType, GameSquare, ShipName } from "./types";
 
-const squareGetter = (state) => ({
+interface GameboardState {
+  squares: Array<GameSquare>;
+  unsunkShips: Array<ShipType>;
+}
+
+const squareGetter = (state: GameboardState) => ({
   getSquares: () => state.squares,
 });
 
-const attackReceiver = (state) => ({
-  receiveAttack: (squareName) => {
+const attackReceiver = (state: GameboardState) => ({
+  receiveAttack: (squareName: SquareName) => {
     const targetSquare = state.squares[+squareName];
     targetSquare.setGuessed(true);
     if (targetSquare.getShip() === null) {
@@ -16,7 +22,7 @@ const attackReceiver = (state) => ({
   },
 });
 
-const initializer = (state) => ({
+const initializer = (state: GameboardState) => ({
   init: () => {
     for (let i = 0; i < 100; i += 1) {
       let squareName = `${i}`;
@@ -29,21 +35,21 @@ const initializer = (state) => ({
   },
 });
 
-const shipAdder = (state) => ({
-  addShip: function addShip(name, segments) {
+const shipAdder = (state: GameboardState) => ({
+  addShip: function addShip(name: ShipName, segments: Array<SquareName>) {
     const ship = Ship(name, this, segments);
     state.unsunkShips.push(ship);
     ship.placeShip();
   },
 });
 
-const shipSinker = (state) => ({
-  sinkShip: (ship) => {
+const shipSinker = (state: GameboardState) => ({
+  sinkShip: (ship: ShipType) => {
     state.unsunkShips.splice(state.unsunkShips.indexOf(ship), 1);
   },
 });
 
-const winChecker = (state) => ({
+const winChecker = (state: GameboardState) => ({
   checkWin: () => {
     if (state.unsunkShips.length === 0) {
       return true;

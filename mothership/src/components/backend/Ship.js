@@ -20,7 +20,7 @@ const damageTaker = (state) => ({
 });
 
 const sunkChecker = (state) => ({
-  isSunk: () => {
+  checkSunk: () => {
     if (state.hp === 0) {
       return true;
     }

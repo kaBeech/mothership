@@ -14,7 +14,7 @@ const shipSetter = (state) => ({
 });
 
 const guessedChecker = (state) => ({
-  isGuessed: () => state.guessed,
+  checkGuessed: () => state.guessed,
 });
 
 const guessedSetter = (state) => ({

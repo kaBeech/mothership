@@ -1,3 +1,5 @@
+import { type } from "os";
+
 type Species = "human" | "computer";
 
 interface Gameboard {
@@ -8,6 +10,29 @@ interface Gameboard {
   addShip: Function;
   checkWin: Function;
 }
+
+interface GameSquare {
+  getName: Function;
+  getShip: Function;
+  setShip: Function;
+  checkGuessed: Function;
+  setGuessed: Function;
+}
+
+interface Ship {
+  getName: Function;
+  getHP: Function;
+  takeDamage: Function;
+  placeShip: Function;
+  checkSunk: Function;
+}
+
+type ShipName =
+  | "Mothership"
+  | "Battleship"
+  | "Cruiser"
+  | "Gunship"
+  | "Starfighter";
 
 interface Player {
   getName: Function;
@@ -23,4 +48,13 @@ type SquareName = `${number}${number}`;
 
 type GamePhase = string | null;
 
-export { Species, Gameboard, SquareName, Player, GamePhase };
+export {
+  Species,
+  Gameboard,
+  GameSquare,
+  SquareName,
+  Ship,
+  ShipName,
+  Player,
+  GamePhase,
+};
