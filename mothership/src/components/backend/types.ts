@@ -1,5 +1,3 @@
-import { type } from "os";
-
 type Species = "human" | "computer";
 
 interface Gameboard {
