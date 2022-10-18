@@ -1,10 +1,5 @@
 import tools from "./tools";
-
-type Species = "human" | "computer";
-
-interface Gameboard {
-  getSquares: Function;
-}
+import { Gameboard, Species } from "./types";
 
 type SquareName = `${number}${number}`;
 
