@@ -1,13 +1,24 @@
 /* eslint-disable no-param-reassign */
-const nameGetter = (state) => ({
+
+import { Gameboard, SquareName } from "./types";
+
+interface ShipState {
+  name: string;
+  gameboard: Gameboard;
+  segments: Array<SquareName>;
+  length: number;
+  hp: number;
+}
+
+const nameGetter = (state: ShipState) => ({
   getName: () => state.name,
 });
 
-const hpGetter = (state) => ({
+const hpGetter = (state: ShipState) => ({
   getHP: () => state.hp,
 });
 
-const damageTaker = (state) => ({
+const damageTaker = (state: ShipState) => ({
   takeDamage: function takeDamage() {
     state.hp -= 1;
     if (this.isSunk()) {
@@ -19,7 +30,7 @@ const damageTaker = (state) => ({
   },
 });
 
-const sunkChecker = (state) => ({
+const sunkChecker = (state: ShipState) => ({
   checkSunk: () => {
     if (state.hp === 0) {
       return true;
@@ -28,7 +39,7 @@ const sunkChecker = (state) => ({
   },
 });
 
-const shipPlacer = (state) => ({
+const shipPlacer = (state: ShipState) => ({
   placeShip: function placeShip() {
     state.segments.forEach((segmentName) => {
       const segmentSquare = state.gameboard.getSquares()[+segmentName];
@@ -37,7 +48,11 @@ const shipPlacer = (state) => ({
   },
 });
 
-const Ship = (name, gameboard, segments) => {
+const Ship = (
+  name: string,
+  gameboard: Gameboard,
+  segments: Array<SquareName>
+) => {
   const state = {
     name,
     gameboard,
