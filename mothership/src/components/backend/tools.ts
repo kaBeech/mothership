@@ -1,5 +1,15 @@
+import { Integer } from "./types";
+
+interface ToolsState {
+  name: string;
+}
+
+const nameGetter = (state: ToolsState) => ({
+  getName: () => state.name,
+});
+
 const incrementedIndexGetter = () => ({
-  getIncrementedIndex: (array, value) => {
+  getIncrementedIndex: (array: Array<any>, value: Integer) => {
     let newIndex = array.indexOf(value) + 1;
     if (newIndex >= array.length) {
       newIndex = 0;
@@ -9,19 +19,19 @@ const incrementedIndexGetter = () => ({
 });
 
 const randomIntegerGetter = () => ({
-  getRandomInteger: (minInteger, range) =>
+  getRandomInteger: (minInteger: Integer, range: Integer) =>
     Math.floor(Math.random() * range) + minInteger,
 });
 
 const randomPicker = () => ({
-  pickRandom: function pickRandom(...possibleResults) {
+  pickRandom: function pickRandom(...possibleResults: any) {
     return possibleResults[this.getRandomInteger(0, possibleResults.length)];
   },
 });
 
 // Rethink this
 const randomPickerFromArray = () => ({
-  pickRandomFromArray: function pickRandom(possibleResultsArray) {
+  pickRandomFromArray: function pickRandom(possibleResultsArray: Array<any>) {
     return possibleResultsArray[
       this.getRandomInteger(0, possibleResultsArray.length)
     ];
@@ -29,7 +39,9 @@ const randomPickerFromArray = () => ({
 });
 
 const randomPickerFromUnaryArray = () => ({
-  pickRandomFromUnaryArray: function pickRandom(possibleResultsUnaryArray) {
+  pickRandomFromUnaryArray: function pickRandom(
+    possibleResultsUnaryArray: Array<any>
+  ) {
     const possibleResults = possibleResultsUnaryArray[0];
     return this.pickRandomFromArray(possibleResults);
   },
@@ -41,11 +53,12 @@ const tools = (() => {
   };
 
   return {
-    ...incrementedIndexGetter(state),
-    ...randomIntegerGetter(state),
-    ...randomPicker(state),
-    ...randomPickerFromArray(state),
-    ...randomPickerFromUnaryArray(state),
+    ...nameGetter(state),
+    ...incrementedIndexGetter(),
+    ...randomIntegerGetter(),
+    ...randomPicker(),
+    ...randomPickerFromArray(),
+    ...randomPickerFromUnaryArray(),
   };
 })();
 
