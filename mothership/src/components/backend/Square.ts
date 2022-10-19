@@ -19,6 +19,7 @@ const shipGetter = (state: SquareState) => ({
 const shipSetter = (state: SquareState) => ({
   setShip: (ship: Ship) => {
     state.ship = ship;
+    return "Ship set";
   },
 });
 
