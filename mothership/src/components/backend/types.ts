@@ -57,6 +57,7 @@ interface Player {
   getOpposingGameboard: Function;
   attack: Function;
   attackRandomly: Function;
+  getPossibleMoves: Function;
   removePossibleMove: Function;
 }
 

@@ -18,6 +18,10 @@ const nameGetter = (state: PlayerState) => ({
   getName: () => state.name,
 });
 
+const possibleMovesGetter = (state: PlayerState) => ({
+  getPossibleMoves: () => state.possibleMoves,
+});
+
 const possibleMoveRemover = (state: PlayerState) => ({
   removePossibleMove: (targetSquareName: SquareName) => {
     const targetSquare =
@@ -29,7 +33,6 @@ const possibleMoveRemover = (state: PlayerState) => ({
 const attacker = (state: PlayerState) => ({
   attack: function attack(targetSquareName: SquareName) {
     this.removePossibleMove(targetSquareName);
-    console.log(state.possibleMoves);
     return targetSquareName;
   },
 });
@@ -70,8 +73,9 @@ const Player = (
     ...idGetter(state),
     ...speciesGetter(state),
     ...opposingGameboardGetter(state),
-    ...attacker(state),
+    ...possibleMovesGetter(state),
     ...possibleMoveRemover(state),
+    ...attacker(state),
     ...randomAttacker(state),
   };
 };
