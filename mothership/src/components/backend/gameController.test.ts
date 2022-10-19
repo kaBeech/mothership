@@ -51,6 +51,9 @@ import gameController from "./gameController";
 //   expect(player0.attackRandomly()).toBe("You missed!");
 // });
 
+const player1 = gameController.getCurrentPlayer();
+const player0 = gameController.getOpposingPlayer();
+
 test("gets gameInProgress", () => {
   expect(gameController.getGameInProgress()).toBe(false);
 });
@@ -74,9 +77,8 @@ test("gets currentPlayer", () => {
   expect(gameController.getCurrentPlayer().getID()).toBe("player1");
 });
 
-test("sets currentPlayer", () => {
-  gameController.setCurrentPlayer(gameController.getOpposingPlayer());
-  expect(gameController.getCurrentPlayer().getID()).toBe("player0");
+test("gets opposingPlayer", () => {
+  expect(gameController.getOpposingPlayer().getID()).toBe("player0");
 });
 
 // test("setting currentPlayer with no arguments throws error", () => {
@@ -89,12 +91,13 @@ test("sets currentPlayer", () => {
 //   );
 // });
 
-test("gets opposingPlayer", () => {
-  expect(gameController.getOpposingPlayer().getID()).toBe("player0");
+test("sets currentPlayer", () => {
+  gameController.setCurrentPlayer(player0);
+  expect(gameController.getCurrentPlayer().getID()).toBe("player0");
 });
 
 test("sets opposingPlayer", () => {
-  gameController.setOpposingPlayer(gameController.getCurrentPlayer());
+  gameController.setOpposingPlayer(player1);
   expect(gameController.getOpposingPlayer().getID()).toBe("player1");
 });
 
@@ -109,9 +112,9 @@ test("sets opposingPlayer", () => {
 // });
 
 test("controller recognizes miss", () => {
-  expect(gameController.evalTurn("28")).toBe("miss");
+  expect(gameController.evalTurn("32")).toBe("miss");
 });
 
 test("controller recognizes hit", () => {
-  expect(gameController.evalTurn("32")).toBe("hit");
+  expect(gameController.evalTurn("28")).toBe("hit");
 });
