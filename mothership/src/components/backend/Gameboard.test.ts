@@ -28,11 +28,17 @@ test("initializing twice throws error", () => {
   expect(player1Gameboard.init()).toBe("Error - already initialized");
 });
 
-test("adding ship returns correct string", () => {
+test("adding ship returns a ship", () => {
   dummyGameboard.init();
-  expect(
-    dummyGameboard.addShip("Mothership", ["20", "30", "40", "50", "60", "70"])
-  ).toBe("Ship added");
+  const resultingShip = dummyGameboard.addShip("Mothership", [
+    "20",
+    "30",
+    "40",
+    "50",
+    "60",
+    "70",
+  ]);
+  expect(resultingShip.getName()).toBe("Mothership");
 });
 
 test("adding ship over an occupied square throws error", () => {

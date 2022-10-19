@@ -32,18 +32,16 @@ const initializer = (state: GameboardState) => ({
     if (state.initialized === true) {
       return "Error - already initialized";
     }
-    if (state.initialized === false) {
-      for (let i = 0; i < 100; i += 1) {
-        let squareName = `${i}`;
-        if (i < 10) {
-          squareName = `0${squareName}`;
-        }
-        const square = Square(squareName as SquareName);
-        state.squares.push(square);
+    for (let i = 0; i < 100; i += 1) {
+      let squareName = `${i}`;
+      if (i < 10) {
+        squareName = `0${squareName}`;
       }
-      setInitialized(state);
-      return "Initialized";
+      const square = Square(squareName as SquareName);
+      state.squares.push(square);
     }
+    setInitialized(state);
+    return "Initialized";
   },
 });
 
@@ -52,6 +50,7 @@ const shipAdder = (state: GameboardState) => ({
     const ship = Ship(name, this, segments);
     state.unsunkShips.push(ship);
     ship.placeShip();
+    return ship;
   },
 });
 
