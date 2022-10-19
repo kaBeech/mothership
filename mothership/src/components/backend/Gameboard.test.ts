@@ -54,7 +54,7 @@ test("gameboard recognizes hit", () => {
 });
 
 test("all tests written", () => {
-  expect(player0Gameboard.init()).toBe(
+  expect(true).toBe(
     "don't change this until tests have been added for .sinkShip and .checkWin"
   );
 });

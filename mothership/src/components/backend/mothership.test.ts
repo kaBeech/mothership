@@ -51,6 +51,6 @@ import mothership from "./mothership";
 //   expect(player0.attackRandomly()).toBe("You missed!");
 // });
 
-test.skip("game starts with computer move", () => {
-  expect(mothership.startGame()).toBe("You missed!");
+test("game starts with computer move", () => {
+  expect(mothership.startGame()).toBe("miss");
 });

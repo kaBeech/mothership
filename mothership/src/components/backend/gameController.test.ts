@@ -118,3 +118,7 @@ test("controller recognizes miss", () => {
 test("controller recognizes hit", () => {
   expect(gameController.evalTurn("28")).toBe("hit");
 });
+
+test("all tests written", () => {
+  expect(true).toBe(true);
+});

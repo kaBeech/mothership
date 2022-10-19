@@ -27,3 +27,7 @@ test("setGuessed sets guessed", () => {
   exampleSquare.setGuessed(true);
   expect(exampleSquare.checkGuessed()).toBe(true);
 });
+
+test("all tests written", () => {
+  expect(true).toBe(true);
+});
