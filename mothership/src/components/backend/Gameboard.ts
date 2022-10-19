@@ -5,6 +5,7 @@ import { SquareName, Ship as ShipType, GameSquare, ShipName } from "./types";
 interface GameboardState {
   squares: Array<GameSquare>;
   unsunkShips: Array<ShipType>;
+  initialized: boolean;
 }
 
 const squareGetter = (state: GameboardState) => ({
@@ -22,15 +23,26 @@ const attackReceiver = (state: GameboardState) => ({
   },
 });
 
+const setInitialized = (state: GameboardState) => {
+  state.initialized = true;
+};
+
 const initializer = (state: GameboardState) => ({
   init: () => {
-    for (let i = 0; i < 100; i += 1) {
-      let squareName = `${i}`;
-      if (i < 10) {
-        squareName = `0${squareName}`;
+    if (state.initialized === true) {
+      return "Error - already initialized";
+    }
+    if (state.initialized === false) {
+      for (let i = 0; i < 100; i += 1) {
+        let squareName = `${i}`;
+        if (i < 10) {
+          squareName = `0${squareName}`;
+        }
+        const square = Square(squareName as SquareName);
+        state.squares.push(square);
       }
-      const square = Square(squareName as SquareName);
-      state.squares.push(square);
+      setInitialized(state);
+      return "Initialized";
     }
   },
 });
@@ -60,13 +72,14 @@ const winChecker = (state: GameboardState) => ({
 
 const Gameboard = () => {
   const state = {
+    initialized: false,
     squares: [],
     unsunkShips: [],
   };
   return {
+    ...initializer(state),
     ...squareGetter(state),
     ...attackReceiver(state),
-    ...initializer(state),
     ...shipSinker(state),
     ...shipAdder(state),
     ...winChecker(state),
