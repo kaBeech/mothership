@@ -62,6 +62,8 @@ interface Player {
 
 type SquareName = `${SingleDigitString}${SingleDigitString}`;
 
+type GameSquareID = `${SquareName}p${SingleDigitString}`;
+
 type GamePhase = string | null;
 
 export {
@@ -73,6 +75,7 @@ export {
   Gameboard,
   GameSquare,
   SquareName,
+  GameSquareID,
   Ship,
   ShipName,
   Player,

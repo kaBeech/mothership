@@ -1,32 +1,40 @@
 /* eslint-disable no-param-reassign */
 import displayController from "../display/displayController";
 import gameController from "./gameController";
+import { GamePhase, GameSquareID, Player, SquareName } from "./types";
 
-const currentPhaseGetter = (state) => ({
+interface MothershipState {
+  currentPhase: GamePhase;
+  currentPlayer: Player;
+  opposingPlayer: Player;
+  promptPlayer: Function;
+}
+
+const currentPhaseGetter = (state: MothershipState) => ({
   getCurrentPhase: () => state.currentPhase,
 });
 
-const currentPlayerGetter = (state) => ({
+const currentPlayerGetter = (state: MothershipState) => ({
   getCurrentPlayer: () => state.currentPlayer,
 });
 
 const currentPlayerSetter = () => ({
-  setCurrentPlayer: (player) => {
+  setCurrentPlayer: (player: Player) => {
     gameController.setCurrentPlayer(player);
   },
 });
 
-const opposingPlayerGetter = (state) => ({
+const opposingPlayerGetter = (state: MothershipState) => ({
   getOpposingPlayer: () => state.opposingPlayer,
 });
 
 const opposingPlayerSetter = () => ({
-  setOpposingPlayer: (player) => {
+  setOpposingPlayer: (player: Player) => {
     gameController.setOpposingPlayer(player);
   },
 });
 
-const gameStarter = (state) => ({
+const gameStarter = (state: MothershipState) => ({
   startGame: function startGame() {
     if (!gameController.getGameInProgress()) {
       gameController.setGameInProgress(true);
@@ -36,8 +44,8 @@ const gameStarter = (state) => ({
   },
 });
 
-const turnEvaluator = (state) => ({
-  evalTurn: function evalTurn(attackSelection) {
+const turnEvaluator = (state: MothershipState) => ({
+  evalTurn: function evalTurn(attackSelection: SquareName) {
     const gameSquareID = `${attackSelection}p${
       gameController.getOpposingPlayer().getID()[6]
     }`;
@@ -62,8 +70,8 @@ const turnEvaluator = (state) => ({
   },
 });
 
-const attackSelectionReceiver = (state) => ({
-  receiveAttackSelection: (gameSquareID) => {
+const attackSelectionReceiver = (state: MothershipState) => ({
+  receiveAttackSelection: (gameSquareID: GameSquareID) => {
     const targetSquareName = gameSquareID.slice(0, 2);
     const attackSelection = state.currentPlayer.attack(targetSquareName);
     return mothership.evalTurn(attackSelection);
@@ -88,9 +96,9 @@ const mothership = (() => {
   return {
     ...currentPhaseGetter(state),
     ...currentPlayerGetter(state),
-    ...currentPlayerSetter(state),
+    ...currentPlayerSetter(),
     ...opposingPlayerGetter(state),
-    ...opposingPlayerSetter(state),
+    ...opposingPlayerSetter(),
     ...gameStarter(state),
     ...turnEvaluator(state),
     ...attackSelectionReceiver(state),
