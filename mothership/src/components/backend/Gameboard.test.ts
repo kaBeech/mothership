@@ -59,6 +59,14 @@ test("gameboard recognizes hit", () => {
   expect(player1Gameboard.receiveAttack("32")).toBe("miss");
 });
 
+// test.skip("sinking all ships wins game", () => {
+//   player1Gameboard.receiveAttack(26);
+//   player1Gameboard.sinkShip(player1AircraftCarrier);
+//   player1Gameboard.sinkShip(player1Cruiser);
+//   player1Gameboard.sinkShip(player1Frigate);
+//   expect(player1Gameboard.sinkShip(player1Frigate)).toBe("You win!");
+// });
+
 test("all tests written", () => {
   expect(true).toBe(
     "don't change this until tests have been added for .sinkShip and .checkWin"
