@@ -51,6 +51,12 @@ import mothership from "./mothership";
 //   expect(player0.attackRandomly()).toBe("You missed!");
 // });
 
-test("game starts with computer move", () => {
+test.skip("game starts with computer move", () => {
   expect(mothership.startGame()).toBe("miss");
+});
+
+test("all tests written", () => {
+  expect(true).toBe(
+    "don't change this until tests have been added for all public methods"
+  );
 });
