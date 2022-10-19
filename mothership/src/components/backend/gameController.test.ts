@@ -71,7 +71,7 @@ test("sets gameInProgress", () => {
 // });
 
 test("gets currentPlayer", () => {
-  expect(gameController.getCurrentPlayer()).toBe("player1");
+  expect(gameController.getCurrentPlayer().getID()).toBe("player1");
 });
 
 test("sets currentPlayer", () => {

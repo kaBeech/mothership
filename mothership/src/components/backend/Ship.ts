@@ -21,7 +21,7 @@ const hpGetter = (state: ShipState) => ({
 const damageTaker = (state: ShipState) => ({
   takeDamage: function takeDamage() {
     state.hp -= 1;
-    if (this.isSunk()) {
+    if (this.checkSunk()) {
       state.gameboard.sinkShip(this);
       return "sunk";
       // displaySunkMessage()
