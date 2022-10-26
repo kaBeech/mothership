@@ -9,11 +9,12 @@ const shipShower = (state) => ({
 
 const missShower = (state) => ({
   showMiss: (gameSquareID) => {
-    const gameSquare = document.getElementById(gameSquareID);
-    gameSquare.classList.add("guessed");
-    state.getStatusMessage().textContent = `${state
-      .getCurrentPlayer()
-      .getName()} missed!`;
+    console.log(document.getElementById(gameSquareID));
+    // const gameSquare = document.getElementById(gameSquareID);
+    // gameSquare.classList.add("guessed");
+    // state.getStatusMessage().textContent = `${state
+    //   .getCurrentPlayer()
+    //   .getName()} missed!`;
   },
 });
 
