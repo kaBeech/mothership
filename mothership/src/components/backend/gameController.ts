@@ -58,7 +58,7 @@ const currentPhaseGetter = (state: gameControllerState) => ({
 });
 
 const currentPhaseSetter = (state: gameControllerState) => ({
-  setCurrentPhase: (newPhase) => {
+  setCurrentPhase: (newPhase: GamePhase) => {
     state.currentPhase = newPhase;
   },
 });
