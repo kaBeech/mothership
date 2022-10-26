@@ -44,7 +44,7 @@ test("AddShip adds a ship", () => {
 test("Adding ship over an occupied square throws error", () => {
   expect(
     player1Gameboard.addShip("Battleship", ["20", "21", "22", "23", "24"])
-  ).toBe("Error - one or more squares already occupied");
+  ).toBe("Error: One or more squares already occupied: 20");
 });
 
 test("GetSquares gets 100 squares", () => {
@@ -92,14 +92,6 @@ test("CheckWin returns true after game has been won", () => {
   allPlayer0Hits.forEach(receiveAttack);
   expect(player0Gameboard.checkWin()).toBe(true);
 });
-
-// test.skip("sinking all ships wins game", () => {
-//   player1Gameboard.receiveAttack(26);
-//   player1Gameboard.sinkShip(player1AircraftCarrier);
-//   player1Gameboard.sinkShip(player1Cruiser);
-//   player1Gameboard.sinkShip(player1Frigate);
-//   expect(player1Gameboard.sinkShip(player1Frigate)).toBe("You win!");
-// });
 
 test("All tests written", () => {
   expect(true).toBe(true);
