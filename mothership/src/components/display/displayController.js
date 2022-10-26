@@ -50,9 +50,10 @@ const winShower = (state) => ({
 
 const turnNotificationShower = (state) => ({
   showTurnNotification: () => {
-    state.getStatusMessage().textContent = `${state
-      .getCurrentPlayer()
-      .getName()}'s Turn`;
+    console.log(document.getElementById("statusMessage"));
+    // state.getStatusMessage().textContent = `${state
+    //   .getCurrentPlayer()
+    //   .getName()}'s Turn`;
   },
 });
 
