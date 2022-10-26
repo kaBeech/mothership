@@ -1,38 +1,38 @@
 import Gameboard from "./Gameboard";
 import Ship from "./Ship";
 
-// test.skip("shows damage from getting hit", () => {
-//   player1Battleship.takeDamage();
-//   expect(player1Battleship.getHP()).toBe(4);
-// });
+const exampleGameboard = Gameboard();
+exampleGameboard.init();
+const exampleShip = Ship("Cruiser", exampleGameboard, ["41", "51", "61", "71"]);
 
-// test.skip("gets sunk", () => {
-//   player1Battleship.takeDamage();
-//   player1Battleship.takeDamage();
-//   player1Battleship.takeDamage();
-//   player1Battleship.takeDamage();
-//   expect(player1Battleship.isSunk()).toBe(true);
-// });
-
-const player0Gameboard = Gameboard();
-player0Gameboard.init();
-const exampleShip = player0Gameboard.addShip("Cruiser", [
-  "41",
-  "51",
-  "61",
-  "71",
-]);
-
-test("getName gets name", () => {
+test("Gets name", () => {
   expect(exampleShip.getName()).toBe("Cruiser");
 });
 
-test("getHP gets hp", () => {
+test("Gets hp", () => {
   expect(exampleShip.getHP()).toBe(4);
 });
 
+test("Gets segments", () => {
+  expect(exampleShip.getSegments()).toBe(["41", "51", "61", "71"]);
+});
+
+test("Ship takes damage", () => {
+  exampleShip.takeDamage();
+  expect(exampleShip.getHP()).toBe(3);
+});
+
+test("CheckIfSunk identifies unsunk ship", () => {
+  expect(exampleShip.checkIfSunk()).toBe(false);
+});
+
+test("CheckIfSunk identifies sunk ship", () => {
+  exampleShip.takeDamage();
+  exampleShip.takeDamage();
+  exampleShip.takeDamage();
+  expect(exampleShip.checkIfSunk()).toBe(true);
+});
+
 test("all tests written", () => {
-  expect(Ship).toBe(
-    "don't change this until tests have been added for all public methods"
-  );
+  expect(true).toBe(true);
 });

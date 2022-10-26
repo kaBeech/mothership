@@ -49,7 +49,9 @@ const shipAdder = (state: GameboardState) => ({
   addShip: function addShip(name: ShipName, segments: Array<SquareName>) {
     const ship = Ship(name, this, segments);
     state.unsunkShips.push(ship);
-    ship.placeShip();
+    ship.getSegments().forEach((segmentName) => {
+      state.squares[+segmentName].setShip(ship);
+    });
     return ship;
   },
 });

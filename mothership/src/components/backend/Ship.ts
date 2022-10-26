@@ -18,10 +18,16 @@ const hpGetter = (state: ShipState) => ({
   getHP: () => state.hp,
 });
 
+const segmentsGetter = (state: ShipState) => ({
+  getSegments: () => state.segments,
+});
+
 const damageTaker = (state: ShipState) => ({
   takeDamage: function takeDamage() {
-    state.hp -= 1;
-    if (this.checkSunk()) {
+    if (state.hp > 0) {
+      state.hp -= 1;
+    }
+    if (this.checkIfSunk()) {
       state.gameboard.sinkShip(this);
       return "sunk";
       // displaySunkMessage()
@@ -31,7 +37,7 @@ const damageTaker = (state: ShipState) => ({
 });
 
 const sunkChecker = (state: ShipState) => ({
-  checkSunk: () => {
+  checkIfSunk: () => {
     if (state.hp === 0) {
       return true;
     }
@@ -39,14 +45,14 @@ const sunkChecker = (state: ShipState) => ({
   },
 });
 
-const shipPlacer = (state: ShipState) => ({
-  placeShip: function placeShip() {
-    state.segments.forEach((segmentName) => {
-      const segmentSquare = state.gameboard.getSquares()[+segmentName];
-      segmentSquare.setShip(this);
-    });
-  },
-});
+// const shipPlacer = (state: ShipState) => ({
+//   placeShip: function placeShip() {
+//     state.segments.forEach((segmentName) => {
+//       const segmentSquare = state.gameboard.getSquares()[+segmentName];
+//       segmentSquare.setShip(this);
+//     });
+//   },
+// });
 
 const Ship = (
   name: string,
@@ -63,9 +69,10 @@ const Ship = (
   return {
     ...nameGetter(state),
     ...hpGetter(state),
+    ...segmentsGetter(state),
     ...damageTaker(state),
     ...sunkChecker(state),
-    ...shipPlacer(state),
+    // ...shipPlacer(state),
   };
 };
 

@@ -9,7 +9,7 @@ const nameGetter = (state: ToolsState) => ({
 });
 
 const incrementedIndexGetter = () => ({
-  getIncrementedIndex: (array: Array<any>, value: Integer) => {
+  getIncrementedIndex: (array: Array<any>, value: any) => {
     let newIndex = array.indexOf(value) + 1;
     if (newIndex >= array.length) {
       newIndex = 0;
