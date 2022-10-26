@@ -6,8 +6,14 @@ test("Returns name", () => {
   expect(tools.getName()).toBe("toolbox");
 });
 
+test("Incrementing index on a value that does not exist throws error", () => {
+  expect(tools.getIncrementedIndex(exampleArray, Boolean("P = !P"))).toBe(
+    "Error: Value does not exist in specified array"
+  );
+});
+
 test("Returns index +1", () => {
-  expect(tools.getIncrementedIndex(exampleArray, [3, 4])).toBe(4);
+  expect(tools.getIncrementedIndex(exampleArray, "paper")).toBe(2);
 });
 
 test("Final item in array returns 0", () => {
