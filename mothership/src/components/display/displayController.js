@@ -20,12 +20,13 @@ const missShower = (state) => ({
 
 const hitShower = (state) => ({
   showHit: (gameSquareID) => {
-    const gameSquare = document.getElementById(gameSquareID);
-    gameSquare.classList.add("guessed");
-    gameSquare.classList.add("hitShip");
-    state.getStatusMessage().textContent = `${state
-      .getCurrentPlayer()
-      .getName()} hit!`;
+    console.log(document.getElementById(gameSquareID));
+    // const gameSquare = document.getElementById(gameSquareID);
+    // gameSquare.classList.add("guessed");
+    // gameSquare.classList.add("hitShip");
+    // state.getStatusMessage().textContent = `${state
+    //   .getCurrentPlayer()
+    //   .getName()} hit!`;
   },
 });
 
