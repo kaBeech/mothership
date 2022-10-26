@@ -34,20 +34,26 @@ const opposingPlayerGetter = (state: MothershipState) => ({
 // });
 
 const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
+  gameController.setCurrentPhase(
+    `Evaluating ${state.getCurrentPlayer().getName()}'s turn`
+  );
   const gameSquareID = `${attackSelection}p${
     gameController.getOpposingPlayer().getID()[6]
   }`;
   if (gameController.getGameInProgress()) {
     const currentPlayer = gameController.getCurrentPlayer();
     const result = gameController.evalTurn(attackSelection);
-    if (result === "win") {
+    if (result === "Win") {
+      gameController.setCurrentPhase(
+        `Congratulatiing ${state.getCurrentPlayer().getName()} on xyr win!!!`
+      );
       return displayController.showWin();
     }
-    if (result === "sunk") {
+    if (result === "Sunk") {
       displayController.showSunk(gameSquareID);
-    } else if (result === "hit") {
+    } else if (result === "Hit") {
       displayController.showHit(gameSquareID);
-    } else if (result === "miss") {
+    } else if (result === "Miss") {
       displayController.showMiss(gameSquareID);
       // return "miss";
     }
@@ -55,14 +61,16 @@ const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
     gameController.setOpposingPlayer(currentPlayer);
     return promptPlayer(state);
   }
-  return console.log("error");
+  return "Error: Start a game before attacking!";
 };
 
 const promptPlayer = (state: MothershipState) => {
   if (state.getCurrentPlayer().getSpecies() === "computer") {
+    gameController.setCurrentPhase("Waiting for computer player");
     const attackSelection = state.getCurrentPlayer().attackRandomly();
     return evalTurn(state, attackSelection);
   }
+  gameController.setCurrentPhase("Waiting for human player");
   displayController.showTurnNotification();
   return "Prompted human player";
 };
@@ -79,9 +87,12 @@ const gameStarter = (state: MothershipState) => ({
 
 const attackSelectionReceiver = (state: MothershipState) => ({
   receiveAttackSelection: (gameSquareID: GameSquareID) => {
-    const targetSquareName = gameSquareID.slice(0, 2);
-    const attackSelection = state.getCurrentPlayer().attack(targetSquareName);
-    return evalTurn(state, attackSelection);
+    if (state.getCurrentPhase() === "Waiting for human player") {
+      const targetSquareName = gameSquareID.slice(0, 2);
+      const attackSelection = state.getCurrentPlayer().attack(targetSquareName);
+      return evalTurn(state, attackSelection);
+    }
+    return `Error: Wait until it's a human player's turn! The current phase is ${state.getCurrentPhase()}`;
   },
 });
 
