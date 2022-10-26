@@ -102,7 +102,7 @@ const turnEvaluator = (state: gameControllerState) => ({
     if (result === "hit") {
       return "hit";
     }
-    return console.log("error");
+    return `Error: Invalid attack - attempted targestSquare was ${targetSquare}`;
   },
 });
 

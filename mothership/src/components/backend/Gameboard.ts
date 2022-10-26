@@ -26,7 +26,7 @@ const attackReceiver = (state: GameboardState) => ({
     }
     const attackResult = targetShip.takeDamage();
     if (attackResult === "Ship sunk") {
-      sinkShip(state, targetShip());
+      sinkShip(state, targetShip);
       return attackResult;
     }
     return attackResult;
