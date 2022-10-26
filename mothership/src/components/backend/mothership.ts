@@ -88,6 +88,9 @@ const gameStarter = (state: MothershipState) => ({
 const attackSelectionReceiver = (state: MothershipState) => ({
   receiveAttackSelection: (gameSquareID: GameSquareID) => {
     if (state.getCurrentPhase() === "Waiting for human player") {
+      if (state.getCurrentPlayer().getID() === `player${gameSquareID[3]}`) {
+        return "Error: Select an attack on your opponant's gameboard, not your own!";
+      }
       const targetSquareName = gameSquareID.slice(0, 2);
       const attackSelection = state.getCurrentPlayer().attack(targetSquareName);
       return evalTurn(state, attackSelection);
