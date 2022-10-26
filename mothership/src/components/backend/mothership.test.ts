@@ -46,7 +46,7 @@ test("Selecting an attack on currentPlayer's own board throws error", () => {
   );
 });
 
-test("Selecting a valid attack progresses loop back to next human play currentPlayer's own board throws errorer turn", () => {
+test("Selecting a valid attack progresses loop back to next human player turn", () => {
   expect(mothership.receiveAttackSelection("24p1")).toBe(
     "Prompted human player"
   );
