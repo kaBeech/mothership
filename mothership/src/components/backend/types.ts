@@ -41,7 +41,7 @@ interface Ship {
   getHP: Function;
   takeDamage: Function;
   getSegments: Function;
-  checkIfSunk: Function;
+  checkIfBlownUp: Function;
 }
 
 type ShipName =

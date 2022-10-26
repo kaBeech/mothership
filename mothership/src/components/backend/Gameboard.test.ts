@@ -1,4 +1,5 @@
 import Gameboard from "./Gameboard";
+import { Ship } from "./types";
 
 const player1Gameboard = Gameboard();
 player1Gameboard.init();
@@ -37,7 +38,7 @@ test("AddShip adds a ship", () => {
     "50",
     "60",
     "70",
-  ]);
+  ]) as Ship;
   expect(resultingShip.getName()).toBe("Mothership");
 });
 

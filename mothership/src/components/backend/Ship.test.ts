@@ -23,19 +23,21 @@ test("Ship takes damage", () => {
   expect(exampleShip.getHP()).toBe(3);
 });
 
-test("CheckIfSunk identifies unsunk ship", () => {
-  expect(exampleShip.checkIfSunk()).toBe(false);
+test("CheckIfBlownUp identifies unblownUp ship", () => {
+  expect(exampleShip.checkIfBlownUp()).toBe(false);
 });
 
-test("CheckIfSunk identifies sunk ship", () => {
+test("CheckIfBlownUp identifies blown up ship", () => {
   exampleShip.takeDamage();
   exampleShip.takeDamage();
   exampleShip.takeDamage();
-  expect(exampleShip.checkIfSunk()).toBe(true);
+  expect(exampleShip.checkIfBlownUp()).toBe(true);
 });
 
-test("Doing damage to  an already sunk ship throws error", () => {
-  expect(exampleShip.takeDamage()).toBe("Error: This ship is already sunk!");
+test("Doing damage to  an already blown up ship throws error", () => {
+  expect(exampleShip.takeDamage()).toBe(
+    "Error: This ship is already blown up!"
+  );
 });
 
 test("all tests written", () => {

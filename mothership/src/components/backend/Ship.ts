@@ -26,17 +26,17 @@ const damageTaker = (state: ShipState) => ({
   takeDamage: function takeDamage() {
     if (state.hp > 0) {
       state.hp -= 1;
-      if (this.checkIfSunk()) {
-        return "Ship sunk";
+      if (this.checkIfBlownUp()) {
+        return "Ship blown up";
       }
       return "Hit";
     }
-    return "Error: This ship is already sunk!";
+    return "Error: This ship is already blown up!";
   },
 });
 
-const sunkChecker = (state: ShipState) => ({
-  checkIfSunk: () => {
+const blownUpChecker = (state: ShipState) => ({
+  checkIfBlownUp: () => {
     if (state.hp === 0) {
       return true;
     }
@@ -70,7 +70,7 @@ const Ship = (
     ...hpGetter(state),
     ...segmentsGetter(state),
     ...damageTaker(state),
-    ...sunkChecker(state),
+    ...blownUpChecker(state),
     // ...shipPlacer(state),
   };
 };

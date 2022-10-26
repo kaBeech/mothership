@@ -9,14 +9,14 @@ class GameSquareDOM extends Component {
       guessed: false,
       hasShip: false,
       hitShip: false,
-      sunkShip: false,
+      blownUpShip: false,
     };
 
     this.getSelf = this.getSelf.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.guess = this.guess.bind(this);
     this.setShip = this.setShip.bind(this);
-    this.sinkShip = this.sinkShip.bind(this);
+    this.blowUpShip = this.blowUpShip.bind(this);
   }
 
   getSelf() {
@@ -80,11 +80,11 @@ class GameSquareDOM extends Component {
     this.getSelf().classList.add("hitShip");
   }
 
-  sinkShip() {
+  blowUpShip() {
     this.setState({
-      sunkShip: true,
+      blownUpShip: true,
     });
-    this.getSelf().classList.add("sunkShip");
+    this.getSelf().classList.add("blownUpShip");
   }
 
   render() {

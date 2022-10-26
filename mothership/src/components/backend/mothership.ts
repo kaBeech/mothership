@@ -17,21 +17,9 @@ const currentPlayerGetter = (state: MothershipState) => ({
   getCurrentPlayer: () => state.getCurrentPlayer(),
 });
 
-// const currentPlayerSetter = () => ({
-//   setCurrentPlayer: (player: Player) => {
-//     gameController.setCurrentPlayer(player);
-//   },
-// });
-
 const opposingPlayerGetter = (state: MothershipState) => ({
   getOpposingPlayer: () => state.getOpposingPlayer(),
 });
-
-// const opposingPlayerSetter = () => ({
-//   setOpposingPlayer: (player: Player) => {
-//     gameController.setOpposingPlayer(player);
-//   },
-// });
 
 const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
   gameController.setCurrentPhase(
@@ -49,13 +37,12 @@ const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
       );
       return displayController.showWin();
     }
-    if (result === "Sunk") {
-      displayController.showSunk(gameSquareID);
+    if (result === "Ship blown up") {
+      displayController.showBlownUp(gameSquareID);
     } else if (result === "Hit") {
       displayController.showHit(gameSquareID);
     } else if (result === "Miss") {
       displayController.showMiss(gameSquareID);
-      // return "miss";
     }
     gameController.setCurrentPlayer(gameController.getOpposingPlayer());
     gameController.setOpposingPlayer(currentPlayer);
@@ -109,9 +96,7 @@ const mothership = (() => {
   return {
     ...currentPhaseGetter(state),
     ...currentPlayerGetter(state),
-    // ...currentPlayerSetter(),
     ...opposingPlayerGetter(state),
-    // ...opposingPlayerSetter(),
     ...gameStarter(state),
     ...attackSelectionReceiver(state),
   };

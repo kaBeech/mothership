@@ -4,7 +4,7 @@ import { SquareName, Ship as ShipType, GameSquare, ShipName } from "./types";
 
 interface GameboardState {
   squares: Array<GameSquare>;
-  unsunkShips: Array<ShipType>;
+  unblownUpShips: Array<ShipType>;
   initialized: boolean;
 }
 
@@ -12,8 +12,8 @@ const squareGetter = (state: GameboardState) => ({
   getSquares: () => state.squares,
 });
 
-const sinkShip = (state: GameboardState, ship: ShipType) => {
-  state.unsunkShips.splice(state.unsunkShips.indexOf(ship), 1);
+const blowUpShip = (state: GameboardState, ship: ShipType) => {
+  state.unblownUpShips.splice(state.unblownUpShips.indexOf(ship), 1);
 };
 
 const attackReceiver = (state: GameboardState) => ({
@@ -25,8 +25,8 @@ const attackReceiver = (state: GameboardState) => ({
       return "Miss";
     }
     const attackResult = targetShip.takeDamage();
-    if (attackResult === "Ship sunk") {
-      sinkShip(state, targetShip);
+    if (attackResult === "Ship blown up") {
+      blowUpShip(state, targetShip);
       return attackResult;
     }
     return attackResult;
@@ -67,7 +67,7 @@ const shipAdder = (state: GameboardState) => ({
       return `Error: One or more squares already occupied: ${occupiedSquares}`;
     }
     const ship = Ship(name, this, segments);
-    state.unsunkShips.push(ship);
+    state.unblownUpShips.push(ship);
     ship.getSegments().forEach((squareName) => {
       state.squares[+squareName].setShip(ship);
     });
@@ -77,7 +77,7 @@ const shipAdder = (state: GameboardState) => ({
 
 const winChecker = (state: GameboardState) => ({
   checkWin: () => {
-    if (state.unsunkShips.length === 0) {
+    if (state.unblownUpShips.length === 0) {
       return true;
     }
     return false;
@@ -88,7 +88,7 @@ const Gameboard = () => {
   const state = {
     initialized: false,
     squares: [],
-    unsunkShips: [],
+    unblownUpShips: [],
   };
   return {
     ...initializer(state),

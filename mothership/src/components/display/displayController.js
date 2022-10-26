@@ -30,15 +30,15 @@ const hitShower = (state) => ({
   },
 });
 
-const sunkShower = (state) => ({
-  showSunk: (gameSquareID) => {
+const blownUpShower = (state) => ({
+  showBlownUp: (gameSquareID) => {
     const gameSquare = document.getElementById(gameSquareID);
     gameSquare.classList.add("guessed");
     gameSquare.classList.add("hitShip");
-    gameSquare.classList.add("sunkShip");
+    gameSquare.classList.add("blownUpShip");
     state.getStatusMessage().textContent = `${state
       .getCurrentPlayer()
-      .getName()} sunk a ship!`;
+      .getName()} blew up a ship!`;
   },
 });
 
@@ -71,7 +71,7 @@ const displayController = (() => {
     ...shipShower(state),
     ...missShower(state),
     ...hitShower(state),
-    ...sunkShower(state),
+    ...blownUpShower(state),
     ...winShower(state),
     ...turnNotificationShower(state),
   };

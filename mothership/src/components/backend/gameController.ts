@@ -96,8 +96,8 @@ const turnEvaluator = (state: gameControllerState) => ({
       this.setGameInProgress(false);
       return "Win";
     }
-    if (result === "Sunk") {
-      return "Sunk";
+    if (result === "Ship blown up") {
+      return "Ship blown up";
     }
     if (result === "Hit") {
       return "Hit";
