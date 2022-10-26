@@ -32,8 +32,11 @@ const possibleMoveRemover = (state: PlayerState) => ({
 
 const attacker = (state: PlayerState) => ({
   attack: function attack(targetSquareName: SquareName) {
-    this.removePossibleMove(targetSquareName);
-    return targetSquareName;
+    if (state.possibleMoves.includes(targetSquareName)) {
+      this.removePossibleMove(targetSquareName);
+      return targetSquareName;
+    }
+    return `Error: ${targetSquareName} is not found in this player's possible moves`;
   },
 });
 

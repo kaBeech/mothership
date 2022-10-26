@@ -53,7 +53,7 @@ test("attacking removes targetSquare from possibleMoves", () => {
 
 test("attacking a square not in possibleMoves throws an error", () => {
   expect(player1.attack("94")).toBe(
-    "Error - target square not found in possibleMoves"
+    "Error: 94 is not found in this player's possible moves"
   );
 });
 
