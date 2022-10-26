@@ -1,14 +1,25 @@
 import mothership from "../backend/mothership";
+import { GameSquareID } from "../backend/types";
 
-const shipShower = (state) => ({
-  showShip: (gameSquareID) => {
+interface DisplayControllerState {
+  getCurrentPhase: Function;
+  getCurrentPlayer: Function;
+  getOpposingPlayer: Function;
+  getStatusMessage: Function;
+}
+
+const shipShower = (state: DisplayControllerState) => ({
+  showShip: (gameSquareID: GameSquareID) => {
     const gameSquare = document.getElementById(gameSquareID);
+    if (gameSquare === null) {
+      return `Error: No element found with ID matching GameSquareID: ${gameSquareID}`;
+    }
     gameSquare.classList.add("hasShip");
   },
 });
 
-const missShower = (state) => ({
-  showMiss: (gameSquareID) => {
+const missShower = (state: DisplayControllerState) => ({
+  showMiss: (gameSquareID: GameSquareID) => {
     console.log(document.getElementById(gameSquareID));
     // const gameSquare = document.getElementById(gameSquareID);
     // gameSquare.classList.add("guessed");
@@ -18,8 +29,8 @@ const missShower = (state) => ({
   },
 });
 
-const hitShower = (state) => ({
-  showHit: (gameSquareID) => {
+const hitShower = (state: DisplayControllerState) => ({
+  showHit: (gameSquareID: GameSquareID) => {
     console.log(document.getElementById(gameSquareID));
     // const gameSquare = document.getElementById(gameSquareID);
     // gameSquare.classList.add("guessed");
@@ -30,9 +41,12 @@ const hitShower = (state) => ({
   },
 });
 
-const blownUpShower = (state) => ({
-  showBlownUp: (gameSquareID) => {
+const blownUpShower = (state: DisplayControllerState) => ({
+  showBlownUp: (gameSquareID: GameSquareID) => {
     const gameSquare = document.getElementById(gameSquareID);
+    if (gameSquare === null) {
+      return `Error: No element found with ID matching GameSquareID: ${gameSquareID}`;
+    }
     gameSquare.classList.add("guessed");
     gameSquare.classList.add("hitShip");
     gameSquare.classList.add("blownUpShip");
@@ -42,7 +56,7 @@ const blownUpShower = (state) => ({
   },
 });
 
-const winShower = (state) => ({
+const winShower = (state: DisplayControllerState) => ({
   showWin: () => {
     state.getStatusMessage().textContent = `${state
       .getCurrentPlayer()
@@ -50,7 +64,7 @@ const winShower = (state) => ({
   },
 });
 
-const turnNotificationShower = (state) => ({
+const turnNotificationShower = (state: DisplayControllerState) => ({
   showTurnNotification: () => {
     console.log(document.getElementById("statusMessage"));
     // state.getStatusMessage().textContent = `${state

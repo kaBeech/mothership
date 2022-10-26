@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 
-class StatusMessage extends Component {
-  constructor(props) {
+interface StatusMessageProps {}
+interface StatusMessageState {
+  message: string;
+}
+
+class StatusMessage extends Component<StatusMessageProps, StatusMessageState> {
+  constructor(props: StatusMessageProps) {
     super(props);
 
     this.state = {

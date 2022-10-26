@@ -1,8 +1,21 @@
 import React, { Component } from "react";
 import mothership from "../backend/mothership";
+import { GameSquareID, Player } from "../backend/types";
 
-class GameSquareDOM extends Component {
-  constructor(props) {
+interface GameSquareDOMProps {
+  gameSquareID: GameSquareID;
+  player: Player;
+}
+interface GameSquareDOMState {
+  guessed: boolean;
+  hasShip: boolean;
+  hitShip: boolean;
+  blownUpShip: boolean;
+  getSelf: Function;
+}
+
+class GameSquareDOM extends Component<GameSquareDOMProps, GameSquareDOMState> {
+  constructor(props: GameSquareDOMProps) {
     super(props);
 
     this.state = {
@@ -10,19 +23,20 @@ class GameSquareDOM extends Component {
       hasShip: false,
       hitShip: false,
       blownUpShip: false,
+      getSelf: () => document.getElementById(this.props.gameSquareID),
     };
 
-    this.getSelf = this.getSelf.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.guess = this.guess.bind(this);
     this.setShip = this.setShip.bind(this);
     this.blowUpShip = this.blowUpShip.bind(this);
   }
 
-  getSelf() {
-    const self = document.getElementById(this.props.gameSquareID);
-    return self;
-  }
+  // getSelf() {
+  //   const self = document.getElementById(this.props.gameSquareID);
+  //   if (self === null) {return `Error: getSelf() called on invalid element. No element found with ID matching GameSquareID: ${gameSquareID}`}
+  //   return self;
+  // }
 
   handleClick() {
     console.log("Handle click!");
@@ -35,8 +49,8 @@ class GameSquareDOM extends Component {
       // mothership.getCurrentPhase() == ("setup")
     ) {
       if (this.state.hasShip === false) {
-        this.setShip();
-        this.getSelf().style.backgroundColor = "#00ff00";
+        this.setShip(this.state);
+        this.state.getSelf().style.backgroundColor = "#00ff00";
         return true;
       }
       return false;
@@ -52,39 +66,39 @@ class GameSquareDOM extends Component {
       if (this.state.guessed === true) {
         return false;
       }
-      this.guess();
+      this.guess(this.state);
       return mothership.receiveAttackSelection(this.props.gameSquareID);
     }
 
     return false;
   }
 
-  guess() {
+  guess(state: GameSquareDOMState) {
     this.setState({
       guessed: true,
     });
-    this.getSelf().classList.add("guessed");
+    state.getSelf().classList.add("guessed");
   }
 
-  setShip() {
+  setShip(state: GameSquareDOMState) {
     this.setState({
       hasShip: true,
     });
-    this.getSelf().classList.add("hasShip");
+    state.getSelf().classList.add("hasShip");
   }
 
-  hitShip() {
+  hitShip(state: GameSquareDOMState) {
     this.setState({
       hitShip: true,
     });
-    this.getSelf().classList.add("hitShip");
+    state.getSelf().classList.add("hitShip");
   }
 
-  blowUpShip() {
+  blowUpShip(state: GameSquareDOMState) {
     this.setState({
       blownUpShip: true,
     });
-    this.getSelf().classList.add("blownUpShip");
+    state.getSelf().classList.add("blownUpShip");
   }
 
   render() {

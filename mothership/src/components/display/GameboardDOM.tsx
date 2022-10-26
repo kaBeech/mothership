@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import GameboardColumnDOM from "./GameboardColumnDOM";
 
-class GameboardDOM extends Component {
-  constructor(props) {
+interface GameboardDOMProps {
+  player: any;
+}
+interface GameboardDOMState {
+  columnNumber: any;
+}
+
+class GameboardDOM extends Component<GameboardDOMProps, GameboardDOMState> {
+  constructor(props: GameboardDOMProps) {
     super(props);
   }
 
