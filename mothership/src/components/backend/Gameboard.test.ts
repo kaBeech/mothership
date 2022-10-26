@@ -20,15 +20,15 @@ player0Gameboard.addShip("Starfighter", ["25", "35"]);
 
 const dummyGameboard = Gameboard();
 
-test("initializing returns correct string", () => {
+test("Initializing returns correct string", () => {
   expect(dummyGameboard.init()).toBe("Initialized");
 });
 
-test("initializing twice throws error", () => {
+test("Initializing twice throws error", () => {
   expect(player1Gameboard.init()).toBe("Error - already initialized");
 });
 
-test("adding ship returns a ship", () => {
+test("AddShip adds a ship", () => {
   dummyGameboard.init();
   const resultingShip = dummyGameboard.addShip("Mothership", [
     "20",
@@ -41,22 +41,56 @@ test("adding ship returns a ship", () => {
   expect(resultingShip.getName()).toBe("Mothership");
 });
 
-test("adding ship over an occupied square throws error", () => {
+test("Adding ship over an occupied square throws error", () => {
   expect(
     player1Gameboard.addShip("Battleship", ["20", "21", "22", "23", "24"])
   ).toBe("Error - one or more squares already occupied");
 });
 
-test("getSquares gets 100 squares", () => {
+test("GetSquares gets 100 squares", () => {
   expect(player0Gameboard.getSquares().length).toBe(100);
 });
 
-test("gameboard recognizes miss", () => {
-  expect(player1Gameboard.receiveAttack("28")).toBe("hit");
+test("Gameboard recognizes hit", () => {
+  expect(player1Gameboard.receiveAttack("28")).toBe("Hit");
 });
 
-test("gameboard recognizes hit", () => {
-  expect(player1Gameboard.receiveAttack("32")).toBe("miss");
+test("Gameboard recognizes miss", () => {
+  expect(player1Gameboard.receiveAttack("32")).toBe("Miss");
+});
+
+test("CheckWin returns false before game has been won", () => {
+  expect(player1Gameboard.checkWin()).toBe(false);
+});
+
+test("CheckWin returns true after game has been won", () => {
+  const allPlayer0Hits = [
+    "21",
+    "31",
+    "41",
+    "51",
+    "61",
+    "71",
+    "22",
+    "32",
+    "42",
+    "52",
+    "62",
+    "23",
+    "33",
+    "43",
+    "53",
+    "24",
+    "34",
+    "44",
+    "25",
+    "35",
+  ];
+  const receiveAttack = (attackSelection) => {
+    player0Gameboard.receiveAttack(attackSelection);
+  };
+  allPlayer0Hits.forEach(receiveAttack);
+  expect(player0Gameboard.checkWin()).toBe(true);
 });
 
 // test.skip("sinking all ships wins game", () => {
@@ -67,8 +101,6 @@ test("gameboard recognizes hit", () => {
 //   expect(player1Gameboard.sinkShip(player1Frigate)).toBe("You win!");
 // });
 
-test("all tests written", () => {
-  expect(true).toBe(
-    "don't change this until tests have been added for .sinkShip and .checkWin"
-  );
+test("All tests written", () => {
+  expect(true).toBe(true);
 });

@@ -12,14 +12,24 @@ const squareGetter = (state: GameboardState) => ({
   getSquares: () => state.squares,
 });
 
+const sinkShip = (state: GameboardState, ship: ShipType) => {
+  state.unsunkShips.splice(state.unsunkShips.indexOf(ship), 1);
+};
+
 const attackReceiver = (state: GameboardState) => ({
   receiveAttack: (squareName: SquareName) => {
     const targetSquare = state.squares[+squareName];
     targetSquare.setGuessed(true);
-    if (targetSquare.getShip() === null) {
+    const targetShip = targetSquare.getShip();
+    if (targetShip === null) {
       return "miss";
     }
-    return targetSquare.getShip().takeDamage();
+    const attackResult = targetShip.takeDamage();
+    if (attackResult === "Ship sunk") {
+      sinkShip(state, targetShip());
+      return attackResult;
+    }
+    return attackResult;
   },
 });
 
@@ -56,12 +66,6 @@ const shipAdder = (state: GameboardState) => ({
   },
 });
 
-const shipSinker = (state: GameboardState) => ({
-  sinkShip: (ship: ShipType) => {
-    state.unsunkShips.splice(state.unsunkShips.indexOf(ship), 1);
-  },
-});
-
 const winChecker = (state: GameboardState) => ({
   checkWin: () => {
     if (state.unsunkShips.length === 0) {
@@ -81,7 +85,6 @@ const Gameboard = () => {
     ...initializer(state),
     ...squareGetter(state),
     ...attackReceiver(state),
-    ...shipSinker(state),
     ...shipAdder(state),
     ...winChecker(state),
   };
