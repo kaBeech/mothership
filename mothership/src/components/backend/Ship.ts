@@ -26,13 +26,12 @@ const damageTaker = (state: ShipState) => ({
   takeDamage: function takeDamage() {
     if (state.hp > 0) {
       state.hp -= 1;
+      if (this.checkIfSunk()) {
+        return "Ship sunk";
+      }
+      return "Hit";
     }
-    if (this.checkIfSunk()) {
-      state.gameboard.sinkShip(this);
-      return "sunk";
-      // displaySunkMessage()
-    }
-    return "hit";
+    return "Error: This ship is already sunk!";
   },
 });
 

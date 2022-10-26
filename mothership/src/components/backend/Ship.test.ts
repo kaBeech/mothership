@@ -33,6 +33,10 @@ test("CheckIfSunk identifies sunk ship", () => {
   expect(exampleShip.checkIfSunk()).toBe(true);
 });
 
+test("Doing damage to  an already sunk ship throws error", () => {
+  expect(exampleShip.takeDamage()).toBe("Error: This ship is already sunk!");
+});
+
 test("all tests written", () => {
   expect(true).toBe(true);
 });
