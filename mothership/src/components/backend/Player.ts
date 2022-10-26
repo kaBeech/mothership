@@ -32,7 +32,9 @@ const possibleMoveRemover = (state: PlayerState) => ({
 
 const attacker = (state: PlayerState) => ({
   attack: function attack(targetSquareName: SquareName) {
-    if (state.possibleMoves.includes(targetSquareName)) {
+    const targetSquare =
+      state.opposingGameboard.getSquares()[+targetSquareName];
+    if (state.possibleMoves.includes(targetSquare)) {
       this.removePossibleMove(targetSquareName);
       return targetSquareName;
     }

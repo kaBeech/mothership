@@ -62,6 +62,9 @@ test("attacking randomly returns a possibleMove", () => {
   const targetSquare = player1.getOpposingGameboard().getSquares()[
     player1.attackRandomly()
   ];
+  if (!frozenPossibleMoves.includes(targetSquare)) {
+    console.log(targetSquare);
+  }
   expect(frozenPossibleMoves.includes(targetSquare)).toBe(true);
 });
 
