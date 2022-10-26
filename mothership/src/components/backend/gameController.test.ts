@@ -31,11 +31,11 @@ test("sets opposingPlayer", () => {
 });
 
 test("controller recognizes miss", () => {
-  expect(gameController.evalTurn("32")).toBe("miss");
+  expect(gameController.evalTurn("32")).toBe("Miss");
 });
 
 test("controller recognizes hit", () => {
-  expect(gameController.evalTurn("28")).toBe("hit");
+  expect(gameController.evalTurn("28")).toBe("Hit");
 });
 
 test("all tests written", () => {

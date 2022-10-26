@@ -89,20 +89,20 @@ const turnEvaluator = (state: gameControllerState) => ({
     const result = currentPlayer
       .getOpposingGameboard()
       .receiveAttack(targetSquare);
-    if (result === "miss") {
-      return "miss";
+    if (result === "Miss") {
+      return "Miss";
     }
     if (currentPlayer.getOpposingGameboard().checkWin()) {
       this.setGameInProgress(false);
-      return "win";
+      return "Win";
     }
-    if (result === "sunk") {
-      return "sunk";
+    if (result === "Sunk") {
+      return "Sunk";
     }
-    if (result === "hit") {
-      return "hit";
+    if (result === "Hit") {
+      return "Hit";
     }
-    return `Error: Invalid attack - attempted targestSquare was ${targetSquare}`;
+    return `Error: Invalid attack - attempted targestSquare was ${targetSquare}, restult was ${result}`;
   },
 });
 
