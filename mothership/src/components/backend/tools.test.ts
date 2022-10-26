@@ -22,13 +22,13 @@ test("Final item in array returns 0", () => {
 
 // Test is expected to fail ~20% of the time when working properly
 // (by getRandomInteger() returning +/-20...24)
-// Expected to break on result >/< +/-25
-test("1. (~20%FR: result >/< +/-25) Randomly returns a random integer within the specified range", () => {
+// Expected to break on result >/< +/-19
+test("1. (~20%FR: result >/< +/-19) Randomly returns a random integer within the specified range", () => {
   const result = tools.getRandomInteger(-24, 49);
-  expect(result > -19).toBe(true);
-  expect(result < 19).toBe(true);
   expect(result > -25).toBe(true);
   expect(result < 25).toBe(true);
+  expect(result > -19).toBe(true);
+  expect(result < 19).toBe(true);
   expect(Math.abs(result) % 1).toBe(0);
 });
 
