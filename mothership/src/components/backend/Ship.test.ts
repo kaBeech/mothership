@@ -28,9 +28,9 @@ test("CheckIfSunk identifies unsunk ship", () => {
 });
 
 test("CheckIfSunk identifies sunk ship", () => {
-  // exampleShip.takeDamage();
-  // exampleShip.takeDamage();
-  // exampleShip.takeDamage();
+  exampleShip.takeDamage();
+  exampleShip.takeDamage();
+  exampleShip.takeDamage();
   expect(exampleShip.checkIfSunk()).toBe(true);
 });
 
