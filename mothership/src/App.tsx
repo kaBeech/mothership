@@ -15,7 +15,7 @@ class App extends Component {
               YOUR BOARD
             </h2>
             <div className="flex column">
-              <GameboardDOM player="player1" />
+              <GameboardDOM player="player0" />
               <div
                 id="startGameButton"
                 onClick={mothership.startGame}
@@ -27,7 +27,7 @@ class App extends Component {
           </div>
           <div className="flex">
             <div className="flex column">
-              <GameboardDOM player="player0" />
+              <GameboardDOM player="player1" />
               <div className="button">Rules</div>
             </div>
             <h2 id="opposingBoardLabel" className="gameboardLabel vertText">
