@@ -60,11 +60,8 @@ test("attacking a square not in possibleMoves throws an error", () => {
 test("attacking randomly returns a possibleMove", () => {
   const frozenPossibleMoves = player1.getPossibleMoves().slice();
   const targetSquare = player1.getOpposingGameboard().getSquares()[
-    player1.attackRandomly()
+    +player1.attackRandomly()
   ];
-  if (!frozenPossibleMoves.includes(targetSquare)) {
-    console.log(targetSquare);
-  }
   expect(frozenPossibleMoves.includes(targetSquare)).toBe(true);
 });
 
