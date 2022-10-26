@@ -27,7 +27,7 @@ const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
   );
   const gameSquareID = `${attackSelection}p${
     gameController.getOpposingPlayer().getID()[6]
-  }`;
+  }` as GameSquareID;
   if (gameController.getGameInProgress()) {
     const currentPlayer = gameController.getCurrentPlayer();
     const result = gameController.evalTurn(attackSelection);
