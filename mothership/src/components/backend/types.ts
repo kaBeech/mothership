@@ -1,3 +1,5 @@
+type BinaryInteger = 0 | 1;
+
 type Integer = number;
 
 type WholeNumber = number;
@@ -63,11 +65,12 @@ interface Player {
 
 type SquareName = `${SingleDigitString}${SingleDigitString}`;
 
-type GameSquareID = `${SquareName}p${SingleDigitString}`;
+type GameSquareID = `${SquareName}p${BinaryInteger}`;
 
 type GamePhase = string | null;
 
 export {
+  BinaryInteger,
   Integer,
   WholeNumber,
   SingleDigit,

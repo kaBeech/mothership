@@ -63,7 +63,8 @@ const promptPlayer = (state: MothershipState) => {
     const attackSelection = state.currentPlayer.attackRandomly();
     return evalTurn(state, attackSelection);
   }
-  return displayController.showTurnNotification();
+  displayController.showTurnNotification();
+  return "Prompted human player";
 };
 
 const gameStarter = (state: MothershipState) => ({
