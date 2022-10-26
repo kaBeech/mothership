@@ -4,17 +4,17 @@ import gameController from "./gameController";
 import { GamePhase, GameSquareID, Player, SquareName } from "./types";
 
 interface MothershipState {
-  currentPhase: GamePhase;
-  currentPlayer: Player;
-  opposingPlayer: Player;
+  getCurrentPhase(): GamePhase;
+  getCurrentPlayer(): Player;
+  getOpposingPlayer(): Player;
 }
 
 const currentPhaseGetter = (state: MothershipState) => ({
-  getCurrentPhase: () => state.currentPhase,
+  getCurrentPhase: () => state.getCurrentPhase(),
 });
 
 const currentPlayerGetter = (state: MothershipState) => ({
-  getCurrentPlayer: () => state.currentPlayer,
+  getCurrentPlayer: () => state.getCurrentPlayer(),
 });
 
 // const currentPlayerSetter = () => ({
@@ -24,7 +24,7 @@ const currentPlayerGetter = (state: MothershipState) => ({
 // });
 
 const opposingPlayerGetter = (state: MothershipState) => ({
-  getOpposingPlayer: () => state.opposingPlayer,
+  getOpposingPlayer: () => state.getOpposingPlayer(),
 });
 
 // const opposingPlayerSetter = () => ({
@@ -59,8 +59,8 @@ const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
 };
 
 const promptPlayer = (state: MothershipState) => {
-  if (state.currentPlayer.getSpecies() === "computer") {
-    const attackSelection = state.currentPlayer.attackRandomly();
+  if (state.getCurrentPlayer().getSpecies() === "computer") {
+    const attackSelection = state.getCurrentPlayer().attackRandomly();
     return evalTurn(state, attackSelection);
   }
   displayController.showTurnNotification();
@@ -73,23 +73,23 @@ const gameStarter = (state: MothershipState) => ({
       gameController.setGameInProgress(true);
       return promptPlayer(state);
     }
-    return console.log("error");
+    return "Error: Game already in progress!";
   },
 });
 
 const attackSelectionReceiver = (state: MothershipState) => ({
   receiveAttackSelection: (gameSquareID: GameSquareID) => {
     const targetSquareName = gameSquareID.slice(0, 2);
-    const attackSelection = state.currentPlayer.attack(targetSquareName);
+    const attackSelection = state.getCurrentPlayer().attack(targetSquareName);
     return evalTurn(state, attackSelection);
   },
 });
 
 const mothership = (() => {
   const state = {
-    currentPhase: gameController.getCurrentPhase(),
-    currentPlayer: gameController.getCurrentPlayer(),
-    opposingPlayer: gameController.getOpposingPlayer(),
+    getCurrentPhase: () => gameController.getCurrentPhase(),
+    getCurrentPlayer: () => gameController.getCurrentPlayer(),
+    getOpposingPlayer: () => gameController.getOpposingPlayer(),
   };
 
   return {
