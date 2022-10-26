@@ -57,7 +57,7 @@ const initializer = (state: GameboardState) => ({
 
 const shipAdder = (state: GameboardState) => ({
   addShip: function addShip(name: ShipName, segments: Array<SquareName>) {
-    const occupiedSquares = [];
+    const occupiedSquares = [] as Array<SquareName>;
     segments.forEach((squareName) => {
       if (state.squares[+squareName].getShip() !== null) {
         occupiedSquares.push(squareName);
