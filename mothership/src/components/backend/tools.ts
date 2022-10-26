@@ -10,11 +10,14 @@ const nameGetter = (state: ToolsState) => ({
 
 const incrementedIndexGetter = () => ({
   getIncrementedIndex: (array: Array<any>, value: any) => {
-    let newIndex = array.indexOf(value) + 1;
-    if (newIndex >= array.length) {
-      newIndex = 0;
+    if (array.includes(value)) {
+      let newIndex = array.indexOf(value) + 1;
+      if (newIndex >= array.length) {
+        newIndex = 0;
+      }
+      return newIndex;
     }
-    return newIndex;
+    return "Error: Value does not exist in specified array";
   },
 });
 
