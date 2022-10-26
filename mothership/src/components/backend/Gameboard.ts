@@ -22,7 +22,7 @@ const attackReceiver = (state: GameboardState) => ({
     targetSquare.setGuessed(true);
     const targetShip = targetSquare.getShip();
     if (targetShip === null) {
-      return "miss";
+      return "Miss";
     }
     const attackResult = targetShip.takeDamage();
     if (attackResult === "Ship sunk") {
