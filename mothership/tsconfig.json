@@ -8,5 +8,7 @@
     "jsx": "react",
     "baseUrl": "./src"
   },
+  // DisplayController was auto-added - why?
+  // "include": ["./src/**/*.ts", "src/components/display/DisplayController.tsx"]
   "include": ["./src/**/*.ts"]
 }
