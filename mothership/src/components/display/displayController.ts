@@ -66,10 +66,10 @@ const winShower = (state: DisplayControllerState) => ({
 
 const turnNotificationShower = (state: DisplayControllerState) => ({
   showTurnNotification: () => {
-    console.log(document.getElementById("statusMessage"));
-    // state.getStatusMessage().textContent = `${state
-    //   .getCurrentPlayer()
-    //   .getName()}'s Turn`;
+    console.log(state.getStatusMessage());
+    state.getStatusMessage().textContent = `${state
+      .getCurrentPlayer()
+      .getName()}'s Turn`;
   },
 });
 
