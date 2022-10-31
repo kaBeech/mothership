@@ -3,16 +3,16 @@ import gameController from "./gameController";
 import {
   GamePhase,
   GameSquareID,
-  GameSquaresArray,
   Player,
   SquareName,
+  SquareUpdatesArray,
 } from "./types";
 
 interface MothershipState {
   getCurrentPhase(): GamePhase;
   getCurrentPlayer(): Player;
   getOpposingPlayer(): Player;
-  squareUpdates: GameSquaresArray;
+  squareUpdates: SquareUpdatesArray;
 }
 
 const currentPhaseGetter = (state: MothershipState) => ({

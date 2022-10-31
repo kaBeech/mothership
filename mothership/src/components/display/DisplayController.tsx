@@ -5,6 +5,7 @@ import {
   GameboardsArray,
   GameSquareID,
   GameSquaresArray,
+  SquareUpdatesArray,
 } from "../backend/types";
 import GameboardDOM from "./GameboardDOM";
 import StatusMessage from "./StatusMessage";
@@ -76,7 +77,7 @@ const DisplayController = (props: DisplayControllerProps) => {
     }
   };
 
-  const updateGameboards = (...squareUpdates: GameSquaresArray) => {
+  const updateGameboards = (...squareUpdates: SquareUpdatesArray) => {
     const updatedGameboards = gameboards.slice();
     for (const updatedSquare of squareUpdates) {
       const id = updatedSquare.gameSquareID;
@@ -85,6 +86,7 @@ const DisplayController = (props: DisplayControllerProps) => {
         guessed: updatedSquare.guessed,
         ship: updatedSquare.ship,
         blownUp: updatedSquare.blownUp,
+        onClick: () => handleAttackSelection(id),
       };
     }
     setGameboards(updatedGameboards);
