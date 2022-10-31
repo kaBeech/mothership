@@ -74,7 +74,7 @@ interface GameSquareDOMProps {
   gameSquareID: GameSquareID;
   guessed: boolean;
   ship: ShipName | null;
-  sunk: boolean;
+  blownUp: boolean;
   onClick: Function;
 }
 

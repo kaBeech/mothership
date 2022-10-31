@@ -9,8 +9,8 @@ const GameSquareDOM = (props: GameSquareDOMProps) => {
   if (props.ship) {
     classes.concat(` ${props.ship}`);
   }
-  if (props.sunk) {
-    classes.concat(" sunk");
+  if (props.blownUp) {
+    classes.concat(" blownUp");
   }
   return (
     <div

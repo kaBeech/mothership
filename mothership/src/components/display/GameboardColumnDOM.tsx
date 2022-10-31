@@ -31,7 +31,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[0].guessed}
           ship={this.props.gameSquares[0].ship}
-          sunk={this.props.gameSquares[0].sunk}
+          blownUp={this.props.gameSquares[0].blownUp}
           onClick={this.props.gameSquares[0].onClick}
         />
         <GameSquareDOM
@@ -43,7 +43,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[1].guessed}
           ship={this.props.gameSquares[1].ship}
-          sunk={this.props.gameSquares[1].sunk}
+          blownUp={this.props.gameSquares[1].blownUp}
           onClick={this.props.gameSquares[1].onClick}
         />
         <GameSquareDOM
@@ -55,7 +55,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[2].guessed}
           ship={this.props.gameSquares[2].ship}
-          sunk={this.props.gameSquares[2].sunk}
+          blownUp={this.props.gameSquares[2].blownUp}
           onClick={this.props.gameSquares[2].onClick}
         />
         <GameSquareDOM
@@ -67,7 +67,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[3].guessed}
           ship={this.props.gameSquares[3].ship}
-          sunk={this.props.gameSquares[3].sunk}
+          blownUp={this.props.gameSquares[3].blownUp}
           onClick={this.props.gameSquares[3].onClick}
         />
         <GameSquareDOM
@@ -79,7 +79,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[4].guessed}
           ship={this.props.gameSquares[4].ship}
-          sunk={this.props.gameSquares[4].sunk}
+          blownUp={this.props.gameSquares[4].blownUp}
           onClick={this.props.gameSquares[4].onClick}
         />
         <GameSquareDOM
@@ -91,7 +91,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[5].guessed}
           ship={this.props.gameSquares[5].ship}
-          sunk={this.props.gameSquares[5].sunk}
+          blownUp={this.props.gameSquares[5].blownUp}
           onClick={this.props.gameSquares[5].onClick}
         />
         <GameSquareDOM
@@ -103,7 +103,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[6].guessed}
           ship={this.props.gameSquares[6].ship}
-          sunk={this.props.gameSquares[6].sunk}
+          blownUp={this.props.gameSquares[6].blownUp}
           onClick={this.props.gameSquares[6].onClick}
         />
         <GameSquareDOM
@@ -115,7 +115,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[7].guessed}
           ship={this.props.gameSquares[7].ship}
-          sunk={this.props.gameSquares[7].sunk}
+          blownUp={this.props.gameSquares[7].blownUp}
           onClick={this.props.gameSquares[7].onClick}
         />
         <GameSquareDOM
@@ -127,7 +127,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[8].guessed}
           ship={this.props.gameSquares[8].ship}
-          sunk={this.props.gameSquares[8].sunk}
+          blownUp={this.props.gameSquares[8].blownUp}
           onClick={this.props.gameSquares[8].onClick}
         />
         <GameSquareDOM
@@ -139,7 +139,7 @@ class GameboardColumnDOM extends Component<
           }
           guessed={this.props.gameSquares[9].guessed}
           ship={this.props.gameSquares[9].ship}
-          sunk={this.props.gameSquares[9].sunk}
+          blownUp={this.props.gameSquares[9].blownUp}
           onClick={this.props.gameSquares[9].onClick}
         />
       </div>

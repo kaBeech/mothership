@@ -40,7 +40,7 @@ dummyDisplayController.showTurnNotification();
 // StatusMessage: message
 // GameboardDOM: onClick, player(currentOrOpposing), gameboardColumns
 // GameboardColumnDOM: onClick, player(currentOrOpposing), gameSquares
-// GameSquareDOM: onClick, player(currentOrOpposing), gameSquareID, guessed, ship, sunk
+// GameSquareDOM: onClick, player(currentOrOpposing), gameSquareID, guessed, ship, blownUp
 
 // ============State List===============
 
@@ -72,7 +72,7 @@ const DisplayController = (props: DisplayControllerProps) => {
           gameSquareID: initGameSquareID,
           guessed: false,
           ship: null,
-          sunk: false,
+          blownUp: false,
           onClick: () => handleAttackSelection(initGameSquareID),
         });
       }
@@ -110,7 +110,7 @@ const DisplayController = (props: DisplayControllerProps) => {
         gameSquareID: id,
         guessed: updatedSquare.guessed,
         ship: updatedSquare.ship,
-        sunk: updatedSquare.sunk,
+        blownUp: updatedSquare.blownUp,
       };
     }
     setGameboards(updatedGameboards);
