@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import displayController from "../display/displayController";
 import gameController from "./gameController";
 import { GamePhase, GameSquareID, Player, SquareName } from "./types";
 
@@ -41,11 +40,11 @@ const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
       };
     }
     if (result === "Ship blown up") {
-      displayController.showBlownUp(gameSquareID);
+      // displayController.showBlownUp(gameSquareID);
     } else if (result === "Hit") {
-      displayController.showHit(gameSquareID);
+      // displayController.showHit(gameSquareID);
     } else if (result === "Miss") {
-      displayController.showMiss(gameSquareID);
+      // displayController.showMiss(gameSquareID);
     }
     gameController.setCurrentPlayer(gameController.getOpposingPlayer());
     gameController.setOpposingPlayer(currentPlayer);
