@@ -2,3 +2,13 @@ body {
   background-color: #000810;
   color: #eff8ff;
 }
+
+.Mothership,
+.Battleship,
+.Cruiser,
+.Gunship,
+.Starfighter,
+.Unknown {
+  background-color: #eff8ff;
+  color: #000810;
+}
