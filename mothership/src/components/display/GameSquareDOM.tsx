@@ -1,17 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, MouseEventHandler } from "react";
 import mothership from "../backend/mothership";
-import { GameSquareID, Player } from "../backend/types";
+import { GameSquareDOMProps, PlayerID } from "../backend/types";
 
-interface GameSquareDOMProps {
-  gameSquareID: GameSquareID;
-  player: Player;
-}
 interface GameSquareDOMState {
   guessed: boolean;
   hasShip: boolean;
   hitShip: boolean;
   blownUpShip: boolean;
   getSelf: Function;
+  player: PlayerID;
 }
 
 class GameSquareDOM extends Component<GameSquareDOMProps, GameSquareDOMState> {
@@ -24,6 +21,7 @@ class GameSquareDOM extends Component<GameSquareDOMProps, GameSquareDOMState> {
       hitShip: false,
       blownUpShip: false,
       getSelf: () => document.getElementById(this.props.gameSquareID),
+      player: `player${this.props.gameSquareID[3]}` as PlayerID,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -44,7 +42,7 @@ class GameSquareDOM extends Component<GameSquareDOMProps, GameSquareDOMState> {
     // If current player's board is clicked during a setup phase,
     // process a ship placement
     if (
-      this.props.player === mothership.getCurrentPlayer().getID() &&
+      this.state.player === mothership.getCurrentPlayer().getID() &&
       mothership.getCurrentPhase() == null
       // mothership.getCurrentPhase() == ("setup")
     ) {
@@ -59,7 +57,7 @@ class GameSquareDOM extends Component<GameSquareDOMProps, GameSquareDOMState> {
     // If opposing player's board is clicked during an attack phase,
     // process an attack
     if (
-      this.props.player === mothership.getOpposingPlayer().getID() &&
+      this.state.player === mothership.getOpposingPlayer().getID() &&
       mothership.getCurrentPhase() == null
       // mothership.getCurrentPhase() == ("attack")
     ) {
@@ -106,7 +104,7 @@ class GameSquareDOM extends Component<GameSquareDOMProps, GameSquareDOMState> {
       <div
         id={this.props.gameSquareID}
         className="gameSquare"
-        onClick={this.handleClick}
+        onClick={this.props.onClick as MouseEventHandler}
         // onClick={this.setShip}
       ></div>
     );

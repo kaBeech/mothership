@@ -35,7 +35,10 @@ const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
       gameController.setCurrentPhase(
         `Congratulatiing ${state.getCurrentPlayer().getName()} on xyr win!!!`
       );
-      return displayController.showWin();
+      return {
+        responseType: "showWin",
+        message: `${state.getCurrentPlayer().getName()} Won!!!`,
+      };
     }
     if (result === "Ship blown up") {
       displayController.showBlownUp(gameSquareID);
@@ -48,7 +51,10 @@ const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
     gameController.setOpposingPlayer(currentPlayer);
     return promptPlayer(state);
   }
-  return "Error: Start a game before attacking!";
+  return {
+    responseType: "error",
+    message: "Error: Start a game before attacking!",
+  };
 };
 
 const promptPlayer = (state: MothershipState) => {
@@ -58,8 +64,10 @@ const promptPlayer = (state: MothershipState) => {
     return evalTurn(state, attackSelection);
   }
   gameController.setCurrentPhase("Waiting for human player");
-  displayController.showTurnNotification();
-  return "Prompted human player";
+  return {
+    responseType: "promptHumanAttackSelection",
+    message: `${state.getCurrentPlayer().getName()}'s Turn`,
+  };
 };
 
 const gameStarter = (state: MothershipState) => ({
@@ -68,7 +76,10 @@ const gameStarter = (state: MothershipState) => ({
       gameController.setGameInProgress(true);
       return promptPlayer(state);
     }
-    return "Error: Game already in progress!";
+    return {
+      responseType: "error",
+      message: "Error: Game already in progress!",
+    };
   },
 });
 
@@ -76,13 +87,20 @@ const attackSelectionReceiver = (state: MothershipState) => ({
   receiveAttackSelection: (gameSquareID: GameSquareID) => {
     if (state.getCurrentPhase() === "Waiting for human player") {
       if (state.getCurrentPlayer().getID() === `player${gameSquareID[3]}`) {
-        return "Error: Select an attack on your opponant's gameboard, not your own!";
+        return {
+          responseType: "error",
+          message:
+            "Error: Select an attack on your opponant's gameboard, not your own!",
+        };
       }
       const targetSquareName = gameSquareID.slice(0, 2);
       const attackSelection = state.getCurrentPlayer().attack(targetSquareName);
       return evalTurn(state, attackSelection);
     }
-    return `Error: Wait until it's a human player's turn! The current phase is ${state.getCurrentPhase()}`;
+    return {
+      responseType: "error",
+      message: `Error: Wait until it's a human player's turn! The current phase is ${state.getCurrentPhase()}`,
+    };
   },
 });
 

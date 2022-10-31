@@ -1,137 +1,156 @@
 import React, { useEffect, useState } from "react";
 import mothership from "../backend/mothership";
+import {
+  GameboardColumnsArray,
+  GameboardsArray,
+  GameSquareID,
+  GameSquaresArray,
+} from "../backend/types";
 import GameboardDOM from "./GameboardDOM";
 import StatusMessage from "./StatusMessage";
-import { GameSquareID } from "../backend/types";
 
-interface DisplayControllerProps {}
+// =============Old Display Controller State And Exports==============
 
-interface DisplayControllerState {
-  getCurrentPhase: Function;
-  getCurrentPlayer: Function;
-  getOpposingPlayer: Function;
-  getStatusMessage: Function;
-}
-
-const shipShower = (state: DisplayControllerState) => ({
-  showShip: (gameSquareID: GameSquareID) => {
-    const gameSquare = document.getElementById(gameSquareID);
-    if (gameSquare === null) {
-      return `Error: No element found with ID matching GameSquareID: ${gameSquareID}`;
-    }
-    gameSquare.classList.add("hasShip");
-  },
+const turnNotificationShower = () => ({
+  showTurnNotification: () => {},
 });
 
-const missShower = (state: DisplayControllerState) => ({
-  showMiss: (gameSquareID: GameSquareID) => {
-    console.log(document.getElementById(gameSquareID));
-    const gameSquare = document.getElementById(gameSquareID) as HTMLElement;
-    gameSquare.classList.add("guessed");
-    state.getStatusMessage().textContent = `${state
-      .getCurrentPlayer()
-      .getName()} missed!`;
-  },
-});
-
-const hitShower = (state: DisplayControllerState) => ({
-  showHit: (gameSquareID: GameSquareID) => {
-    console.log(document.getElementById(gameSquareID));
-    const gameSquare = document.getElementById(gameSquareID) as HTMLElement;
-    gameSquare.classList.add("guessed");
-    gameSquare.classList.add("hitShip");
-    state.getStatusMessage().textContent = `${state
-      .getCurrentPlayer()
-      .getName()} hit!`;
-  },
-});
-
-const blownUpShower = (state: DisplayControllerState) => ({
-  showBlownUp: (gameSquareID: GameSquareID) => {
-    const gameSquare = document.getElementById(gameSquareID);
-    if (gameSquare === null) {
-      return `Error: No element found with ID matching GameSquareID: ${gameSquareID}`;
-    }
-    gameSquare.classList.add("guessed");
-    gameSquare.classList.add("hitShip");
-    gameSquare.classList.add("blownUpShip");
-    state.getStatusMessage().textContent = `${state
-      .getCurrentPlayer()
-      .getName()} blew up a ship!`;
-  },
-});
-
-const winShower = (state: DisplayControllerState) => ({
-  showWin: () => {
-    state.getStatusMessage().textContent = `${state
-      .getCurrentPlayer()
-      .getName()} Won!!!`;
-  },
-});
-
-const turnNotificationShower = (state: DisplayControllerState) => ({
-  showTurnNotification: () => {
-    console.log(state.getStatusMessage());
-    state.getStatusMessage().textContent = `${state
-      .getCurrentPlayer()
-      .getName()}'s Turn`;
-  },
-});
-
-const numberShower = () => ({
-  showNumber: () => {
-    console.log(2);
-  },
-});
-
-const displayController = (() => {
+const dummyDisplayController = (() => {
   const state = {
-    getCurrentPhase: () => mothership.getCurrentPhase(),
-    getCurrentPlayer: () => mothership.getCurrentPlayer(),
-    getOpposingPlayer: () => mothership.getOpposingPlayer(),
-    getStatusMessage: () => document.getElementById("statusMessage"),
+    getCurrentPhase: Function,
+    getCurrentPlayer: Function,
+    getOpposingPlayer: Function,
+    getStatusMessage: Function,
   };
-
   return {
-    ...shipShower(state),
-    ...missShower(state),
-    ...hitShower(state),
-    ...blownUpShower(state),
-    ...winShower(state),
-    ...turnNotificationShower(state),
-    ...numberShower(),
+    state,
+    // ...shipShower(state),
+    // ...missShower(state),
+    // ...hitShower(state),
+    // ...blownUpShower(state),
+    // ...winShower(state),
+    ...turnNotificationShower(),
   };
 })();
 
-const dummyDisplayController = displayController;
-dummyDisplayController.showNumber();
+dummyDisplayController.showTurnNotification();
 
-// ===========================
+// ============Props List===============
+
+// StatusMessage: message
+// GameboardDOM: onClick, player(currentOrOpposing), gameboardColumns
+// GameboardColumnDOM: onClick, player(currentOrOpposing), gameSquares
+// GameSquareDOM: onClick, player(currentOrOpposing), gameSquareID, guessed, ship, sunk
+
+// ============State List===============
+
+// DisplayController: gameboards, message
+// StatusMessage:
+// GameboardDOM:
+// GameboardColumnDOM:
+// GameSquareDOM:
+
+// =============Methods for mothership.ts==============
+
+// startGame() => {Object including the initialized board and the first move}
+// receiveAttackSelection(gameSquareID) => {Object including changes to StatusMessage and GameSuares}
+
+// =============Return to Code==============
+
+interface DisplayControllerProps {}
 
 const DisplayController = (props: DisplayControllerProps) => {
+  const initialGameboards = [] as GameboardsArray;
+  while (initialGameboards.length < 2) {
+    const initialGameboardColumns = [] as GameboardColumnsArray;
+    while (initialGameboardColumns.length < 10) {
+      const initialGameSquares = [] as GameSquaresArray;
+      while (initialGameSquares.length < 10) {
+        const initGameSquareID =
+          `${initialGameboardColumns.length}${initialGameSquares.length}p${initialGameboards.length}` as GameSquareID;
+        initialGameSquares.push({
+          gameSquareID: initGameSquareID,
+          guessed: false,
+          ship: null,
+          sunk: false,
+          onClick: () => handleAttackSelection(initGameSquareID),
+        });
+      }
+      initialGameboardColumns.push(initialGameSquares);
+    }
+    initialGameboards.push(initialGameboardColumns);
+  }
+  const [gameboards, setGameboards] = useState(initialGameboards);
+  const [message, setMessage] = useState("Click Start Game To Begin!");
+
+  const handleAttackSelection = (square: GameSquareID) => {
+    const result = mothership.receiveAttackSelection(square);
+    if (result.responseType === "error") {
+      setMessage(
+        `Error received from mothership.receiveAttackSelection(${square}): '${result.responseType}'`
+      );
+    } else if (result.responseType === "promptHumanAttackSelection") {
+      setMessage(result.message);
+      updateGameboards(result.squareUpdates);
+    } else if (result.responseType === "showWin") {
+      setMessage(result.message);
+      // TBA
+    } else {
+      setMessage(
+        `Error: Unfamiliar response type '${result.responseType}' received from mothership.receiveAttackSelection(${square})`
+      );
+    }
+  };
+
+  const updateGameboards = (...squareUpdates: GameSquaresArray) => {
+    const updatedGameboards = gameboards.slice();
+    for (const updatedSquare of squareUpdates) {
+      const id = updatedSquare.gameSquareID;
+      updatedGameboards[id[3]][id[0]][id[1]] = {
+        gameSquareID: id,
+        guessed: updatedSquare.guessed,
+        ship: updatedSquare.ship,
+        sunk: updatedSquare.sunk,
+      };
+    }
+    setGameboards(updatedGameboards);
+  };
+
+  const startGame = () => {
+    const result = mothership.startGame();
+    if (result.responseType === "error") {
+      setMessage(
+        `Error received from mothership.startGame(): '${result.message}'`
+      );
+    } else if (result.responseType === "promptHumanAttackSelection") {
+      setMessage(result.message);
+      updateGameboards(result.squareUpdates);
+    } else {
+      setMessage(
+        `Error: Unfamiliar response type '${result.responseType}' received from mothership.startGame()`
+      );
+    }
+  };
+
   return (
     <div className="flex column">
       <h1> * MOTHERSHIP * </h1>
-      <StatusMessage />
+      <StatusMessage message={message} />
       <div id="cardSection" className="flex">
         <div className="flex">
           <h2 id="playerBoardLabel" className="gameboardLabel vertText">
             YOUR BOARD
           </h2>
           <div className="flex column">
-            <GameboardDOM player="player0" />
-            <div
-              id="startGameButton"
-              onClick={mothership.startGame}
-              className="button"
-            >
+            <GameboardDOM player="player0" gameboardColumns={gameboards[0]} />
+            <div id="startGameButton" onClick={startGame} className="button">
               Start Game
             </div>
           </div>
         </div>
         <div className="flex">
           <div className="flex column">
-            <GameboardDOM player="player1" />
+            <GameboardDOM player="player1" gameboardColumns={gameboards[1]} />
             <div className="button">Rules</div>
           </div>
           <h2 id="opposingBoardLabel" className="gameboardLabel vertText">

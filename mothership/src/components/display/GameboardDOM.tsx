@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { GameboardColumnsArray, PlayerID } from "../backend/types";
 import GameboardColumnDOM from "./GameboardColumnDOM";
 
 interface GameboardDOMProps {
-  player: any;
+  player: PlayerID;
+  gameboardColumns: GameboardColumnsArray;
 }
 interface GameboardDOMState {
   columnNumber: any;

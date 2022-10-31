@@ -62,11 +62,27 @@ interface Player {
   removePossibleMove: Function;
 }
 
+type PlayerID = `player${BinaryInteger}`;
+
 type SquareName = `${SingleDigitString}${SingleDigitString}`;
 
 type GameSquareID = `${SquareName}p${BinaryInteger}`;
 
 type GamePhase = string | null;
+
+interface GameSquareDOMProps {
+  gameSquareID: GameSquareID;
+  guessed: boolean;
+  ship: ShipName | null;
+  sunk: boolean;
+  onClick: Function;
+}
+
+type GameboardsArray = Array<Array<Array<GameSquareDOMProps>>>;
+
+type GameboardColumnsArray = Array<Array<GameSquareDOMProps>>;
+
+type GameSquaresArray = Array<GameSquareDOMProps>;
 
 export {
   BinaryInteger,
@@ -82,5 +98,10 @@ export {
   Ship,
   ShipName,
   Player,
+  PlayerID,
   GamePhase,
+  GameSquareDOMProps,
+  GameboardsArray,
+  GameboardColumnsArray,
+  GameSquaresArray,
 };
