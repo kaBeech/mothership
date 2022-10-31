@@ -24,6 +24,13 @@ test("Game starts", () => {
   const result = mothership.startGame();
   expect(result.responseType).toBe("promptHumanAttackSelection");
   expect(result.message).toBe("Bob, it is your turn!");
+  expect(result.squareUpdates.length).toBe(41);
+  expect(result.squareUpdates[0]).toStrictEqual({
+    gameSquareID: "20p1",
+    guessed: false,
+    ship: "Mothership",
+    blownUp: false,
+  });
 });
 
 test("Attempting to start the game while game is already in progress throws error", () => {
