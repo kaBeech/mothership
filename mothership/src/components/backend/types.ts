@@ -49,7 +49,8 @@ type ShipName =
   | "Battleship"
   | "Cruiser"
   | "Gunship"
-  | "Starfighter";
+  | "Starfighter"
+  | "Unknown";
 
 interface Player {
   getName: Function;
