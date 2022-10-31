@@ -76,7 +76,6 @@ interface GameSquareDOMProps {
   guessed: boolean;
   ship: ShipName | null;
   blownUp: boolean;
-  onClick: Function;
 }
 
 type GameboardsArray = Array<Array<Array<GameSquareDOMProps>>>;

@@ -56,7 +56,7 @@ test("Selecting a valid attack progresses loop back to next human player turn", 
   const result = mothership.receiveAttackSelection("24p1");
   expect(result.responseType).toBe("promptHumanAttackSelection");
   expect(result.message).toBe("Bob, it is your turn!");
-  expect(result.squareUpdates[0]).toBe({
+  expect(result.squareUpdates[0]).toStrictEqual({
     gameSquareID: "24p1",
     guessed: true,
     ship: null,
@@ -68,7 +68,7 @@ test("Selecting a valid attack that hits returns properly", () => {
   const result = mothership.receiveAttackSelection("28p1");
   expect(result.responseType).toBe("promptHumanAttackSelection");
   expect(result.message).toBe("Bob, it is your turn!");
-  expect(result.squareUpdates[0]).toBe({
+  expect(result.squareUpdates[0]).toStrictEqual({
     gameSquareID: "28p1",
     guessed: true,
     ship: "Cruiser",

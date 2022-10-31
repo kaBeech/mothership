@@ -1,11 +1,18 @@
 /* eslint-disable no-param-reassign */
 import gameController from "./gameController";
-import { GamePhase, GameSquareID, Player, SquareName } from "./types";
+import {
+  GamePhase,
+  GameSquareID,
+  GameSquaresArray,
+  Player,
+  SquareName,
+} from "./types";
 
 interface MothershipState {
   getCurrentPhase(): GamePhase;
   getCurrentPlayer(): Player;
   getOpposingPlayer(): Player;
+  squareUpdates: GameSquaresArray;
 }
 
 const currentPhaseGetter = (state: MothershipState) => ({
@@ -30,21 +37,40 @@ const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
   if (gameController.getGameInProgress()) {
     const currentPlayer = gameController.getCurrentPlayer();
     const result = gameController.evalTurn(attackSelection);
+    const updatedSquare = {
+      gameSquareID: gameSquareID,
+      guessed: true,
+      ship: null,
+      blownUp: false,
+    };
+    if (result === "Ship blown up") {
+      // ToDo: Add effects for the rest of the blown up ship's squares
+      updatedSquare.blownUp = true;
+      updatedSquare.ship = currentPlayer
+        .getOpposingGameboard()
+        .getSquares()
+        [gameSquareID.slice(0, 2)].getShip()
+        .getName();
+    } else if (result === "Hit") {
+      updatedSquare.ship = currentPlayer
+        .getOpposingGameboard()
+        .getSquares()
+        [gameSquareID.slice(0, 2)].getShip()
+        .getName();
+    } else if (result === "Miss") {
+    }
+    state.squareUpdates.push(updatedSquare);
     if (result === "Win") {
       gameController.setCurrentPhase(
         `Congratulatiing ${state.getCurrentPlayer().getName()} on xyr win!!!`
       );
+      const squareUpdates = state.squareUpdates.slice();
+      state.squareUpdates = [];
       return {
         responseType: "showWin",
         message: `${state.getCurrentPlayer().getName()} Won!!!`,
+        squareUpdates: squareUpdates,
       };
-    }
-    if (result === "Ship blown up") {
-      // displayController.showBlownUp(gameSquareID);
-    } else if (result === "Hit") {
-      // displayController.showHit(gameSquareID);
-    } else if (result === "Miss") {
-      // displayController.showMiss(gameSquareID);
     }
     gameController.setCurrentPlayer(gameController.getOpposingPlayer());
     gameController.setOpposingPlayer(currentPlayer);
@@ -63,9 +89,12 @@ const promptPlayer = (state: MothershipState) => {
     return evalTurn(state, attackSelection);
   }
   gameController.setCurrentPhase("Waiting for human player");
+  const squareUpdates = state.squareUpdates.slice();
+  state.squareUpdates = [];
   return {
     responseType: "promptHumanAttackSelection",
-    message: `${state.getCurrentPlayer().getName()}'s Turn`,
+    message: `${state.getCurrentPlayer().getName()}, it is your turn!`,
+    squareUpdates: squareUpdates,
   };
 };
 
@@ -108,6 +137,7 @@ const mothership = (() => {
     getCurrentPhase: () => gameController.getCurrentPhase(),
     getCurrentPlayer: () => gameController.getCurrentPlayer(),
     getOpposingPlayer: () => gameController.getOpposingPlayer(),
+    squareUpdates: [],
   };
 
   return {
