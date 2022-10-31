@@ -3,8 +3,10 @@ import { GameSquareDOMProps } from "../backend/types";
 
 const GameSquareDOM = (props: GameSquareDOMProps) => {
   let classes = "gameSquare";
+  let guessedMarker = "";
   if (props.guessed) {
     classes.concat(" guessed");
+    guessedMarker = "X";
   }
   if (props.ship) {
     classes.concat(` ${props.ship}`);
@@ -17,7 +19,9 @@ const GameSquareDOM = (props: GameSquareDOMProps) => {
       id={props.gameSquareID}
       className={classes}
       onClick={props.onClick as MouseEventHandler}
-    ></div>
+    >
+      {guessedMarker}
+    </div>
   );
 };
 
