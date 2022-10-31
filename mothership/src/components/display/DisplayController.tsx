@@ -9,32 +9,6 @@ import {
 import GameboardDOM from "./GameboardDOM";
 import StatusMessage from "./StatusMessage";
 
-// =============Old Display Controller State And Exports==============
-
-const turnNotificationShower = () => ({
-  showTurnNotification: () => {},
-});
-
-const dummyDisplayController = (() => {
-  const state = {
-    getCurrentPhase: Function,
-    getCurrentPlayer: Function,
-    getOpposingPlayer: Function,
-    getStatusMessage: Function,
-  };
-  return {
-    state,
-    // ...shipShower(state),
-    // ...missShower(state),
-    // ...hitShower(state),
-    // ...blownUpShower(state),
-    // ...winShower(state),
-    ...turnNotificationShower(),
-  };
-})();
-
-dummyDisplayController.showTurnNotification();
-
 // ============Props List===============
 
 // StatusMessage: message
