@@ -77,7 +77,7 @@ const DisplayController = (props: DisplayControllerProps) => {
     }
   };
 
-  const updateGameboards = (...squareUpdates: SquareUpdatesArray) => {
+  const updateGameboards = (squareUpdates: SquareUpdatesArray) => {
     const updatedGameboards = gameboards.slice();
     for (const updatedSquare of squareUpdates) {
       const id = updatedSquare.gameSquareID;
