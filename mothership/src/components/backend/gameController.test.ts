@@ -1,5 +1,18 @@
 import gameController from "./gameController";
 
+test.skip("Initializes gameController", () => {
+  expect(gameController.init().responseType).toBe("success");
+});
+
+gameController.init();
+
+test("Initializing gameController multiple times throws error", () => {
+  expect(gameController.init().responseType).toBe("error");
+  expect(gameController.init().message).toBe(
+    "Error: gameController already initialized"
+  );
+});
+
 const player1 = gameController.getCurrentPlayer();
 const player0 = gameController.getOpposingPlayer();
 

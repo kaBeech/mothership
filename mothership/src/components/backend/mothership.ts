@@ -15,6 +15,8 @@ interface MothershipState {
   squareUpdates: SquareUpdatesArray;
 }
 
+gameController.init();
+
 const currentPhaseGetter = (state: MothershipState) => ({
   getCurrentPhase: () => state.getCurrentPhase(),
 });

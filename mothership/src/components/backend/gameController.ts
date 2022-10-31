@@ -3,87 +3,55 @@ import Gameboard from "./Gameboard";
 import Player from "./Player";
 import type { Player as PlayerType, SquareName, GamePhase } from "./types";
 
-interface gameControllerState {
+interface GameControllerState {
   gameInProgress: boolean;
   currentPhase: GamePhase;
   currentPlayer: PlayerType;
   opposingPlayer: PlayerType;
+  initialized: boolean;
 }
 
-const player1Gameboard = Gameboard();
-player1Gameboard.init();
-
-const player0Gameboard = Gameboard();
-player0Gameboard.init();
-
-const player1 = Player(
-  "Alice",
-  "player1",
-  player1Gameboard,
-  player0Gameboard,
-  "computer"
-);
-const player0 = Player(
-  "Bob",
-  "player0",
-  player0Gameboard,
-  player1Gameboard,
-  "human"
-);
-
-player1Gameboard.addShip("Mothership", ["20", "30", "40", "50", "60", "70"]);
-player1Gameboard.addShip("Battleship", ["29", "39", "49", "59", "69"]);
-player1Gameboard.addShip("Cruiser", ["28", "38", "48", "58"]);
-player1Gameboard.addShip("Gunship", ["27", "37", "47"]);
-player1Gameboard.addShip("Starfighter", ["26", "36"]);
-
-player0Gameboard.addShip("Mothership", ["21", "31", "41", "51", "61", "71"]);
-player0Gameboard.addShip("Battleship", ["22", "32", "42", "52", "62"]);
-player0Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
-player0Gameboard.addShip("Gunship", ["24", "34", "44"]);
-player0Gameboard.addShip("Starfighter", ["25", "35"]);
-
-const gameInProgressGetter = (state: gameControllerState) => ({
+const gameInProgressGetter = (state: GameControllerState) => ({
   getGameInProgress: () => state.gameInProgress,
 });
 
-const gameInProgressSetter = (state: gameControllerState) => ({
+const gameInProgressSetter = (state: GameControllerState) => ({
   setGameInProgress: (boolean: boolean) => {
     state.gameInProgress = boolean;
   },
 });
 
-const currentPhaseGetter = (state: gameControllerState) => ({
+const currentPhaseGetter = (state: GameControllerState) => ({
   getCurrentPhase: () => state.currentPhase,
 });
 
-const currentPhaseSetter = (state: gameControllerState) => ({
+const currentPhaseSetter = (state: GameControllerState) => ({
   setCurrentPhase: (newPhase: GamePhase) => {
     state.currentPhase = newPhase;
   },
 });
 
-const currentPlayerGetter = (state: gameControllerState) => ({
+const currentPlayerGetter = (state: GameControllerState) => ({
   getCurrentPlayer: () => state.currentPlayer,
 });
 
-const currentPlayerSetter = (state: gameControllerState) => ({
+const currentPlayerSetter = (state: GameControllerState) => ({
   setCurrentPlayer: (player: PlayerType) => {
     state.currentPlayer = player;
   },
 });
 
-const opposingPlayerGetter = (state: gameControllerState) => ({
+const opposingPlayerGetter = (state: GameControllerState) => ({
   getOpposingPlayer: () => state.opposingPlayer,
 });
 
-const opposingPlayerSetter = (state: gameControllerState) => ({
+const opposingPlayerSetter = (state: GameControllerState) => ({
   setOpposingPlayer: (player: PlayerType) => {
     state.opposingPlayer = player;
   },
 });
 
-const turnEvaluator = (state: gameControllerState) => ({
+const turnEvaluator = (state: GameControllerState) => ({
   evalTurn: function evalTurn(targetSquare: SquareName) {
     const { currentPlayer } = state;
     const result = currentPlayer
@@ -106,12 +74,77 @@ const turnEvaluator = (state: gameControllerState) => ({
   },
 });
 
+const initializer = (state: GameControllerState) => ({
+  init: () => {
+    if (state.initialized) {
+      return {
+        responseType: "error",
+        message: "Error: gameController already initialized",
+      };
+    }
+    const player1Gameboard = Gameboard();
+    player1Gameboard.init();
+
+    const player0Gameboard = Gameboard();
+    player0Gameboard.init();
+
+    const player1 = Player(
+      "Alice",
+      "player1",
+      player1Gameboard,
+      player0Gameboard,
+      "computer"
+    );
+    const player0 = Player(
+      "Bob",
+      "player0",
+      player0Gameboard,
+      player1Gameboard,
+      "human"
+    );
+
+    player1Gameboard.addShip("Mothership", [
+      "20",
+      "30",
+      "40",
+      "50",
+      "60",
+      "70",
+    ]);
+    player1Gameboard.addShip("Battleship", ["29", "39", "49", "59", "69"]);
+    player1Gameboard.addShip("Cruiser", ["28", "38", "48", "58"]);
+    player1Gameboard.addShip("Gunship", ["27", "37", "47"]);
+    player1Gameboard.addShip("Starfighter", ["26", "36"]);
+
+    player0Gameboard.addShip("Mothership", [
+      "21",
+      "31",
+      "41",
+      "51",
+      "61",
+      "71",
+    ]);
+    player0Gameboard.addShip("Battleship", ["22", "32", "42", "52", "62"]);
+    player0Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
+    player0Gameboard.addShip("Gunship", ["24", "34", "44"]);
+    player0Gameboard.addShip("Starfighter", ["25", "35"]);
+
+    gameController.setCurrentPlayer(player1);
+    gameController.setOpposingPlayer(player0);
+
+    state.initialized = true;
+
+    return { responseType: "success" };
+  },
+});
+
 const gameController = (() => {
   const state = {
     gameInProgress: false,
     currentPhase: null,
-    currentPlayer: player1,
-    opposingPlayer: player0,
+    currentPlayer: null,
+    opposingPlayer: null,
+    initialized: false,
   };
 
   return {
@@ -124,6 +157,7 @@ const gameController = (() => {
     ...opposingPlayerGetter(state),
     ...opposingPlayerSetter(state),
     ...turnEvaluator(state),
+    ...initializer(state),
   };
 })();
 
