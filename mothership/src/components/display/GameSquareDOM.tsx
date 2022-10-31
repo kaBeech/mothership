@@ -1,5 +1,13 @@
 import React, { MouseEventHandler } from "react";
-import { GameSquareDOMProps } from "../backend/types";
+import { GameSquareID, ShipName } from "../backend/types";
+
+interface GameSquareDOMProps {
+  gameSquareID: GameSquareID;
+  guessed: boolean;
+  ship: ShipName | null;
+  blownUp: boolean;
+  onClick: Function;
+}
 
 const GameSquareDOM = (props: GameSquareDOMProps) => {
   let classes = "gameSquare";
