@@ -82,6 +82,12 @@ const evalTurn = (state: MothershipState, attackSelection: SquareName) => {
   };
 };
 
+const extractSquareUpdates = (state: MothershipState) => {
+  const extractedSquareUpdates = state.squareUpdates.slice();
+  state.squareUpdates = [];
+  return extractedSquareUpdates;
+};
+
 const promptPlayer = (state: MothershipState) => {
   if (state.getCurrentPlayer().getSpecies() === "computer") {
     gameController.setCurrentPhase("Waiting for computer player");
@@ -89,8 +95,7 @@ const promptPlayer = (state: MothershipState) => {
     return evalTurn(state, attackSelection);
   }
   gameController.setCurrentPhase("Waiting for human player");
-  const squareUpdates = state.squareUpdates.slice();
-  state.squareUpdates = [];
+  const squareUpdates = extractSquareUpdates(state);
   return {
     responseType: "promptHumanAttackSelection",
     message: `${state.getCurrentPlayer().getName()}, it is your turn!`,
