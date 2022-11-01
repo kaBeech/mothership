@@ -17,8 +17,7 @@ const GameSquareDOM = (props: GameSquareDOMProps) => {
     guessedMarker = "X";
   }
   if (props.ship) {
-    console.log(props.ship);
-    classes += `hasShip ${props.ship}`;
+    classes += ` hasShip ${props.ship}`;
   }
   if (props.blownUp) {
     classes += " blownUp";

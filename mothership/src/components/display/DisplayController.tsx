@@ -81,13 +81,9 @@ const DisplayController = (props: DisplayControllerProps) => {
     const updatedGameboards = gameboards.slice();
     for (const updatedSquare of squareUpdates) {
       const id = updatedSquare.gameSquareID;
-      updatedGameboards[id[3]][id[0]][id[1]] = {
-        gameSquareID: id,
-        guessed: updatedSquare.guessed,
-        ship: updatedSquare.ship,
-        blownUp: updatedSquare.blownUp,
-        onClick: () => handleAttackSelection(id),
-      };
+      updatedGameboards[id[3]][id[0]][id[1]].guessed = updatedSquare.guessed;
+      updatedGameboards[id[3]][id[0]][id[1]].ship = updatedSquare.ship;
+      updatedGameboards[id[3]][id[0]][id[1]].blownUp = updatedSquare.blownUp;
     }
     setGameboards(updatedGameboards);
   };
@@ -114,28 +110,22 @@ const DisplayController = (props: DisplayControllerProps) => {
       <StatusMessage message={message} />
       <div id="cardSection" className="flex">
         <div className="flex">
-          <h2
-            id="player1BoardLabel"
-            className="player1 gameboardLabel vertText"
-          >
+          <h2 id="player1BoardLabel" className="gameboardLabel vertText">
             YOUR BOARD
           </h2>
-          <div className="flex column">
-            <GameboardDOM player="player0" gameboardColumns={gameboards[0]} />
+          <div className="flex column player1">
+            <GameboardDOM player="player1" gameboardColumns={gameboards[0]} />
             <div id="startGameButton" onClick={startGame} className="button">
               Start Game
             </div>
           </div>
         </div>
         <div className="flex">
-          <div className="flex column">
-            <GameboardDOM player="player1" gameboardColumns={gameboards[1]} />
+          <div className="flex column player0">
+            <GameboardDOM player="player0" gameboardColumns={gameboards[1]} />
             <div className="button">Rules</div>
           </div>
-          <h2
-            id="player0BoardLabel"
-            className="player0 gameboardLabel vertText"
-          >
+          <h2 id="player0BoardLabel" className="gameboardLabel vertText">
             OPPOSING BOARD
           </h2>
         </div>
