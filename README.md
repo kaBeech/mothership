@@ -20,7 +20,6 @@ Removed from package.json to get npm start to work:
 
 To Do before merging:
     -Make sure Prettier auto-formats when commiting
-    -Maybe make tests auto-run at commit
     -Investigate Husky and lint auto-checking at commit
         -Make a decision about adding those back in or not
     -Investigate adding that homepage back into package.json
