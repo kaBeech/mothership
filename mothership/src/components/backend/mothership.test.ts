@@ -12,6 +12,8 @@ import mothership from "./mothership";
 //   expect(mothership.getOpposingPlayer().getID()).toBe("player0");
 // });
 
+mothership.init();
+
 test("Selecting an attack before starting the game throws error", () => {
   const result = mothership.receiveAttackSelection("24p1");
   expect(result.responseType).toBe("error");
@@ -24,12 +26,14 @@ test("Game starts", () => {
   const result = mothership.startGame();
   expect(result.responseType).toBe("promptHumanAttackSelection");
   expect(result.message).toBe("Bob, it is your turn!");
+  // console.log(result.squareUpdates);
   expect(result.squareUpdates.length).toBe(41);
   expect(result.squareUpdates[0]).toStrictEqual({
-    gameSquareID: "20p1",
+    squareName: "20",
     guessed: false,
     ship: "Mothership",
     blownUp: false,
+    gameSquareID: "20p1",
   });
 });
 

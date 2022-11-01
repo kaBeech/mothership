@@ -67,11 +67,18 @@ const shipAdder = (state: GameboardState) => ({
       return `Error: One or more squares already occupied: ${occupiedSquares}`;
     }
     const ship = Ship(name, this, segments);
+    const squareUpdates = [];
     state.unblownUpShips.push(ship);
     ship.getSegments().forEach((squareName) => {
       state.squares[+squareName].setShip(ship);
+      squareUpdates.push({
+        squareName: squareName,
+        guessed: false,
+        ship: name,
+        blownUp: false,
+      });
     });
-    return ship;
+    return squareUpdates;
   },
 });
 

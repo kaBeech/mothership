@@ -71,14 +71,14 @@ type GameSquareID = `${SquareName}p${BinaryInteger}`;
 
 type GamePhase = string | null;
 
-interface GameSquareDOMPropsFromMothership {
+interface SquareUpdate {
   gameSquareID: GameSquareID;
   guessed: boolean;
   ship: ShipName | null;
   blownUp: boolean;
 }
 
-type SquareUpdatesArray = Array<GameSquareDOMPropsFromMothership>;
+type SquareUpdatesArray = Array<SquareUpdate>;
 
 interface GameSquareDOMProps {
   gameSquareID: GameSquareID;
@@ -110,6 +110,7 @@ export {
   Player,
   PlayerID,
   GamePhase,
+  SquareUpdate,
   SquareUpdatesArray,
   GameboardsArray,
   GameboardColumnsArray,

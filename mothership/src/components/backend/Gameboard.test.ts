@@ -1,5 +1,5 @@
 import Gameboard from "./Gameboard";
-import { Ship } from "./types";
+import { SquareUpdatesArray } from "./types";
 
 const player1Gameboard = Gameboard();
 player1Gameboard.init();
@@ -31,15 +31,15 @@ test("Initializing twice throws error", () => {
 
 test("AddShip adds a ship", () => {
   dummyGameboard.init();
-  const resultingShip = dummyGameboard.addShip("Mothership", [
+  const resultingSquareUpdates = dummyGameboard.addShip("Mothership", [
     "20",
     "30",
     "40",
     "50",
     "60",
     "70",
-  ]) as Ship;
-  expect(resultingShip.getName()).toBe("Mothership");
+  ]) as SquareUpdatesArray;
+  expect(resultingSquareUpdates[0].ship).toBe("Mothership");
 });
 
 test("Adding ship over an occupied square throws error", () => {

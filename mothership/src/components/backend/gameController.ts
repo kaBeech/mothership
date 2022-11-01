@@ -1,7 +1,13 @@
 /* eslint-disable no-param-reassign */
 import Gameboard from "./Gameboard";
 import Player from "./Player";
-import type { Player as PlayerType, SquareName, GamePhase } from "./types";
+import type {
+  Player as PlayerType,
+  SquareName,
+  GamePhase,
+  SquareUpdatesArray,
+  SquareUpdate,
+} from "./types";
 
 interface GameControllerState {
   gameInProgress: boolean;
@@ -103,38 +109,63 @@ const initializer = (state: GameControllerState) => ({
       "human"
     );
 
-    player1Gameboard.addShip("Mothership", [
-      "20",
-      "30",
-      "40",
-      "50",
-      "60",
-      "70",
-    ]);
-    player1Gameboard.addShip("Battleship", ["29", "39", "49", "59", "69"]);
-    player1Gameboard.addShip("Cruiser", ["28", "38", "48", "58"]);
-    player1Gameboard.addShip("Gunship", ["27", "37", "47"]);
-    player1Gameboard.addShip("Starfighter", ["26", "36"]);
+    let rawSquareUpdates = [];
+    const squareUpdates = [];
 
-    player0Gameboard.addShip("Mothership", [
-      "21",
-      "31",
-      "41",
-      "51",
-      "61",
-      "71",
-    ]);
-    player0Gameboard.addShip("Battleship", ["22", "32", "42", "52", "62"]);
-    player0Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]);
-    player0Gameboard.addShip("Gunship", ["24", "34", "44"]);
-    player0Gameboard.addShip("Starfighter", ["25", "35"]);
+    rawSquareUpdates.push(
+      player1Gameboard.addShip("Mothership", [
+        "20",
+        "30",
+        "40",
+        "50",
+        "60",
+        "70",
+      ]),
+      player1Gameboard.addShip("Battleship", ["29", "39", "49", "59", "69"]),
+      player1Gameboard.addShip("Cruiser", ["28", "38", "48", "58"]),
+      player1Gameboard.addShip("Gunship", ["27", "37", "47"]),
+      player1Gameboard.addShip("Starfighter", ["26", "36"])
+    );
+
+    for (const shipUpdate of rawSquareUpdates) {
+      for (const squareUpdate of shipUpdate) {
+        squareUpdate.gameSquareID = squareUpdate.squareName + "p1";
+        squareUpdates.push(squareUpdate);
+      }
+    }
+
+    rawSquareUpdates = [];
+    rawSquareUpdates.push(
+      player0Gameboard.addShip("Mothership", [
+        "21",
+        "31",
+        "41",
+        "51",
+        "61",
+        "71",
+      ]),
+      player0Gameboard.addShip("Battleship", ["22", "32", "42", "52", "62"]),
+      player0Gameboard.addShip("Cruiser", ["23", "33", "43", "53"]),
+      player0Gameboard.addShip("Gunship", ["24", "34", "44"]),
+      player0Gameboard.addShip("Starfighter", ["25", "35"])
+    );
+
+    for (const shipUpdate of rawSquareUpdates) {
+      for (const squareUpdate of shipUpdate) {
+        squareUpdate.gameSquareID = squareUpdate.squareName + "p0";
+        squareUpdates.push(squareUpdate);
+      }
+    }
 
     gameController.setCurrentPlayer(player1);
     gameController.setOpposingPlayer(player0);
 
     state.initialized = true;
 
-    return { responseType: "success" };
+    // const example = player0Gameboard.addShip("Battleship", ["22", "32", "42", "52", "62"]);
+    // squareUpdates.push(example);
+
+    return { responseType: "success", squareUpdates: squareUpdates };
   },
 });
 
