@@ -114,7 +114,10 @@ const DisplayController = (props: DisplayControllerProps) => {
       <StatusMessage message={message} />
       <div id="cardSection" className="flex">
         <div className="flex">
-          <h2 id="playerBoardLabel" className="gameboardLabel vertText">
+          <h2
+            id="player1BoardLabel"
+            className="player1 gameboardLabel vertText"
+          >
             YOUR BOARD
           </h2>
           <div className="flex column">
@@ -129,7 +132,10 @@ const DisplayController = (props: DisplayControllerProps) => {
             <GameboardDOM player="player1" gameboardColumns={gameboards[1]} />
             <div className="button">Rules</div>
           </div>
-          <h2 id="opposingBoardLabel" className="gameboardLabel vertText">
+          <h2
+            id="player0BoardLabel"
+            className="player0 gameboardLabel vertText"
+          >
             OPPOSING BOARD
           </h2>
         </div>
