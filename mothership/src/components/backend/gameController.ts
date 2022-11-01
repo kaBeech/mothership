@@ -1,13 +1,7 @@
 /* eslint-disable no-param-reassign */
 import Gameboard from "./Gameboard";
 import Player from "./Player";
-import type {
-  Player as PlayerType,
-  SquareName,
-  GamePhase,
-  SquareUpdatesArray,
-  SquareUpdate,
-} from "./types";
+import type { Player as PlayerType, SquareName, GamePhase } from "./types";
 
 interface GameControllerState {
   gameInProgress: boolean;

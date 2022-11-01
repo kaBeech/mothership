@@ -13,8 +13,8 @@ interface MothershipState {
   getCurrentPlayer(): Player;
   getOpposingPlayer(): Player;
   squareUpdates: SquareUpdatesArray;
-  initialSquareUpdates: SquareUpdatesArray;
-  initialized: boolean;
+  // initialSquareUpdates: SquareUpdatesArray;
+  // initialized: boolean;
 }
 
 // const initialSquareUpdates = gameController.init();
@@ -100,6 +100,7 @@ const promptPlayer = (state: MothershipState) => {
   }
   gameController.setCurrentPhase("Waiting for human player");
   const squareUpdates = extractSquareUpdates(state);
+  console.log(squareUpdates);
   return {
     responseType: "promptHumanAttackSelection",
     message: `${state.getCurrentPlayer().getName()}, it is your turn!`,
@@ -141,30 +142,32 @@ const attackSelectionReceiver = (state: MothershipState) => ({
   },
 });
 
-const initializer = (state: MothershipState) => ({
-  init: () => {
-    if (state.initialized) {
-      return {
-        responseType: "error",
-        message: "Error: gameController already initialized",
-      };
-    }
-    const initialSquareUpdates = gameController.init();
-    state.squareUpdates = initialSquareUpdates.squareUpdates;
-    // console.log(state.squareUpdates);
-    // console.log(initialSquareUpdates);
-    return { responseType: "success" };
-  },
-});
+// const initializer = (state: MothershipState) => ({
+//   init: () => {
+//     if (state.initialized) {
+//       return {
+//         responseType: "error",
+//         message: "Error: gameController already initialized",
+//       };
+//     }
+//     // const initialSquareUpdates = gameController.init();
+//     // state.squareUpdates = initialSquareUpdates.squareUpdates;
+//     // console.log(state.squareUpdates);
+//     // console.log(initialSquareUpdates);
+//     return { responseType: "success" };
+//   },
+// });
+
+const initialSquareUpdates = gameController.init();
 
 const mothership = (() => {
   const state = {
     getCurrentPhase: () => gameController.getCurrentPhase(),
     getCurrentPlayer: () => gameController.getCurrentPlayer(),
     getOpposingPlayer: () => gameController.getOpposingPlayer(),
-    squareUpdates: [],
-    initialSquareUpdates: [],
-    initialized: false,
+    squareUpdates: initialSquareUpdates.squareUpdates,
+    // initialSquareUpdates: [],
+    // initialized: false,
   };
 
   return {
@@ -173,7 +176,7 @@ const mothership = (() => {
     ...opposingPlayerGetter(state),
     ...gameStarter(state),
     ...attackSelectionReceiver(state),
-    ...initializer(state),
+    // ...initializer(state),
   };
 })();
 

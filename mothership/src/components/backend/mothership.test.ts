@@ -12,8 +12,6 @@ import mothership from "./mothership";
 //   expect(mothership.getOpposingPlayer().getID()).toBe("player0");
 // });
 
-mothership.init();
-
 test("Selecting an attack before starting the game throws error", () => {
   const result = mothership.receiveAttackSelection("24p1");
   expect(result.responseType).toBe("error");
