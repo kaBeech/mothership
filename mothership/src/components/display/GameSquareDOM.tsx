@@ -18,7 +18,7 @@ const GameSquareDOM = (props: GameSquareDOMProps) => {
   }
   if (props.ship) {
     console.log(props.ship);
-    classes += ` ${props.ship}`;
+    classes += `hasShip ${props.ship}`;
   }
   if (props.blownUp) {
     classes += " blownUp";
