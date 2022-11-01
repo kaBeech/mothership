@@ -147,6 +147,7 @@ const initializer = (state: GameControllerState) => ({
     for (const shipUpdate of rawSquareUpdates) {
       for (const squareUpdate of shipUpdate) {
         squareUpdate.gameSquareID = squareUpdate.squareName + "p0";
+        delete squareUpdate.squareName;
         squareUpdates.push(squareUpdate);
       }
     }
