@@ -14,3 +14,13 @@ Removed in git branch simplify-structure-for-react:
 Expecting to possibly add back in:
     Husky
     Verifying lint etc checks off before commit
+
+Removed from package.json to get npm start to work:
+  "homepage": "https://github.com/kaBeech/mothership#readme",
+
+To Do before merging:
+    -Make sure Prettier auto-formats when commiting
+    -Maybe make tests auto-run at commit
+    -Investigate Husky and lint auto-checking at commit
+        -Make a decision about adding those back in or not
+    -Investigate adding that homepage bacj into package.json

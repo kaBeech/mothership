@@ -15,7 +15,6 @@
   "bugs": {
     "url": "https://github.com/kaBeech/mothership/issues"
   },
-  "homepage": "https://github.com/kaBeech/mothership#readme",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
