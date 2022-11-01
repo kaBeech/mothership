@@ -14,3 +14,7 @@ Removed in git branch simplify-structure-for-react:
 Expecting to possibly add back in:
     Husky
     Verifying lint etc checks off before commit
+
+Todo:
+    -Research the differences between package-lock.json and package.json
+    -Possibly edit the above mentioned files
