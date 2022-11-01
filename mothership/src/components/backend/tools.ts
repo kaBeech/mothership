@@ -43,7 +43,7 @@ const randomPickerFromArray = () => ({
 
 const randomPickerFromUnaryArray = () => ({
   pickRandomFromUnaryArray: function pickRandom(
-    possibleResultsUnaryArray: Array<any>
+    possibleResultsUnaryArray: Array<Array<any>>
   ) {
     const possibleResults = possibleResultsUnaryArray[0];
     return this.pickRandomFromArray(possibleResults);

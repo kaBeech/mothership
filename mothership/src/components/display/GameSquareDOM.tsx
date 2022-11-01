@@ -11,10 +11,8 @@ interface GameSquareDOMProps {
 
 const GameSquareDOM = (props: GameSquareDOMProps) => {
   let classes = "gameSquare";
-  // let guessedMarker = "";
   if (props.guessed) {
     classes += " guessed";
-    // guessedMarker = "X";
   }
   if (props.ship) {
     classes += ` hasShip ${props.ship}`;
@@ -27,9 +25,7 @@ const GameSquareDOM = (props: GameSquareDOMProps) => {
       id={props.gameSquareID}
       className={classes}
       onClick={props.onClick as MouseEventHandler}
-    >
-      {/* {guessedMarker} */}
-    </div>
+    ></div>
   );
 };
 

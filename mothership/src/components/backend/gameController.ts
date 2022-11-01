@@ -157,9 +157,6 @@ const initializer = (state: GameControllerState) => ({
 
     state.initialized = true;
 
-    // const example = player0Gameboard.addShip("Battleship", ["22", "32", "42", "52", "62"]);
-    // squareUpdates.push(example);
-
     return { responseType: "success", squareUpdates: squareUpdates };
   },
 });

@@ -44,15 +44,6 @@ const blownUpChecker = (state: ShipState) => ({
   },
 });
 
-// const shipPlacer = (state: ShipState) => ({
-//   placeShip: function placeShip() {
-//     state.segments.forEach((segmentName) => {
-//       const segmentSquare = state.gameboard.getSquares()[+segmentName];
-//       segmentSquare.setShip(this);
-//     });
-//   },
-// });
-
 const Ship = (
   name: string,
   gameboard: Gameboard,
@@ -71,7 +62,6 @@ const Ship = (
     ...segmentsGetter(state),
     ...damageTaker(state),
     ...blownUpChecker(state),
-    // ...shipPlacer(state),
   };
 };
 

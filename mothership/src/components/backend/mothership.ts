@@ -13,11 +13,7 @@ interface MothershipState {
   getCurrentPlayer(): Player;
   getOpposingPlayer(): Player;
   squareUpdates: SquareUpdatesArray;
-  // initialSquareUpdates: SquareUpdatesArray;
-  // initialized: boolean;
 }
-
-// const initialSquareUpdates = gameController.init();
 
 const currentPhaseGetter = (state: MothershipState) => ({
   getCurrentPhase: () => state.getCurrentPhase(),
@@ -142,22 +138,6 @@ const attackSelectionReceiver = (state: MothershipState) => ({
   },
 });
 
-// const initializer = (state: MothershipState) => ({
-//   init: () => {
-//     if (state.initialized) {
-//       return {
-//         responseType: "error",
-//         message: "Error: gameController already initialized",
-//       };
-//     }
-//     // const initialSquareUpdates = gameController.init();
-//     // state.squareUpdates = initialSquareUpdates.squareUpdates;
-//     // console.log(state.squareUpdates);
-//     // console.log(initialSquareUpdates);
-//     return { responseType: "success" };
-//   },
-// });
-
 const initialSquareUpdates = gameController.init();
 
 const mothership = (() => {
@@ -166,8 +146,6 @@ const mothership = (() => {
     getCurrentPlayer: () => gameController.getCurrentPlayer(),
     getOpposingPlayer: () => gameController.getOpposingPlayer(),
     squareUpdates: initialSquareUpdates.squareUpdates,
-    // initialSquareUpdates: [],
-    // initialized: false,
   };
 
   return {
@@ -176,7 +154,6 @@ const mothership = (() => {
     ...opposingPlayerGetter(state),
     ...gameStarter(state),
     ...attackSelectionReceiver(state),
-    // ...initializer(state),
   };
 })();
 
