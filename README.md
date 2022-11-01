@@ -23,4 +23,4 @@ To Do before merging:
     -Maybe make tests auto-run at commit
     -Investigate Husky and lint auto-checking at commit
         -Make a decision about adding those back in or not
-    -Investigate adding that homepage bacj into package.json
+    -Investigate adding that homepage back into package.json
