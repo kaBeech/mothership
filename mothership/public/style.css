@@ -49,19 +49,29 @@ h1 {
   aspect-ratio: 1;
 }
 
+/* .Mothership,
+.Battleship,
+.Cruiser,
+.Gunship,
+.Starfighter,
+.Unknown {
+  background-color: #eff8ff;
+  color: #000810;
+} */
+
 .guessed {
   background-color: #0000ff;
 }
 
-.hasShip {
+.player0 .hasShip {
   background-color: #00ff00;
 }
 
-.hitShip {
+.guessed.hasShip {
   background-color: #ffff00;
 }
 
-.blownUpShip {
+.blownUp {
   background-color: #ff0000;
 }
 
