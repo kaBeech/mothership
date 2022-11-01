@@ -13,14 +13,15 @@ const GameSquareDOM = (props: GameSquareDOMProps) => {
   let classes = "gameSquare";
   let guessedMarker = "";
   if (props.guessed) {
-    classes.concat(" guessed");
+    classes += " guessed";
     guessedMarker = "X";
   }
   if (props.ship) {
-    classes.concat(` ${props.ship}`);
+    console.log(props.ship);
+    classes += ` ${props.ship}`;
   }
   if (props.blownUp) {
-    classes.concat(" blownUp");
+    classes += " blownUp";
   }
   return (
     <div
