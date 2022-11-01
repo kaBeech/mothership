@@ -9,8 +9,5 @@
     "**/node_modules/*/**": true,
     "**/mothership/node_modules/*/**": true,
     "**/MOTHERSHIP/node_modules/*/**": true
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
